@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Fashion Discovery</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#FAFAF7;
+    --ink:#13130F;
+    --soft:#838177;
+    --faint:#9a988f;
+    --line:#e4e2db;
+    --imgA:#e9e7e0; --imgB:#d4d2c9;
+    --dark:#13130F; --darksoft:#7d7b72; --darkline:#2b2a24;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-text-size-adjust:100%}
+  body{background:var(--paper);color:var(--ink);font-family:"Hanken Grotesk",system-ui,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.45}
+  .mono{font-family:"Space Mono",monospace}
+  ::selection{background:var(--ink);color:var(--paper)}
+  a{color:inherit;text-decoration:none}
+  button:focus-visible,input:focus-visible,[tabindex]:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+
+  .wrap{max-width:1240px;margin:0 auto;padding:0 40px}
+
+  /* header */
+  header{position:sticky;top:0;z-index:40;background:var(--paper);border-bottom:1px solid var(--ink)}
+  .htop{display:flex;justify-content:space-between;align-items:center;padding:16px 0 14px}
+  .kicker{font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:var(--faint);font-weight:600}
+  .nordstern{text-align:right;font-family:"Space Mono",monospace;font-size:10.5px;color:var(--soft);line-height:1.5}
+  .nordstern .big{font-size:15px;color:var(--ink);font-weight:700}
+  .nordstern .lab{letter-spacing:.12em;text-transform:uppercase;color:var(--faint);font-size:9px}
+
+  .qline{display:flex;align-items:center;gap:18px;padding:6px 0 20px}
+  .qline input{
+    flex:1;min-width:0;border:none;background:transparent;color:var(--ink);
+    font-family:"Hanken Grotesk",sans-serif;font-size:clamp(28px,5.4vw,54px);font-weight:300;
+    letter-spacing:-.03em;line-height:1;padding:4px 0;
+  }
+  .qline input:focus{outline:none}
+  .qline .edit{font-size:11px;color:var(--faint);font-family:"Space Mono",monospace;letter-spacing:.06em;white-space:nowrap}
+
+  .subbar{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;padding-bottom:16px}
+  .thesis{font-size:13px;color:var(--soft);font-weight:500}
+  .thesis b{color:var(--ink);font-weight:700}
+  .sort{display:flex;align-items:center;gap:9px;font-family:"Space Mono",monospace;font-size:10px;color:var(--faint);letter-spacing:.04em}
+  .sort .seg{display:flex;border:1px solid var(--ink)}
+  .sort button{border:none;background:transparent;color:var(--soft);font-family:inherit;font-size:10px;letter-spacing:.06em;
+    text-transform:uppercase;padding:6px 11px;cursor:pointer;transition:.14s}
+  .sort button.on{background:var(--ink);color:var(--paper)}
+
+  /* zone heads */
+  .zh{display:flex;align-items:baseline;gap:14px;margin:42px 0 26px}
+  .zh .n{font-family:"Space Mono",monospace;font-size:11px;color:var(--faint);letter-spacing:.1em}
+  .zh h2{font-size:15px;font-weight:700;letter-spacing:-.01em}
+  .zh .d{font-size:12px;color:var(--faint);font-weight:500}
+
+  /* gallery */
+  .gal{display:grid;grid-template-columns:repeat(3,1fr);gap:42px 30px}
+  .it{display:flex;flex-direction:column}
+  .frame{position:relative;width:100%;aspect-ratio:3/4;overflow:hidden;background:linear-gradient(150deg,var(--imgA),var(--imgB));cursor:pointer}
+  .frame svg{position:absolute;inset:0;margin:auto;width:50%;height:50%;color:#b4b1a6;transition:transform .5s ease,opacity .4s}
+  .frame .tag{position:absolute;bottom:9px;left:10px;font-family:"Space Mono",monospace;font-size:8px;letter-spacing:.12em;color:#00000038}
+  .frame:hover svg{transform:scale(1.05);opacity:1}
+  .frame .shop{position:absolute;inset:0;display:flex;align-items:flex-end;justify-content:flex-end;padding:12px;opacity:0;transition:.25s}
+  .frame:hover .shop{opacity:1}
+  .frame .shop span{background:var(--ink);color:var(--paper);font-family:"Space Mono",monospace;font-size:9px;letter-spacing:.08em;padding:6px 10px;text-transform:uppercase}
+
+  .meta{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-top:14px}
+  .nm{font-size:20px;font-weight:600;letter-spacing:-.02em;line-height:1.04;cursor:pointer}
+  .nm:hover{text-decoration:underline;text-underline-offset:3px}
+  .nm sup{font-size:.46em;color:var(--faint);font-weight:500}
+  .does{font-size:12.5px;color:var(--soft);font-weight:500;margin-top:4px;max-width:34ch}
+  .tor{font-size:8.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink);border:1px solid var(--ink);border-radius:30px;padding:3px 9px;white-space:nowrap;font-weight:600;font-family:"Space Mono",monospace}
+
+  .know{display:flex;align-items:center;gap:3px;margin-top:13px}
+  .know i{width:17px;height:2px;background:var(--line)}
+  .know i.f{background:var(--ink)}
+  .know small{font-family:"Space Mono",monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);margin-left:8px}
+
+  .it.faded .frame{opacity:.42;filter:saturate(.5)}
+  .it.faded:hover .frame{opacity:.72}
+  .it.faded .nm{color:var(--soft)}
+
+  /* tags row */
+  .tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:10px}
+  .tags span{font-family:"Space Mono",monospace;font-size:8px;letter-spacing:.08em;color:var(--faint);border:1px solid var(--line);padding:2px 7px;text-transform:uppercase}
+
+  /* feedback */
+  .fb{margin-top:14px;border-top:1px solid var(--line);padding-top:12px;min-height:46px}
+  .fb .ask{font-family:"Space Mono",monospace;font-size:10px;color:var(--soft);letter-spacing:.02em;margin-bottom:8px}
+  .fb .btns{display:flex;gap:8px}
+  .fb .btns button{
+    border:1px solid var(--ink);background:transparent;color:var(--ink);font-family:"Space Mono",monospace;
+    font-size:10.5px;letter-spacing:.04em;padding:6px 13px;cursor:pointer;transition:.12s;
+  }
+  .fb .btns button:hover{background:var(--ink);color:var(--paper)}
+  .verdict{display:flex;align-items:center;gap:8px;font-family:"Space Mono",monospace;font-size:11px;letter-spacing:.01em}
+  .verdict .dot{width:8px;height:8px;border-radius:50%;background:var(--soft);flex:none}
+  .verdict.hit{font-weight:700}
+  .verdict.hit .dot{background:var(--ink)}
+
+  /* empty state */
+  .empty{font-family:"Space Mono",monospace;font-size:12px;color:var(--faint);padding:48px 0;letter-spacing:.04em}
+
+  /* price + origin */
+  .meta-row{display:flex;gap:14px;margin-top:6px;font-family:"Space Mono",monospace;font-size:9px;color:var(--faint);letter-spacing:.08em;text-transform:uppercase}
+
+  /* footer */
+  .foot{padding:28px 0 46px;font-family:"Space Mono",monospace;font-size:10px;color:var(--faint);line-height:1.8}
+  .foot b{color:var(--soft);font-weight:400}
+
+  @media (max-width:880px){.wrap{padding:0 24px}.gal{grid-template-columns:repeat(2,1fr);gap:32px 22px}}
+  @media (max-width:520px){.gal{grid-template-columns:1fr}.htop{align-items:flex-start}}
+  @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="htop">
+      <div class="kicker">Fashion Discovery</div>
+      <div class="nordstern">
+        <span class="lab">Nordstern · Volltreffer</span><br>
+        <span class="big" id="hits">0</span> <span id="rate">(–)</span> <span style="color:var(--faint)">/ <span id="rated">0</span> bewertet</span>
+      </div>
+    </div>
+    <div class="qline">
+      <input id="q" value="oversized tee" aria-label="Suche" placeholder="Beschreib, was du suchst …" />
+      <span class="edit">↵ Suche</span>
+    </div>
+    <div class="subbar">
+      <div class="thesis"><b>Bekanntes sinkt. Unentdecktes steigt.</b> &nbsp;Relevanz ist das Tor, Entdeckung die Sortierung.</div>
+      <div class="sort">
+        Sortierung
+        <div class="seg">
+          <button id="sDisc" class="on" onclick="setSort('disc')">Entdeckung</button>
+          <button id="sFame" onclick="setSort('fame')">Bekanntheit</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="zh"><span class="n">01</span><h2>Treffer</h2><span class="d">— machen genau das · hartes Relevanz-Tor</span></div>
+  <div class="gal" id="gal"><p class="empty">Lädt …</p></div>
+</main>
+
+<div class="wrap">
+  <div class="foot">
+    <b>MILESTONE 1 · ECHTE DATEN AUS brands.json.</b> Bilder sind Platzhalter — echte Lookbook-Fotos kommen an genau diese Stelle.<br>
+    <b>Feedback unter jeder Karte</b> füttert den Nordstern oben. · Nächster Schritt: Tag-Matching + Claude-Übersetzer-Endpoint.
+  </div>
+</div>
+
+<script>
+// ── SVG-Platzhalter (Kleidungs-Icons) ─────────────────────────────────────
+const GLYPHS=[
+  `<svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M30 22 L20 30 L26 40 L30 36 V78 H70 V36 L74 40 L80 30 L70 22 L60 22 Q50 30 40 22 Z"/></svg>`,
+  `<svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M32 20 L18 30 L24 44 L32 40 V80 H68 V40 L76 44 L82 30 L68 20 Q50 32 32 20 Z"/><path d="M42 20 Q50 30 58 20"/><path d="M50 40 V64"/></svg>`,
+  `<svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M34 18 H66 L70 82 H56 L50 44 L44 82 H30 Z"/></svg>`,
+  `<svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M28 24 L18 32 L25 44 L30 40 V80 H70 V40 L75 44 L82 32 L72 24 M50 24 V80"/></svg>`,
+];
+const glyph = i => GLYPHS[i % GLYPHS.length];
+const KNOWN_LABEL = ["sehr unentdeckt","unentdeckt","im Aufstieg","bekannt","jeder kennt sie"];
+
+// ── State ──────────────────────────────────────────────────────────────────
+let ALL_BRANDS = [];
+let SORT = 'disc';
+let nordHits = 0, nordRated = 0;
+
+// ── Matching — Meilenstein 1: einfache Tag-Überschneidung ────────────────
+// Phase 1: kein Claude-Übersetzer-Endpoint — direkte Keyword-Suche gegen Tags.
+// Ersetzt durch echten Übersetzer in Meilenstein 3.
+function parseFreeQuery(q) {
+  const lower = q.toLowerCase().trim();
+  const TYPE_VOCAB   = ["tee","hemd","hoodie","sweat","hose","denim","strick","jacke","mantel"];
+  const FIT_VOCAB    = ["oversized","boxy","regular","slim","skinny","straight","relaxed","baggy","wide-leg","cropped","tailored"];
+  const VIBE_VOCAB   = ["minimal","workwear","outdoor","archive","military","vintage","technical","elevated-basics","grunge","90s"];
+  const PALETTE_VOCAB= ["earthtones","schwarz-mono","washed","clean-white","bold"];
+  const MAT_VOCAB    = ["heavyweight-cotton","wolle","technical","raw-denim","cut-and-sew"];
+  // Alias-Map für häufige freie Begriffe
+  const ALIAS = {
+    "shirt":"tee","t-shirt":"tee","hoodie":"hoodie","hose":"hose","pants":"hose","jacket":"jacke",
+    "sweater":"sweat","pullover":"sweat","black":"schwarz-mono","weiß":"clean-white","white":"clean-white",
+    "baggy":"baggy","baggie":"baggy","earth":"earthtones","heavy":"heavyweight-cotton",
+  };
+
+  function match(vocab, input) {
+    return vocab.filter(v => {
+      if(input.includes(v)) return true;
+      const aliasKey = Object.keys(ALIAS).find(k => input.includes(k) && ALIAS[k] === v);
+      return !!aliasKey;
+    });
+  }
+
+  return {
+    type:    match(TYPE_VOCAB,    lower),
+    fit:     match(FIT_VOCAB,     lower),
+    vibe:    match(VIBE_VOCAB,    lower),
+    palette: match(PALETTE_VOCAB, lower),
+    material:match(MAT_VOCAB,     lower),
+  };
+}
+
+// Hartes Relevanz-Tor: type muss treffen (wenn angegeben) + ≥1 weiteres Stil-Tag
+function isMatch(brand, query) {
+  const hasTypeQuery = query.type.length > 0;
+  const typeHit = !hasTypeQuery || query.type.some(t => brand.style.type.includes(t));
+  if(!typeHit) return false;
+
+  // Wenn nur type gesucht → reicht; sonst ≥1 weiteres Tag
+  const otherQueryTags = [...query.fit, ...query.vibe, ...query.palette, ...query.material];
+  if(otherQueryTags.length === 0) return true;
+
+  const brandOther = [...brand.style.fit, ...brand.style.vibe, ...brand.style.palette, ...brand.style.material];
+  return otherQueryTags.some(t => brandOther.includes(t));
+}
+
+// Frische-Bonus: <5 Jahre alt + Tor 1 bestanden → leichte Hochstufung
+function freshnessBonus(brand) {
+  const age = new Date().getFullYear() - (brand.ranking.foundedYear || 2000);
+  if(brand.authenticity.passedGate && !brand.authenticity.onWatchlist && age <= 7) {
+    return -0.3; // zieht knownScore etwas nach unten (= nach oben in der Liste)
+  }
+  return 0;
+}
+
+function sortedResults(brands) {
+  return [...brands].sort((a, b) => {
+    if(SORT === 'disc') {
+      const scoreA = a.ranking.knownScore + freshnessBonus(a);
+      const scoreB = b.ranking.knownScore + freshnessBonus(b);
+      return scoreA - scoreB; // unentdeckt zuerst
+    }
+    return b.ranking.knownScore - a.ranking.knownScore; // bekannt zuerst
+  });
+}
+
+// ── Render ─────────────────────────────────────────────────────────────────
+function scoreBar(k) {
+  let s = '';
+  for(let i = 1; i <= 5; i++) s += `<i class="${i <= k ? 'f' : ''}"></i>`;
+  return s;
+}
+
+function renderCard(brand, idx) {
+  const el = document.createElement('div');
+  el.className = 'it' + (brand.ranking.knownScore >= 5 ? ' faded' : '');
+  const topTags = [...brand.style.type, ...brand.style.fit].slice(0, 4);
+  const shopLink = brand.meta.shopUrl;
+  el.innerHTML = `
+    <a href="${shopLink}" target="_blank" rel="noopener" class="frame" tabindex="0" role="link" aria-label="${brand.name} Shop öffnen">
+      ${glyph(idx)}
+      <span class="tag">FIG.${String(idx+1).padStart(2,'0')} · LOOKBOOK</span>
+      <div class="shop"><span>Shop ansehen ↗</span></div>
+    </a>
+    <div class="meta">
+      <div>
+        <div class="nm">${brand.name}${brand.trademark ? `<sup>${brand.trademark}</sup>` : ''}</div>
+        <div class="does">${brand.description}</div>
+        <div class="meta-row">
+          <span>${brand.meta.origin || ''}</span>
+          <span>€${brand.meta.priceRange || '–'}</span>
+          ${brand.ranking.foundedYear ? `<span>seit ${brand.ranking.foundedYear}</span>` : ''}
+        </div>
+      </div>
+      <div class="tor">Echt ✓</div>
+    </div>
+    <div class="tags">${topTags.map(t=>`<span>${t}</span>`).join('')}</div>
+    <div class="know">${scoreBar(brand.ranking.knownScore)}<small>${KNOWN_LABEL[brand.ranking.knownScore - 1]}</small></div>
+    <div class="fb" data-id="${brand.id}"></div>`;
+  mountFeedback(el.querySelector('.fb'));
+  return el;
+}
+
+function render() {
+  const q = document.getElementById('q').value;
+  const query = parseFreeQuery(q);
+  const host = document.getElementById('gal');
+  host.innerHTML = '';
+
+  // alle Marken die Tor 1 bestanden haben und nicht auf Watchlist sind
+  const eligible = ALL_BRANDS.filter(b => b.authenticity.passedGate && !b.authenticity.onWatchlist);
+
+  // bei leerer Suche alle anzeigen
+  const queryEmpty = !q.trim() || (
+    query.type.length === 0 && query.fit.length === 0 &&
+    query.vibe.length === 0 && query.palette.length === 0 && query.material.length === 0
+  );
+  const matched = queryEmpty ? eligible : eligible.filter(b => isMatch(b, query));
+
+  if(matched.length === 0) {
+    host.innerHTML = '<p class="empty">Keine Treffer — andere Suchbegriffe versuchen.</p>';
+    return;
+  }
+
+  sortedResults(matched).forEach((brand, i) => host.appendChild(renderCard(brand, i)));
+}
+
+// ── Feedback / Nordstern ───────────────────────────────────────────────────
+function mountFeedback(el) {
+  el.innerHTML = `<div class="ask">Kannst du die Marke?</div>
+    <div class="btns"><button data-v="no">Nein</button><button data-v="yes">Ja</button></div>`;
+  el.querySelectorAll('button').forEach(b => b.onclick = () => { el.dataset.knew = b.dataset.v; askFit(el); });
+}
+function askFit(el) {
+  el.innerHTML = `<div class="ask">Passt sie zu deiner Suche?</div>
+    <div class="btns"><button data-v="up">👍 Passt</button><button data-v="down">👎 Daneben</button></div>`;
+  el.querySelectorAll('button').forEach(b => b.onclick = () => { el.dataset.fit = b.dataset.v; showVerdict(el); });
+}
+function showVerdict(el) {
+  const kn = el.dataset.knew, ft = el.dataset.fit;
+  let text, cls = '';
+  if(kn === 'no' && ft === 'up')       { text = '🎯 Volltreffer'; cls = 'hit'; nordHits++; }
+  else if(kn === 'no' && ft === 'down') { text = 'Neu, aber daneben'; }
+  else if(kn === 'yes' && ft === 'up')  { text = 'Korrekt, aber bekannt'; }
+  else                                   { text = 'Daneben'; }
+  nordRated++;
+  el.innerHTML = `<div class="verdict ${cls}"><span class="dot"></span>${text}</div>`;
+  document.getElementById('hits').textContent = nordHits;
+  document.getElementById('rated').textContent = nordRated;
+  document.getElementById('rate').textContent = '(' + (nordRated ? Math.round(nordHits / nordRated * 100) + '%' : '–') + ')';
+}
+
+function setSort(s) {
+  SORT = s;
+  document.getElementById('sDisc').classList.toggle('on', s === 'disc');
+  document.getElementById('sFame').classList.toggle('on', s === 'fame');
+  render();
+}
+
+// ── Inline-Daten (brands.json eingebettet) ────────────────────────────────
+ALL_BRANDS = [
+  {
+    "id": "anovair", "name": "Anovair", "trademark": "",
+    "description": "Vintage-inspirierte Henleys & Essentials, gründergeführt. Kleine Drops, eigenständige Bildsprache.",
+    "style": { "type": ["tee","hemd","sweat"], "fit": ["regular","relaxed","oversized"], "vibe": ["vintage","archive","elevated-basics"], "palette": ["earthtones","washed","schwarz-mono"], "material": ["heavyweight-cotton","cut-and-sew"] },
+    "ranking": { "knownScore": 1, "tier": "indie", "foundedYear": 2021 },
+    "meta": { "origin": "DE", "priceRange": "60–180", "shopUrl": "https://anovair.com", "hasAffiliate": false, "stockists": [] },
+    "sizing": { "system": "alpha", "range": "XS–XL" },
+    "authenticity": { "passedGate": true, "onWatchlist": false, "signals": ["gruender-sichtbar","echte-traeger","eigene-bildsprache"] }
+  },
+  {
+    "id": "systemic", "name": "Systemic", "trademark": "®",
+    "description": "Minimalistische, technische Cut-and-sew-Stücke. Strikte Formensprache, kein Lärm.",
+    "style": { "type": ["tee","hoodie","sweat","jacke"], "fit": ["boxy","oversized","regular"], "vibe": ["minimal","technical","archive"], "palette": ["schwarz-mono","clean-white"], "material": ["cut-and-sew","technical","heavyweight-cotton"] },
+    "ranking": { "knownScore": 1, "tier": "indie", "foundedYear": 2020 },
+    "meta": { "origin": "DE", "priceRange": "80–220", "shopUrl": "https://systemic.de", "hasAffiliate": false, "stockists": [] },
+    "sizing": { "system": "alpha", "range": "XS–XXL" },
+    "authenticity": { "passedGate": true, "onWatchlist": false, "signals": ["gruender-sichtbar","eigene-bildsprache","echte-traeger"] }
+  },
+  {
+    "id": "6pm", "name": "6PM", "trademark": "",
+    "description": "Elevated Basics mit Drop-Kultur, Berlin. Saubere Schnitte, klare Prioritäten.",
+    "style": { "type": ["tee","hoodie","sweat","hose"], "fit": ["oversized","relaxed","boxy","straight"], "vibe": ["elevated-basics","minimal","archive"], "palette": ["schwarz-mono","clean-white","earthtones"], "material": ["heavyweight-cotton","cut-and-sew"] },
+    "ranking": { "knownScore": 2, "tier": "indie", "foundedYear": 2019 },
+    "meta": { "origin": "DE", "priceRange": "70–200", "shopUrl": "https://6pm.store", "hasAffiliate": false, "stockists": [] },
+    "sizing": { "system": "alpha", "range": "XS–XXL" },
+    "authenticity": { "passedGate": true, "onWatchlist": false, "signals": ["gruender-sichtbar","echte-traeger","stockists"] }
+  },
+  {
+    "id": "pequs", "name": "Pequs", "trademark": "",
+    "description": "Roher, skandinavisch geprägter Workwear-Touch. Funktional ohne Kompromiss beim Look.",
+    "style": { "type": ["jacke","hose","hemd","strick"], "fit": ["relaxed","regular","straight","wide-leg"], "vibe": ["workwear","outdoor","vintage","military"], "palette": ["earthtones","washed"], "material": ["heavyweight-cotton","wolle","raw-denim"] },
+    "ranking": { "knownScore": 2, "tier": "indie", "foundedYear": 2018 },
+    "meta": { "origin": "SE", "priceRange": "90–280", "shopUrl": "https://pequs.com", "hasAffiliate": false, "stockists": ["diverse europäische Concept Stores"] },
+    "sizing": { "system": "alpha", "range": "XS–XL" },
+    "authenticity": { "passedGate": true, "onWatchlist": false, "signals": ["stockists","echte-traeger","eigene-bildsprache"] }
+  },
+  {
+    "id": "peso", "name": "PESO", "trademark": "™",
+    "description": "Drop-getriebene Streetwear aus Düsseldorf. Eigenständige Silhouette, lokale Szene-Verankerung.",
+    "style": { "type": ["tee","hoodie","sweat","hose"], "fit": ["oversized","baggy","relaxed","wide-leg"], "vibe": ["90s","archive","grunge","elevated-basics"], "palette": ["schwarz-mono","washed","earthtones","bold"], "material": ["heavyweight-cotton","cut-and-sew"] },
+    "ranking": { "knownScore": 3, "tier": "indie", "foundedYear": 2017 },
+    "meta": { "origin": "DE", "priceRange": "60–160", "shopUrl": "https://peso-streetwear.com", "hasAffiliate": false, "stockists": [] },
+    "sizing": { "system": "alpha", "range": "XS–XXL" },
+    "authenticity": { "passedGate": true, "onWatchlist": false, "signals": ["echte-traeger","gruender-sichtbar","eigene-bildsprache"] }
+  }
+];
+render();
+
+// Suche on Enter
+document.getElementById('q').addEventListener('keydown', e => { if(e.key === 'Enter') render(); });
+</script>
+</body>
+</html>
