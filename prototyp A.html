@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Fashion Discovery — Ergebnisse</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#FAFAF7;
+    --ink:#13130F;
+    --soft:#838177;
+    --faint:#9a988f;
+    --line:#e4e2db;
+    --imgA:#e9e7e0; --imgB:#d4d2c9;
+    --dark:#13130F; --darksoft:#7d7b72; --darkline:#2b2a24;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-text-size-adjust:100%}
+  body{background:var(--paper);color:var(--ink);font-family:"Hanken Grotesk",system-ui,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.45}
+  .mono{font-family:"Space Mono",monospace}
+  ::selection{background:var(--ink);color:var(--paper)}
+  a{color:inherit}
+  button:focus-visible,input:focus-visible,[tabindex]:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+
+  .wrap{max-width:1240px;margin:0 auto;padding:0 40px}
+
+  /* ---------- header ---------- */
+  header{position:sticky;top:0;z-index:40;background:var(--paper);border-bottom:1px solid var(--ink)}
+  .htop{display:flex;justify-content:space-between;align-items:center;padding:16px 0 14px}
+  .kicker{font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:var(--faint);font-weight:600}
+  .nordstern{text-align:right;font-family:"Space Mono",monospace;font-size:10.5px;color:var(--soft);line-height:1.5}
+  .nordstern .big{font-size:15px;color:var(--ink);font-weight:700}
+  .nordstern .lab{letter-spacing:.12em;text-transform:uppercase;color:var(--faint);font-size:9px}
+
+  .qline{display:flex;align-items:center;gap:18px;padding:6px 0 20px}
+  .qline input{
+    flex:1;min-width:0;border:none;background:transparent;color:var(--ink);
+    font-family:"Hanken Grotesk",sans-serif;font-size:clamp(28px,5.4vw,54px);font-weight:300;
+    letter-spacing:-.03em;line-height:1;padding:4px 0;
+  }
+  .qline input:focus{outline:none}
+  .qline .edit{font-size:11px;color:var(--faint);font-family:"Space Mono",monospace;letter-spacing:.06em;white-space:nowrap}
+
+  .subbar{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;padding-bottom:16px}
+  .thesis{font-size:13px;color:var(--soft);font-weight:500}
+  .thesis b{color:var(--ink);font-weight:700}
+  .sort{display:flex;align-items:center;gap:9px;font-family:"Space Mono",monospace;font-size:10px;color:var(--faint);letter-spacing:.04em}
+  .sort .seg{display:flex;border:1px solid var(--ink)}
+  .sort button{border:none;background:transparent;color:var(--soft);font-family:inherit;font-size:10px;letter-spacing:.06em;
+    text-transform:uppercase;padding:6px 11px;cursor:pointer;transition:.14s}
+  .sort button.on{background:var(--ink);color:var(--paper)}
+
+  /* ---------- zone heads ---------- */
+  .zh{display:flex;align-items:baseline;gap:14px;margin:42px 0 26px}
+  .zh .n{font-family:"Space Mono",monospace;font-size:11px;color:var(--faint);letter-spacing:.1em}
+  .zh h2{font-size:15px;font-weight:700;letter-spacing:-.01em}
+  .zh .d{font-size:12px;color:var(--faint);font-weight:500}
+
+  /* ---------- gallery ---------- */
+  .gal{display:grid;grid-template-columns:repeat(3,1fr);gap:42px 30px}
+  .it{display:flex;flex-direction:column}
+  .frame{position:relative;width:100%;aspect-ratio:3/4;overflow:hidden;background:linear-gradient(150deg,var(--imgA),var(--imgB));cursor:pointer}
+  .frame svg{position:absolute;inset:0;margin:auto;width:50%;height:50%;color:#b4b1a6;transition:transform .5s ease,opacity .4s}
+  .frame .tag{position:absolute;bottom:9px;left:10px;font-family:"Space Mono",monospace;font-size:8px;letter-spacing:.12em;color:#00000038}
+  .frame:hover svg{transform:scale(1.05);opacity:1}
+  .frame .shop{position:absolute;inset:0;display:flex;align-items:flex-end;justify-content:flex-end;padding:12px;opacity:0;transition:.25s}
+  .frame:hover .shop{opacity:1}
+  .frame .shop span{background:var(--ink);color:var(--paper);font-family:"Space Mono",monospace;font-size:9px;letter-spacing:.08em;padding:6px 10px;text-transform:uppercase}
+
+  .meta{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-top:14px}
+  .nm{font-size:20px;font-weight:600;letter-spacing:-.02em;line-height:1.04;cursor:pointer}
+  .nm:hover{text-decoration:underline;text-underline-offset:3px}
+  .nm sup{font-size:.46em;color:var(--faint);font-weight:500}
+  .does{font-size:12.5px;color:var(--soft);font-weight:500;margin-top:4px;max-width:34ch}
+  .tor{font-size:8.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink);border:1px solid var(--ink);border-radius:30px;padding:3px 9px;white-space:nowrap;font-weight:600;font-family:"Space Mono",monospace}
+
+  .know{display:flex;align-items:center;gap:3px;margin-top:13px}
+  .know i{width:17px;height:2px;background:var(--line)}
+  .know i.f{background:var(--ink)}
+  .know small{font-family:"Space Mono",monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);margin-left:8px}
+
+  .it.faded .frame{opacity:.42;filter:saturate(.5)}
+  .it.faded:hover .frame{opacity:.72}
+  .it.faded .nm{color:var(--soft)}
+
+  /* ---------- feedback ---------- */
+  .fb{margin-top:14px;border-top:1px solid var(--line);padding-top:12px;min-height:46px}
+  .fb .ask{font-family:"Space Mono",monospace;font-size:10px;color:var(--soft);letter-spacing:.02em;margin-bottom:8px}
+  .fb .btns{display:flex;gap:8px}
+  .fb .btns button{
+    border:1px solid var(--ink);background:transparent;color:var(--ink);font-family:"Space Mono",monospace;
+    font-size:10.5px;letter-spacing:.04em;padding:6px 13px;cursor:pointer;transition:.12s;
+  }
+  .fb .btns button:hover{background:var(--ink);color:var(--paper)}
+  .verdict{display:flex;align-items:center;gap:8px;font-family:"Space Mono",monospace;font-size:11px;letter-spacing:.01em}
+  .verdict .dot{width:8px;height:8px;border-radius:50%;background:var(--soft);flex:none}
+  .verdict.hit{font-weight:700}
+  .verdict.hit .dot{background:var(--ink)}
+
+  /* ---------- discovery (dark) ---------- */
+  .disc{background:var(--dark);color:var(--paper);margin-top:78px;padding:54px 0 70px}
+  .disc .zh{margin-top:0}
+  .disc .zh h2{color:var(--paper)}
+  .disc .zh .n,.disc .zh .d{color:var(--darksoft)}
+  .dg{display:grid;grid-template-columns:repeat(4,1fr);gap:26px}
+  .dt{cursor:pointer}
+  .dframe{position:relative;width:100%;aspect-ratio:3/4;overflow:hidden;background:linear-gradient(150deg,#26251f,#191812)}
+  .dframe svg{position:absolute;inset:0;margin:auto;width:48%;height:48%;color:#46443c;transition:.45s}
+  .dt:hover .dframe svg{transform:scale(1.05);color:#5c5a4f}
+  .dnm{font-size:16px;font-weight:600;margin-top:12px;letter-spacing:-.01em}
+  .dnm sup{font-size:.5em;color:var(--darksoft)}
+  .dakin{font-size:10.5px;color:var(--darksoft);margin-top:3px;font-weight:500}
+  .wl{display:inline-block;margin-top:8px;font-family:"Space Mono",monospace;font-size:8px;letter-spacing:.12em;border:1px solid var(--darkline);color:var(--darksoft);padding:3px 7px;text-transform:uppercase}
+  .ok1{display:inline-block;margin-top:8px;font-family:"Space Mono",monospace;font-size:8px;letter-spacing:.12em;color:var(--darksoft);text-transform:uppercase}
+
+  /* ---------- foot ---------- */
+  .foot{padding:28px 0 46px;font-family:"Space Mono",monospace;font-size:10px;color:var(--faint);line-height:1.8}
+  .foot b{color:var(--soft);font-weight:400}
+
+  @media (max-width:880px){
+    .wrap{padding:0 24px}
+    .gal{grid-template-columns:repeat(2,1fr);gap:32px 22px}
+    .dg{grid-template-columns:repeat(2,1fr)}
+  }
+  @media (max-width:520px){
+    .gal{grid-template-columns:1fr}
+    .dg{grid-template-columns:1fr}
+    .htop{align-items:flex-start}
+  }
+  @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="htop">
+      <div class="kicker">Fashion Discovery</div>
+      <div class="nordstern">
+        <span class="lab">Nordstern · Volltreffer</span><br>
+        <span class="big" id="hits">0</span> <span id="rate">(–)</span> <span style="color:var(--faint)">/ <span id="rated">0</span> bewertet</span>
+      </div>
+    </div>
+    <div class="qline">
+      <input id="q" value="weißes oversized shirt" aria-label="Suche bearbeiten" />
+      <span class="edit">↵ Suche</span>
+    </div>
+    <div class="subbar">
+      <div class="thesis"><b>Bekanntes sinkt. Unentdecktes steigt.</b> &nbsp;Relevanz ist das Tor, Entdeckung die Sortierung.</div>
+      <div class="sort">
+        Sortierung
+        <div class="seg">
+          <button id="sDisc" class="on" onclick="setSort('disc')">Entdeckung</button>
+          <button id="sFame" onclick="setSort('fame')">Bekanntheit</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="zh"><span class="n">01</span><h2>Treffer</h2><span class="d">— machen genau das · hartes Relevanz-Tor</span></div>
+  <div class="gal" id="gal"></div>
+</main>
+
+<section class="disc">
+  <div class="wrap">
+    <div class="zh"><span class="n">02</span><h2>Ähnliche Marken entdecken</h2><span class="d">— im Geiste verwandt · elastische Zone</span></div>
+    <div class="dg" id="dg"></div>
+  </div>
+</section>
+
+<div class="wrap">
+  <div class="foot">
+    <b>PROTOTYP · MUSTERDATEN.</b> Bilder sind Platzhalter — echte Lookbook-Fotos kommen an genau diese Stelle.<br>
+    <b>Klick auf eine Marke → Marken-Seite in der App</b> (Profil, Echtheits-Signale, relevante Teile, Shop-Link). · Feedback unter jeder Karte füttert den Nordstern oben.
+  </div>
+</div>
+
+<script>
+const HITS=[
+  {n:"Anovair",m:"",t:"Indie",d:"Vintage-inspirierte Henleys & Essentials, gründergeführt.",k:1},
+  {n:"Systemic",m:"®",t:"Indie",d:"Minimalistische, technische Cut-and-sew-Stücke.",k:1},
+  {n:"6PM",m:"",t:"Indie",d:"Elevated Basics mit Drop-Kultur, Berlin.",k:2},
+  {n:"Pequs",m:"",t:"Indie",d:"Roher, skandinavisch geprägter Workwear-Touch.",k:2},
+  {n:"PESO",m:"™",t:"Indie",d:"Drop-getriebene Streetwear aus Düsseldorf.",k:3},
+  {n:"Stüssy",m:"",t:"Etabliert",d:"OG-Streetwear, weltweit bekannt seit 1980.",k:4},
+  {n:"Nike",m:"",t:"Mainstream",d:"Sportswear-Gigant — Notnagel, kennt jeder.",k:5},
+];
+const DISC=[
+  {n:"ére studios",m:"",a:"verwandt mit Anovair",wl:false},
+  {n:"sacralite",m:"",a:"verwandt mit Systemic",wl:true},
+  {n:"Joseph Atelier",m:"",a:"verwandt mit 6PM",wl:false},
+  {n:"COLORS",m:"®",a:"verwandt mit Pequs",wl:false},
+];
+const KNOWN=["sehr unentdeckt","unentdeckt","im Aufstieg","bekannt","jeder kennt sie"];
+const G=[
+`<svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M30 22 L20 30 L26 40 L30 36 V78 H70 V36 L74 40 L80 30 L70 22 L60 22 Q50 30 40 22 Z"/></svg>`,
+`<svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M32 20 L18 30 L24 44 L32 40 V80 H68 V40 L76 44 L82 30 L68 20 Q50 32 32 20 Z"/><path d="M42 20 Q50 30 58 20"/><path d="M50 40 V64"/></svg>`,
+`<svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M34 18 H66 L70 82 H56 L50 44 L44 82 H30 Z"/></svg>`,
+`<svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M28 24 L18 32 L25 44 L30 40 V80 H70 V40 L75 44 L82 32 L72 24 M50 24 V80"/></svg>`,
+];
+const g=i=>G[i%G.length];
+const seg=k=>{let s='';for(let i=1;i<=5;i++)s+=`<i class="${i<=k?'f':''}"></i>`;return s;};
+
+let SORT='disc', hits=0, rated=0;
+
+function render(){
+  const host=document.getElementById('gal'); host.innerHTML='';
+  const data=[...HITS].sort((a,b)=> SORT==='disc'? a.k-b.k : b.k-a.k);
+  data.forEach((b,i)=>{
+    const el=document.createElement('div');
+    el.className='it'+(b.k>=5?' faded':'');
+    el.innerHTML=`
+      <div class="frame" tabindex="0" role="button" aria-label="${b.n} öffnen">
+        ${g(i)}<span class="tag">FIG.${String(i+1).padStart(2,'0')} · LOOKBOOK</span>
+        <div class="shop"><span>Marke ansehen</span></div>
+      </div>
+      <div class="meta">
+        <div><div class="nm">${b.n}${b.m?`<sup>${b.m}</sup>`:''}</div><div class="does">${b.d}</div></div>
+        <div class="tor">Echt ✓</div>
+      </div>
+      <div class="know">${seg(b.k)}<small>${KNOWN[b.k-1]}</small></div>
+      <div class="fb"></div>`;
+    host.appendChild(el);
+    mountFb(el.querySelector('.fb'));
+  });
+}
+function mountFb(el){
+  el.innerHTML=`<div class="ask">Kennst du die Marke?</div>
+    <div class="btns"><button data-v="no">Nein</button><button data-v="yes">Ja</button></div>`;
+  el.querySelectorAll('button').forEach(b=>b.onclick=()=>{el.dataset.knew=b.dataset.v;askFit(el);});
+}
+function askFit(el){
+  el.innerHTML=`<div class="ask">Passt sie zu deiner Suche?</div>
+    <div class="btns"><button data-v="up">👍 Passt</button><button data-v="down">👎 Daneben</button></div>`;
+  el.querySelectorAll('button').forEach(b=>b.onclick=()=>{el.dataset.fit=b.dataset.v;verdict(el);});
+}
+function verdict(el){
+  const kn=el.dataset.knew,ft=el.dataset.fit;let t,c='';
+  if(kn==='no'&&ft==='up'){t='🎯 Volltreffer';c='hit';hits++;}
+  else if(kn==='no'&&ft==='down')t='Neu, aber daneben';
+  else if(kn==='yes'&&ft==='up')t='Korrekt, aber bekannt';
+  else t='Daneben';
+  rated++;
+  el.innerHTML=`<div class="verdict ${c}"><span class="dot"></span>${t}</div>`;
+  document.getElementById('hits').textContent=hits;
+  document.getElementById('rated').textContent=rated;
+  document.getElementById('rate').textContent='('+(rated?Math.round(hits/rated*100)+'%':'–')+')';
+}
+function renderDisc(){
+  const host=document.getElementById('dg');host.innerHTML='';
+  DISC.forEach((b,i)=>{
+    const el=document.createElement('div');el.className='dt';
+    el.innerHTML=`
+      <div class="dframe" tabindex="0" role="button" aria-label="${b.n} öffnen">${g(i+1)}</div>
+      <div class="dnm">${b.n}${b.m?`<sup>${b.m}</sup>`:''}</div>
+      <div class="dakin">${b.a}</div>
+      ${b.wl?'<span class="wl">Watchlist · geparkt</span>':'<span class="ok1">Tor 1 ✓</span>'}`;
+    host.appendChild(el);
+  });
+}
+function setSort(s){SORT=s;
+  document.getElementById('sDisc').classList.toggle('on',s==='disc');
+  document.getElementById('sFame').classList.toggle('on',s==='fame');
+  render();
+}
+render();renderDisc();
+</script>
+</body>
+</html>
