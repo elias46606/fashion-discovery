@@ -22,8 +22,6 @@
   header{position:sticky;top:0;z-index:40;background:var(--paper);border-bottom:1px solid var(--ink)}
   .htop{display:flex;justify-content:space-between;align-items:center;padding:16px 0 14px}
   .kicker{font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:var(--faint);font-weight:600}
-  .kicker a{color:inherit;text-decoration:none}
-  .kicker a:hover{text-decoration:underline}
   .nordstern{text-align:right;font-family:"Space Mono",monospace;font-size:10.5px;color:var(--soft);line-height:1.5}
   .nordstern .big{font-size:15px;color:var(--ink);font-weight:700}
   .nordstern .lab{letter-spacing:.12em;text-transform:uppercase;color:var(--faint);font-size:9px}
@@ -133,7 +131,7 @@
 <header>
   <div class="wrap">
     <div class="htop">
-      <div class="kicker"><a href="index.html">Fashion Discovery</a></div>
+      <div class="kicker">Fashion Discovery</div>
       <div class="nordstern">
         <span class="lab">Nordstern · Volltreffer</span><br>
         <span class="big" id="hitC">0</span> <span id="rateC">(–)</span> <span style="color:var(--faint)">/ <span id="ratedC">0</span> bewertet</span>
@@ -186,11 +184,9 @@
 </div>
 
 <script>
-/* ── URL-Parameter ?q= ─────────────────────────────────────────────────── */
 const _qParam = new URLSearchParams(location.search).get('q');
 if (_qParam) document.getElementById('q').value = _qParam;
 
-/* ── Daten ─────────────────────────────────────────────────────────────── */
 let BRANDS = [];
 
 fetch('brands.json')
@@ -316,6 +312,8 @@ function renderChips(t) {
   document.getElementById('chips').innerHTML = h;
 }
 
+function openBrand(url) { if (url) window.open(url, '_blank', 'noopener'); }
+
 function renderHits(list) {
   document.getElementById('hitCount').textContent = list.length ? `${list.length} Marken` : '';
   document.getElementById('hitsEmpty').innerHTML = list.length ? '' :
@@ -325,9 +323,10 @@ function renderHits(list) {
   list.forEach((b, i) => {
     const el = document.createElement('div');
     el.className = 'it' + (b.known >= 5 ? ' faded' : '');
+    const click = b.url ? `onclick="openBrand('${b.url}')" style="cursor:pointer"` : '';
     el.innerHTML = `
-      <div class="frame" tabindex="0" role="button" aria-label="${b.name} öffnen">${g(i)}<span class="tag">FIG.${String(i+1).padStart(2,'0')} · LOOKBOOK</span><div class="shop"><span>Marke ansehen</span></div></div>
-      <div class="meta"><div><div class="nm">${b.name}${b.mark?`<sup>${b.mark}</sup>`:''}</div><div class="does">${b.does}</div>
+      <div class="frame" tabindex="0" role="button" aria-label="${b.name} öffnen" ${click}>${g(i)}<span class="tag">FIG.${String(i+1).padStart(2,'0')} · LOOKBOOK</span><div class="shop"><span>${b.url ? 'Shop öffnen' : 'Kein Link'}</span></div></div>
+      <div class="meta"><div><div class="nm" ${click}>${b.name}${b.mark?`<sup>${b.mark}</sup>`:''}</div><div class="does">${b.does}</div>
         <div class="why">passt über: <b>${b.why.slice(0,4).join(' · ')||'—'}</b></div></div>
         <div class="tor">Echt ✓</div></div>
       <div class="know">${seg(b.known)}<small>${KNOWN[b.known-1]}</small></div>
@@ -344,9 +343,10 @@ function renderDisc(list) {
   list.forEach((b, i) => {
     const el = document.createElement('div');
     el.className = 'dt';
+    const click = b.url ? `onclick="openBrand('${b.url}')"` : '';
     el.innerHTML = `
-      <div class="dframe" tabindex="0" role="button" aria-label="${b.name} öffnen">${g(i+1)}</div>
-      <div class="dnm">${b.name}${b.mark?`<sup>${b.mark}</sup>`:''}</div>
+      <div class="dframe" tabindex="0" role="button" aria-label="${b.name} öffnen" ${click}>${g(i+1)}</div>
+      <div class="dnm" ${click}>${b.name}${b.mark?`<sup>${b.mark}</sup>`:''}</div>
       <div class="dakin">verwandt über: ${b.why.slice(0,2).join(' · ')}</div>
       ${b.wl?'<span class="wl">Watchlist · geparkt</span>':'<span class="ok1">Tor 1 ✓</span>'}`;
     host.appendChild(el);
