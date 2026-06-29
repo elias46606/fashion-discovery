@@ -16,13 +16,16 @@
   body{background:var(--paper);color:var(--ink);font-family:"Hanken Grotesk",system-ui,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.45;display:flex;flex-direction:column}
   ::selection{background:var(--ink);color:var(--paper)}
   button:focus-visible,input:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+
   .wrap{max-width:1240px;margin:0 auto;padding:0 40px;width:100%}
 
+  /* ── Header ── */
   header{border-bottom:1px solid var(--ink);padding:18px 0}
   .htop{display:flex;justify-content:space-between;align-items:center}
   .kicker{font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:var(--faint);font-weight:600}
   .nav{font-family:"Space Mono",monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--soft)}
 
+  /* ── Hero ── */
   .hero{flex:1;display:flex;flex-direction:column;justify-content:center;padding:80px 0 60px}
   .eyebrow{font-family:"Space Mono",monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--faint);margin-bottom:28px}
   .headline{font-size:clamp(42px,7vw,96px);font-weight:300;letter-spacing:-.04em;line-height:1;margin-bottom:32px;max-width:14ch}
@@ -30,6 +33,7 @@
   .sub{font-size:15px;color:var(--soft);font-weight:500;max-width:52ch;line-height:1.65;margin-bottom:56px}
   .sub b{color:var(--ink);font-weight:600}
 
+  /* ── Suchfeld ── */
   .sform{display:flex;gap:0;border:1px solid var(--ink);max-width:620px}
   .sform input{flex:1;min-width:0;border:none;background:transparent;color:var(--ink);font-family:"Hanken Grotesk",sans-serif;
     font-size:18px;font-weight:400;padding:16px 20px;letter-spacing:-.01em}
@@ -40,17 +44,20 @@
     padding:16px 24px;cursor:pointer;white-space:nowrap;transition:.14s}
   .sform button:hover{background:#2a2920}
 
+  /* ── Beispiele ── */
   .examples{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:20px}
   .ex-label{font-family:"Space Mono",monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);margin-right:4px}
   .ex{font-family:"Space Mono",monospace;font-size:10px;letter-spacing:.03em;border:1px solid var(--line);
     color:var(--soft);padding:5px 12px;border-radius:30px;cursor:pointer;background:transparent;transition:.12s}
   .ex:hover{border-color:var(--ink);color:var(--ink)}
 
+  /* ── Manifesto ── */
   .manifesto{border-top:1px solid var(--line);padding:40px 0 56px;display:grid;grid-template-columns:repeat(3,1fr);gap:40px}
   .mblock .ml{font-family:"Space Mono",monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);margin-bottom:10px}
   .mblock p{font-size:13px;color:var(--soft);line-height:1.7;font-weight:500}
   .mblock p b{color:var(--ink);font-weight:600}
 
+  /* ── Footer ── */
   footer{border-top:1px solid var(--line);padding:20px 0}
   .foot{display:flex;justify-content:space-between;align-items:center;font-family:"Space Mono",monospace;font-size:9px;color:var(--faint);letter-spacing:.06em}
 
