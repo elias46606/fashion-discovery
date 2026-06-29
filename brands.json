@@ -1,0 +1,121 @@
+[
+  {"id":"anovair","name":"Anovair","mark":"","does":"Vintage-inspirierte Henleys & Essentials, gründergeführt.",
+   "type":["hemd","strick","hose","tee","denim"],"fit":["relaxed","regular"],"vibe":["vintage","elevated-basics","archive"],"palette":["earthtones","washed"],"material":["wolle","heavyweight-cotton","cut-and-sew","raw-denim"],
+   "known":1,"tier":"indie","founded":2022,"sizing":"alpha","affiliate":false,"wl":false},
+
+  {"id":"systemic","name":"Systemic","mark":"®","does":"Minimalistische, technische Cut-and-sew-Stücke.",
+   "type":["tee","hemd","hose","jacke"],"fit":["boxy","regular","oversized"],"vibe":["minimal","technical","archive"],"palette":["schwarz-mono","clean-white"],"material":["cut-and-sew","technical","heavyweight-cotton"],
+   "known":1,"tier":"indie","founded":2021,"sizing":"alpha","affiliate":false,"wl":false},
+
+  {"id":"sacralite","name":"sacralite","mark":"","does":"Stille, archivale Silhouetten in gedeckten Tönen. Sehr klein, gründergeführt.",
+   "type":["hemd","hose","jacke","tee"],"fit":["relaxed","regular","oversized"],"vibe":["archive","minimal","vintage"],"palette":["earthtones","washed","schwarz-mono"],"material":["cut-and-sew","heavyweight-cotton"],
+   "known":1,"tier":"indie","founded":2022,"sizing":"alpha","affiliate":false,"wl":false},
+
+  {"id":"josephatelier","name":"Joseph Atelier","mark":"","does":"Konstruktive Schnitte, europäische Herstellung, wenig Lärm.",
+   "type":["hemd","hose","jacke","strick"],"fit":["regular","relaxed","tailored"],"vibe":["minimal","archive","elevated-basics"],"palette":["earthtones","schwarz-mono","clean-white"],"material":["wolle","cut-and-sew","heavyweight-cotton"],
+   "known":1,"tier":"indie","founded":2021,"sizing":"alpha","affiliate":false,"wl":false},
+
+  {"id":"6pm","name":"6PM","mark":"","does":"Elevated Basics mit Drop-Kultur, Berlin.",
+   "type":["tee","hoodie","sweat","hose"],"fit":["oversized","boxy","relaxed"],"vibe":["elevated-basics","minimal","streetwear","90s"],"palette":["schwarz-mono","washed","clean-white"],"material":["heavyweight-cotton"],
+   "known":2,"tier":"indie","founded":2019,"sizing":"alpha","affiliate":false,"wl":false},
+
+  {"id":"pequs","name":"Pequs","mark":"","does":"Roher, skandinavisch geprägter Workwear-Touch.",
+   "type":["hose","jacke","hemd","denim"],"fit":["relaxed","regular","wide-leg"],"vibe":["workwear","minimal","archive"],"palette":["earthtones","washed"],"material":["raw-denim","heavyweight-cotton"],
+   "known":2,"tier":"indie","founded":2020,"sizing":"numeric","affiliate":false,"wl":false},
+
+  {"id":"ere","name":"ére studios","mark":"","does":"Cut-and-sew Archive in gedeckten Tönen.",
+   "type":["jacke","hose","hemd","tee"],"fit":["relaxed","regular","oversized"],"vibe":["archive","minimal","technical"],"palette":["earthtones","washed"],"material":["cut-and-sew","technical"],
+   "known":2,"tier":"indie","founded":2018,"sizing":"alpha","affiliate":false,"wl":false},
+
+  {"id":"palmes","name":"Palmes","mark":"","does":"Tennis-inspirierte Indie-Stücke aus Dänemark. Sportlich, leise.",
+   "type":["tee","hemd","jacke","sweat"],"fit":["regular","relaxed","boxy"],"vibe":["vintage","elevated-basics","outdoor"],"palette":["clean-white","earthtones","bold"],"material":["heavyweight-cotton","cut-and-sew"],
+   "known":2,"tier":"indie","founded":2020,"sizing":"alpha","affiliate":false,"wl":false},
+
+  {"id":"waxlondon","name":"Wax London","mark":"","does":"Britische Indie-Marke, natürliche Materialien, saubere Schnitte.",
+   "type":["hemd","hose","jacke","tee"],"fit":["regular","relaxed","straight"],"vibe":["vintage","workwear","elevated-basics"],"palette":["earthtones","washed","clean-white"],"material":["heavyweight-cotton","wolle","raw-denim"],
+   "known":2,"tier":"indie","founded":2016,"sizing":"alpha","affiliate":false,"wl":false},
+
+  {"id":"arnarmar","name":"Arnar Mar Jonsson","mark":"","does":"Isländisches Archive-Label, poetische Silhouetten, Einzelstücke.",
+   "type":["jacke","hemd","strick","hose"],"fit":["relaxed","oversized","regular"],"vibe":["archive","outdoor","military","vintage"],"palette":["earthtones","washed","schwarz-mono"],"material":["wolle","cut-and-sew","heavyweight-cotton"],
+   "known":2,"tier":"indie","founded":2014,"sizing":"alpha","affiliate":false,"wl":false},
+
+  {"id":"colors","name":"COLORS","mark":"®","does":"Reduzierte Earthtone-Essentials.",
+   "type":["tee","hose","strick"],"fit":["regular","relaxed"],"vibe":["minimal","elevated-basics"],"palette":["earthtones","washed","clean-white"],"material":["heavyweight-cotton","cut-and-sew"],
+   "known":2,"tier":"indie","founded":2021,"sizing":"alpha","affiliate":false,"wl":true},
+
+  {"id":"peso","name":"PESO","mark":"™","does":"Drop-getriebene Streetwear aus Düsseldorf.",
+   "type":["tee","hoodie","sweat","jacke"],"fit":["oversized","boxy","baggy"],"vibe":["streetwear","90s","elevated-basics"],"palette":["bold","schwarz-mono","clean-white"],"material":["heavyweight-cotton"],
+   "known":3,"tier":"indie","founded":2016,"sizing":"alpha","affiliate":false,"wl":false},
+
+  {"id":"ourlegacy","name":"Our Legacy","mark":"","does":"Schwedisches Label, archivale Washes, konstruktive Schnitte.",
+   "type":["hemd","hose","jacke","tee","strick"],"fit":["relaxed","regular","boxy","wide-leg"],"vibe":["archive","vintage","minimal","elevated-basics"],"palette":["earthtones","washed","schwarz-mono"],"material":["raw-denim","cut-and-sew","heavyweight-cotton","wolle"],
+   "known":3,"tier":"indie","founded":2005,"sizing":"alpha","affiliate":false,"wl":false},
+
+  {"id":"studionicolson","name":"Studio Nicholson","mark":"","does":"Britisches Minimal-Label, elongierte Silhouetten, wenig Schnörkel.",
+   "type":["hose","jacke","hemd","strick","mantel"],"fit":["straight","wide-leg","regular","tailored","relaxed"],"vibe":["minimal","elevated-basics","archive"],"palette":["schwarz-mono","earthtones","clean-white"],"material":["wolle","cut-and-sew","technical"],
+   "known":3,"tier":"indie","founded":2010,"sizing":"alpha","affiliate":false,"wl":false},
+
+  {"id":"braindead","name":"Brain Dead","mark":"","does":"LA-Indie mit Kunst-Referenzen, grafisch, konsequent eigenständig.",
+   "type":["tee","hoodie","jacke","hemd"],"fit":["oversized","boxy","regular"],"vibe":["grunge","90s","streetwear","archive"],"palette":["bold","schwarz-mono","washed"],"material":["heavyweight-cotton","cut-and-sew"],
+   "known":3,"tier":"indie","founded":2014,"sizing":"alpha","affiliate":false,"wl":false},
+
+  {"id":"engineeredgarments","name":"Engineered Garments","mark":"","does":"Neely Johnsons Workwear-Reinterpretation. Funky Details, US-Produktion.",
+   "type":["jacke","hemd","hose","mantel"],"fit":["relaxed","regular","baggy"],"vibe":["workwear","military","vintage","outdoor"],"palette":["earthtones","washed","bold"],"material":["heavyweight-cotton","raw-denim","wolle"],
+   "known":3,"tier":"indie","founded":1999,"sizing":"alpha","affiliate":false,"wl":false},
+
+  {"id":"norsepro","name":"Norse Projects","mark":"","does":"Dänisches Minimal-Workwear, qualitätsbewusst, weltweit verfügbar.",
+   "type":["hemd","jacke","hose","tee","strick"],"fit":["regular","relaxed","straight"],"vibe":["minimal","workwear","outdoor","elevated-basics"],"palette":["earthtones","clean-white","schwarz-mono"],"material":["wolle","heavyweight-cotton","technical","cut-and-sew"],
+   "known":3,"tier":"etabliert","founded":2004,"sizing":"alpha","affiliate":true,"wl":false},
+
+  {"id":"fillingpieces","name":"Filling Pieces","mark":"","does":"Niederländisches Label, Sneakers & Apparel, Premium-Segment.",
+   "type":["tee","hose","jacke","strick"],"fit":["regular","slim","relaxed"],"vibe":["minimal","elevated-basics","archive"],"palette":["schwarz-mono","earthtones","clean-white"],"material":["cut-and-sew","heavyweight-cotton","technical"],
+   "known":3,"tier":"etabliert","founded":2009,"sizing":"alpha","affiliate":true,"wl":false},
+
+  {"id":"dime","name":"Dime","mark":"","does":"Kanadisches Skate-Label, ironisch, eigenständig, Drop-getrieben.",
+   "type":["tee","hoodie","hemd","jacke","hose"],"fit":["baggy","relaxed","regular"],"vibe":["90s","streetwear","vintage","grunge"],"palette":["bold","washed","clean-white","schwarz-mono"],"material":["heavyweight-cotton"],
+   "known":3,"tier":"indie","founded":2013,"sizing":"alpha","affiliate":false,"wl":false},
+
+  {"id":"represent","name":"Represent","mark":"","does":"Premium-Streetwear aus UK, breit verfügbar.",
+   "type":["tee","hoodie","hose","denim","jacke"],"fit":["regular","slim","relaxed","baggy"],"vibe":["streetwear","elevated-basics","grunge"],"palette":["schwarz-mono","washed","bold"],"material":["raw-denim","heavyweight-cotton"],
+   "known":4,"tier":"etabliert","founded":2011,"sizing":"alpha","affiliate":true,"wl":false},
+
+  {"id":"corteiz","name":"Corteiz","mark":"","does":"Londoner Drop-Streetwear, Community-First, Hype-getrieben.",
+   "type":["tee","hoodie","jacke","hose"],"fit":["oversized","baggy","relaxed"],"vibe":["streetwear","90s","military"],"palette":["schwarz-mono","bold","clean-white"],"material":["heavyweight-cotton"],
+   "known":4,"tier":"etabliert","founded":2017,"sizing":"alpha","affiliate":false,"wl":false},
+
+  {"id":"carharttWIP","name":"Carhartt WIP","mark":"","does":"Workwear-Ikone, europäische Interpretation, überall erhältlich.",
+   "type":["jacke","hose","hemd","tee","denim"],"fit":["regular","relaxed","baggy","straight"],"vibe":["workwear","streetwear","military","outdoor"],"palette":["earthtones","washed","schwarz-mono"],"material":["raw-denim","heavyweight-cotton"],
+   "known":4,"tier":"etabliert","founded":1989,"sizing":"numeric","affiliate":true,"wl":false},
+
+  {"id":"apc","name":"A.P.C.","mark":"","does":"Französisches Minimal-Label, Denim-Fokus, zeitlose Basics.",
+   "type":["denim","hemd","hose","jacke","tee","strick"],"fit":["slim","straight","regular"],"vibe":["minimal","elevated-basics","vintage"],"palette":["schwarz-mono","washed","clean-white","earthtones"],"material":["raw-denim","wolle","cut-and-sew"],
+   "known":4,"tier":"etabliert","founded":1987,"sizing":"numeric","affiliate":true,"wl":false},
+
+  {"id":"cpcompany","name":"C.P. Company","mark":"","does":"Italienisches Workwear-Erbe, Goggle-Jacken, breite Verfügbarkeit.",
+   "type":["jacke","hemd","tee","sweat","mantel"],"fit":["regular","relaxed"],"vibe":["workwear","outdoor","military","technical"],"palette":["earthtones","schwarz-mono","bold"],"material":["technical","heavyweight-cotton"],
+   "known":4,"tier":"etabliert","founded":1975,"sizing":"numeric","affiliate":true,"wl":false},
+
+  {"id":"stussy","name":"Stüssy","mark":"","does":"OG-Streetwear, weltweit bekannt seit 1980.",
+   "type":["tee","hoodie","hemd","jacke"],"fit":["boxy","regular","relaxed"],"vibe":["streetwear","90s","archive","military"],"palette":["bold","schwarz-mono"],"material":["heavyweight-cotton"],
+   "known":4,"tier":"etabliert","founded":1980,"sizing":"alpha","affiliate":true,"wl":false},
+
+  {"id":"dickies","name":"Dickies","mark":"","does":"US-Workwear-Klassiker, überall erhältlich, günstig.",
+   "type":["hose","hemd","jacke","tee"],"fit":["regular","relaxed","baggy","straight"],"vibe":["workwear","vintage","streetwear"],"palette":["schwarz-mono","earthtones","bold"],"material":["heavyweight-cotton","raw-denim"],
+   "known":5,"tier":"mainstream","founded":1922,"sizing":"numeric","affiliate":true,"wl":false},
+
+  {"id":"adidas","name":"Adidas","mark":"","does":"Sportswear-Gigant, Notnagel.",
+   "type":["tee","hoodie","sweat","hose","jacke"],"fit":["regular","relaxed","oversized","slim"],"vibe":["streetwear","technical","outdoor","90s"],"palette":["bold","schwarz-mono","clean-white"],"material":["technical","heavyweight-cotton"],
+   "known":5,"tier":"mainstream","founded":1949,"sizing":"alpha","affiliate":true,"wl":false},
+
+  {"id":"nike","name":"Nike","mark":"","does":"Sportswear-Gigant — Notnagel, kennt jeder.",
+   "type":["tee","hoodie","sweat","hose","jacke"],"fit":["regular","oversized","relaxed"],"vibe":["streetwear","technical","outdoor"],"palette":["bold","schwarz-mono","clean-white"],"material":["technical","heavyweight-cotton"],
+   "known":5,"tier":"mainstream","founded":1964,"sizing":"alpha","affiliate":true,"wl":false},
+
+  {"id":"zara","name":"Zara","mark":"","does":"Fast Fashion — Notnagel, nur ganz unten.",
+   "type":["tee","hemd","hose","jacke","mantel","strick","denim"],"fit":["slim","regular","relaxed","straight","oversized"],"vibe":["minimal","elevated-basics","vintage"],"palette":["schwarz-mono","earthtones","clean-white","bold"],"material":["heavyweight-cotton","wolle"],
+   "known":5,"tier":"mainstream","founded":1975,"sizing":"alpha","affiliate":true,"wl":false},
+
+  {"id":"hm","name":"H&M","mark":"","does":"Fast Fashion — Notnagel, nur ganz unten.",
+   "type":["tee","hemd","hose","jacke","strick","denim","sweat"],"fit":["slim","regular","relaxed","oversized"],"vibe":["minimal","elevated-basics","streetwear"],"palette":["schwarz-mono","clean-white","earthtones","bold"],"material":["heavyweight-cotton"],
+   "known":5,"tier":"mainstream","founded":1947,"sizing":"alpha","affiliate":true,"wl":false}
+]
