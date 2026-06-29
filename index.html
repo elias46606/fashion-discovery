@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -31,13 +32,16 @@
     font-size:clamp(26px,5vw,50px);font-weight:300;letter-spacing:-.03em;line-height:1;padding:4px 0}
   .qline input:focus{outline:none}
   .qline .go{border:1px solid var(--ink);background:var(--ink);color:var(--paper);font-family:"Space Mono",monospace;
-    font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:10px 18px;cursor:pointer;white-space:nowrap}
+    font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:10px 18px;cursor:pointer;white-space:nowrap;transition:.14s}
   .qline .go:hover{background:transparent;color:var(--ink)}
+  .qline .go:disabled{opacity:.4;cursor:default}
 
-  .chips{display:flex;flex-wrap:wrap;gap:7px;align-items:center;padding-bottom:14px;min-height:18px}
+  .chips{display:flex;flex-wrap:wrap;gap:7px;align-items:center;padding-bottom:14px;min-height:34px}
   .chips .cl{font-family:"Space Mono",monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);margin-right:4px}
   .chip{font-family:"Space Mono",monospace;font-size:10px;letter-spacing:.03em;border:1px solid var(--ink);padding:3px 9px;border-radius:30px}
   .chip.size{border-style:dashed;color:var(--soft)}
+  .chip.loading{border-style:dashed;color:var(--faint);animation:pulse 1s infinite}
+  @keyframes pulse{0%,100%{opacity:.4}50%{opacity:1}}
 
   .subbar{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;padding-bottom:16px}
   .thesis{font-size:13px;color:var(--soft);font-weight:500}
@@ -47,6 +51,14 @@
   .sort button{border:none;background:transparent;color:var(--soft);font-family:inherit;font-size:10px;letter-spacing:.06em;
     text-transform:uppercase;padding:6px 11px;cursor:pointer}
   .sort button.on{background:var(--ink);color:var(--paper)}
+
+  .sizebar{display:flex;align-items:center;gap:9px;padding-bottom:18px;font-family:"Space Mono",monospace;font-size:10px;color:var(--faint);letter-spacing:.04em;flex-wrap:wrap}
+  .sizebar .sl{font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint)}
+  .sizebar .seg{display:flex;border:1px solid var(--line)}
+  .sizebar button{border:none;background:transparent;color:var(--soft);font-family:inherit;font-size:10px;letter-spacing:.06em;
+    text-transform:uppercase;padding:5px 11px;cursor:pointer;transition:.14s}
+  .sizebar button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .sizebar .hint{font-size:9px;color:var(--faint);letter-spacing:.03em}
 
   .zh{display:flex;align-items:baseline;gap:14px;margin:38px 0 24px}
   .zh .n{font-family:"Space Mono",monospace;font-size:11px;color:var(--faint);letter-spacing:.1em}
@@ -128,7 +140,7 @@
     </div>
     <div class="qline">
       <input id="q" value="oversized hoodie" aria-label="Suche" onkeydown="if(event.key==='Enter')run()" />
-      <button class="go" onclick="run()">Suchen</button>
+      <button class="go" id="goBtn" onclick="run()">Suchen</button>
     </div>
     <div class="chips" id="chips"></div>
     <div class="subbar">
@@ -139,6 +151,15 @@
           <button id="sFame" onclick="setSort('fame')">Bekanntheit</button>
         </div>
       </div>
+    </div>
+    <div class="sizebar">
+      <span class="sl">Größe ·</span>
+      <div class="seg">
+        <button id="szAll" class="on" onclick="setSize('all')">Alle</button>
+        <button id="szAlpha" onclick="setSize('alpha')">XS – XXL</button>
+        <button id="szNum" onclick="setSize('numeric')">Numerisch</button>
+      </div>
+      <span class="hint">Stufe 1 — führt diese Größenrange grundsätzlich</span>
     </div>
   </div>
 </header>
@@ -158,156 +179,147 @@
 
 <div class="wrap">
   <div class="foot">
-    <b>FUNKTIONIERENDER KERN · Suche filtert echte Tag-Daten.</b> Marken-Tags sind ein Startpunkt — beim echten Aufbau pro Shop prüfen.<br>
-    <b>Übersetzer ist regelbasiert (Platzhalter).</b> An der Stelle <b>translate()</b> im Code kommt später der Claude-API-Aufruf rein (braucht Backend, z. B. Vercel). · Bilder = Platzhalter.
+    <b>61 MARKEN · ECHTER SEED.</b> Tags sind Startpunkt — beim Ausbau jeden Shop verifizieren.<br>
+    <b>Übersetzer:</b> Claude API via <code>/api/translate</code> (Vercel Serverless). Bei Fehler: regelbasierter Fallback.
   </div>
 </div>
 
 <script>
-/* ============================================================
-   MARKEN-DATENBANK (Seed — Startpunkt, beim echten Aufbau verifizieren)
-   Schema: style (Relevanz) · ranking (Sortierung) · meta (neutral) · sizing (Filter)
-   ============================================================ */
-const BRANDS=[
- {id:"anovair",name:"Anovair",mark:"",does:"Vintage-inspirierte Henleys & Essentials, gründergeführt.",
-  type:["hemd","strick","hose","tee","denim"],fit:["relaxed","regular"],vibe:["vintage","elevated-basics","archive"],palette:["earthtones","washed"],material:["wolle","heavyweight-cotton","cut-and-sew","raw-denim"],
-  known:1,tier:"indie",founded:2022, sizing:"alpha", affiliate:false, wl:false},
- {id:"systemic",name:"Systemic",mark:"®",does:"Minimalistische, technische Cut-and-sew-Stücke.",
-  type:["tee","hemd","hose","jacke"],fit:["boxy","regular","oversized"],vibe:["minimal","technical","archive"],palette:["schwarz-mono","clean-white"],material:["cut-and-sew","technical","heavyweight-cotton"],
-  known:1,tier:"indie",founded:2021, sizing:"alpha", affiliate:false, wl:false},
- {id:"6pm",name:"6PM",mark:"",does:"Elevated Basics mit Drop-Kultur, Berlin.",
-  type:["tee","hoodie","sweat","hose"],fit:["oversized","boxy","relaxed"],vibe:["elevated-basics","minimal","streetwear","90s"],palette:["schwarz-mono","washed","clean-white"],material:["heavyweight-cotton"],
-  known:2,tier:"indie",founded:2019, sizing:"alpha", affiliate:false, wl:false},
- {id:"pequs",name:"Pequs",mark:"",does:"Roher, skandinavisch geprägter Workwear-Touch.",
-  type:["hose","jacke","hemd","denim"],fit:["relaxed","regular","wide-leg"],vibe:["workwear","minimal","archive"],palette:["earthtones","washed"],material:["raw-denim","heavyweight-cotton"],
-  known:2,tier:"indie",founded:2020, sizing:"numeric", affiliate:false, wl:false},
- {id:"ere",name:"ére studios",mark:"",does:"Cut-and-sew Archive in gedeckten Tönen.",
-  type:["jacke","hose","hemd","tee"],fit:["relaxed","regular","oversized"],vibe:["archive","minimal","technical"],palette:["earthtones","washed"],material:["cut-and-sew","technical"],
-  known:2,tier:"indie",founded:2018, sizing:"alpha", affiliate:false, wl:false},
- {id:"peso",name:"PESO",mark:"™",does:"Drop-getriebene Streetwear aus Düsseldorf.",
-  type:["tee","hoodie","sweat","jacke"],fit:["oversized","boxy","baggy"],vibe:["streetwear","90s","elevated-basics"],palette:["bold","schwarz-mono","clean-white"],material:["heavyweight-cotton"],
-  known:3,tier:"indie",founded:2016, sizing:"alpha", affiliate:false, wl:false},
- {id:"colors",name:"COLORS",mark:"®",does:"Reduzierte Earthtone-Essentials.",
-  type:["tee","hose","strick"],fit:["regular","relaxed"],vibe:["minimal","elevated-basics"],palette:["earthtones","washed","clean-white"],material:["heavyweight-cotton","cut-and-sew"],
-  known:2,tier:"indie",founded:2021, sizing:"alpha", affiliate:false, wl:true},
- {id:"represent",name:"Represent",mark:"",does:"Premium-Streetwear aus UK, breit verfügbar.",
-  type:["tee","hoodie","hose","denim","jacke"],fit:["regular","slim","relaxed","baggy"],vibe:["streetwear","elevated-basics","grunge"],palette:["schwarz-mono","washed","bold"],material:["raw-denim","heavyweight-cotton"],
-  known:4,tier:"etabliert",founded:2011, sizing:"alpha", affiliate:true, wl:false},
- {id:"stussy",name:"Stüssy",mark:"",does:"OG-Streetwear, weltweit bekannt seit 1980.",
-  type:["tee","hoodie","hemd","jacke"],fit:["boxy","regular","relaxed"],vibe:["streetwear","90s","archive","military"],palette:["bold","schwarz-mono"],material:["heavyweight-cotton"],
-  known:4,tier:"etabliert",founded:1980, sizing:"alpha", affiliate:true, wl:false},
- {id:"nike",name:"Nike",mark:"",does:"Sportswear-Gigant — Notnagel, kennt jeder.",
-  type:["tee","hoodie","sweat","hose","jacke"],fit:["regular","oversized","relaxed"],vibe:["streetwear","technical","outdoor"],palette:["bold","schwarz-mono","clean-white"],material:["technical","heavyweight-cotton"],
-  known:5,tier:"mainstream",founded:1964, sizing:"alpha", affiliate:true, wl:false},
-];
+let BRANDS = [];
 
-/* ============================================================
-   ÜBERSETZER (regelbasiert — PLATZHALTER)
-   >>> Hier später den Claude-API-Aufruf einsetzen (Backend) <<<
-   Gibt {type,fit,vibe,palette,material,size} aus dem kontrollierten Vokabular zurück.
-   ============================================================ */
-const LEX={
- type:{shirt:"hemd",hemd:"hemd",tshirt:"tee",tee:"tee","t-shirt":"tee",shirt2:"tee",hoodie:"hoodie",kapuzen:"hoodie",
-   sweat:"sweat",sweater:"strick",pullover:"strick",strick:"strick",knit:"strick",hose:"hose",pants:"hose",trousers:"hose",
-   jeans:"denim",denim:"denim",jacke:"jacke",jacket:"jacke",mantel:"mantel",coat:"mantel"},
- fit:{oversized:"oversized",oversize:"oversized",boxy:"boxy",baggy:"baggy",weit:"baggy",slim:"slim",skinny:"skinny",
-   straight:"straight","wide-leg":"wide-leg",wide:"wide-leg",cropped:"cropped",kurz:"cropped",tailored:"tailored",regular:"regular",relaxed:"relaxed"},
- vibe:{minimal:"minimal",minimalistisch:"minimal",workwear:"workwear",outdoor:"outdoor",gorpcore:"outdoor",archive:"archive",
-   military:"military",vintage:"vintage",retro:"vintage",technical:"technical",tech:"technical",basics:"elevated-basics",
-   essentials:"elevated-basics",grunge:"grunge","90s":"90s","90er":"90s",streetwear:"streetwear",street:"streetwear"},
- palette:{earthtone:"earthtones",earthtones:"earthtones",erdton:"earthtones",erdtöne:"earthtones",schwarz:"schwarz-mono",
-   black:"schwarz-mono",mono:"schwarz-mono",washed:"washed",used:"washed",weiß:"clean-white",white:"clean-white",
-   clean:"clean-white",bold:"bold",bunt:"bold",farbig:"bold"},
- material:{wolle:"wolle",wool:"wolle",technical:"technical",raw:"raw-denim","raw-denim":"raw-denim",
-   heavyweight:"heavyweight-cotton",schwer:"heavyweight-cotton",cotton:"heavyweight-cotton","cut-and-sew":"cut-and-sew"},
+fetch('brands.json')
+  .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
+  .then(data => { BRANDS = data; run(); })
+  .catch(() => {
+    document.getElementById('gal').innerHTML =
+      '<p class="empty">Daten konnten nicht geladen werden.</p>';
+  });
+
+const LEX = {
+  type: {shirt:"hemd",hemd:"hemd",tshirt:"tee",tee:"tee","t-shirt":"tee",hoodie:"hoodie",kapuzen:"hoodie",
+    sweat:"sweat",sweater:"strick",pullover:"strick",strick:"strick",knit:"strick",hose:"hose",pants:"hose",
+    trousers:"hose",jeans:"denim",denim:"denim",jacke:"jacke",jacket:"jacke",mantel:"mantel",coat:"mantel"},
+  fit: {oversized:"oversized",oversize:"oversized",boxy:"boxy",baggy:"baggy",weit:"baggy",slim:"slim",
+    skinny:"skinny",straight:"straight","wide-leg":"wide-leg",wide:"wide-leg",cropped:"cropped",
+    kurz:"cropped",tailored:"tailored",regular:"regular",relaxed:"relaxed"},
+  vibe: {minimal:"minimal",minimalistisch:"minimal",workwear:"workwear",outdoor:"outdoor",gorpcore:"outdoor",
+    archive:"archive",military:"military",vintage:"vintage",retro:"vintage",technical:"technical",
+    tech:"technical",basics:"elevated-basics",essentials:"elevated-basics",grunge:"grunge",
+    "90s":"90s","90er":"90s",streetwear:"streetwear",street:"streetwear"},
+  palette: {earthtone:"earthtones",earthtones:"earthtones",erdton:"earthtones",erdtöne:"earthtones",
+    schwarz:"schwarz-mono",black:"schwarz-mono",mono:"schwarz-mono",washed:"washed",used:"washed",
+    weiß:"clean-white",white:"clean-white",clean:"clean-white",bold:"bold",bunt:"bold",farbig:"bold"},
+  material: {wolle:"wolle",wool:"wolle",technical:"technical",raw:"raw-denim","raw-denim":"raw-denim",
+    heavyweight:"heavyweight-cotton",schwer:"heavyweight-cotton",cotton:"heavyweight-cotton","cut-and-sew":"cut-and-sew"},
 };
-function translate(query){
-  const out={type:[],fit:[],vibe:[],palette:[],material:[],size:null};
-  const q=" "+query.toLowerCase().replace(/[/\-]/g," $& ")+" ";
-  // Größe erkennen (Stufe 1): 30..40 oder W32 etc.
-  const sz=query.match(/\b(2[8-9]|3[0-8]|4[0-2])\s*[\/x]?\s*(2[8-9]|3[0-6])?\b/);
-  if(sz) out.size="numeric";
-  for(const cat in LEX){
-    for(const word in LEX[cat]){
-      if(q.includes(" "+word+" ")||q.includes(word)){
-        const tag=LEX[cat][word];
-        if(!out[cat].includes(tag)) out[cat].push(tag);
+
+function localTranslate(query) {
+  const out = {type:[],fit:[],vibe:[],palette:[],material:[],size:null};
+  const q = " " + query.toLowerCase().replace(/[-/]/g, " $& ") + " ";
+  const sz = query.match(/\b(2[8-9]|3[0-8]|4[0-2])\b/);
+  if (sz) out.size = "numeric";
+  for (const cat in LEX) {
+    for (const word in LEX[cat]) {
+      if (q.includes(" " + word + " ") || q.includes(word)) {
+        const tag = LEX[cat][word];
+        if (!out[cat].includes(tag)) out[cat].push(tag);
       }
     }
   }
   return out;
 }
 
-/* ============================================================
-   MATCHING
-   ============================================================ */
-function otherTags(b){return [...b.fit,...b.vibe,...b.palette,...b.material];}
-function reqOther(t){return [...t.fit,...t.vibe,...t.palette,...t.material];}
-function overlap(a,b){return a.filter(x=>b.includes(x));}
+async function translate(query) {
+  try {
+    const res = await fetch('/api/translate', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({query}),
+    });
+    if (!res.ok) throw new Error(res.status);
+    const tags = await res.json();
+    const sz = query.match(/\b(2[8-9]|3[0-8]|4[0-2])\b/);
+    tags.size = sz ? "numeric" : null;
+    return tags;
+  } catch {
+    return localTranslate(query);
+  }
+}
 
-function classify(brand,t){
-  const ro=reqOther(t);
-  const oOver=overlap(ro,otherTags(brand));
-  const typeOk = t.type.length===0 || t.type.some(x=>brand.type.includes(x));
-  // hartes Tor
+function otherTags(b) { return [...b.fit, ...b.vibe, ...b.palette, ...b.material]; }
+function reqOther(t)  { return [...t.fit, ...t.vibe, ...t.palette, ...t.material]; }
+function overlap(a, b){ return a.filter(x => b.includes(x)); }
+
+function classify(brand, t) {
+  const ro = reqOther(t);
+  const oOver = overlap(ro, otherTags(brand));
+  const typeOk = t.type.length === 0 || t.type.some(x => brand.type.includes(x));
   let gate;
-  if(t.type.length){ gate = typeOk && (ro.length===0 || oOver.length>=1); }
-  else { gate = oOver.length >= Math.min(2, ro.length||99) && ro.length>0; }
-  // Größenfilter Stufe 1
-  if(gate && t.size && brand.sizing!==t.size) gate=false;
-  if(gate) return {zone:"hit", why:[...overlap(t.type,brand.type),...oOver]};
-  // Entdeckung: teilt Vibe oder Palette, aber kein Treffer
-  const adj=overlap([...t.vibe,...t.palette],otherTags(brand));
-  if(adj.length>=1) return {zone:"disc", why:adj};
+  if (t.type.length) { gate = typeOk && (ro.length === 0 || oOver.length >= 1); }
+  else               { gate = oOver.length >= Math.min(2, ro.length || 99) && ro.length > 0; }
+  if (gate && t.size && brand.sizing !== t.size) gate = false;
+  if (gate) return {zone:"hit",  why: [...overlap(t.type, brand.type), ...oOver]};
+  const adj = overlap([...t.vibe, ...t.palette], otherTags(brand));
+  if (adj.length >= 1) return {zone:"disc", why: adj};
   return {zone:"none"};
 }
 
-let SORT='disc',hits=0,rated=0;
+let SORT = 'disc', SIZE = 'all', hits = 0, rated = 0;
 
-function run(){
-  const query=document.getElementById('q').value.trim();
-  const t=translate(query);
-  renderChips(t);
-  const H=[],D=[];
-  BRANDS.forEach(b=>{
-    const c=classify(b,t);
-    if(c.zone==="hit") H.push({...b,why:c.why});
-    else if(c.zone==="disc") D.push({...b,why:c.why});
-  });
-  H.sort((a,b)=> SORT==='disc'? a.known-b.known : b.known-a.known);
-  D.sort((a,b)=> a.known-b.known);
-  renderHits(H);
-  renderDisc(D.slice(0,4));
-}
-
-function renderChips(t){
-  const all=[...t.type,...t.fit,...t.vibe,...t.palette,...t.material];
-  let h='<span class="cl">Erkannt →</span>';
-  if(all.length===0) h+='<span class="chip" style="border-style:dashed;color:var(--soft)">nichts erkannt</span>';
-  else h+=all.map(x=>`<span class="chip">${x}</span>`).join('');
-  if(t.size) h+=`<span class="chip size">Größe ${t.size} · Stufe-1-Filter</span>`;
-  document.getElementById('chips').innerHTML=h;
-}
-
-const G=[
-`<svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M30 22 L20 30 L26 40 L30 36 V78 H70 V36 L74 40 L80 30 L70 22 L60 22 Q50 30 40 22 Z"/></svg>`,
-`<svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M32 20 L18 30 L24 44 L32 40 V80 H68 V40 L76 44 L82 30 L68 20 Q50 32 32 20 Z"/><path d="M42 20 Q50 30 58 20"/><path d="M50 40 V64"/></svg>`,
-`<svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M34 18 H66 L70 82 H56 L50 44 L44 82 H30 Z"/></svg>`,
-`<svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M28 24 L18 32 L25 44 L30 40 V80 H70 V40 L75 44 L82 32 L72 24 M50 24 V80"/></svg>`,
+const G = [
+  `<svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M30 22 L20 30 L26 40 L30 36 V78 H70 V36 L74 40 L80 30 L70 22 L60 22 Q50 30 40 22 Z"/></svg>`,
+  `<svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M32 20 L18 30 L24 44 L32 40 V80 H68 V40 L76 44 L82 30 L68 20 Q50 32 32 20 Z"/><path d="M42 20 Q50 30 58 20"/><path d="M50 40 V64"/></svg>`,
+  `<svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M34 18 H66 L70 82 H56 L50 44 L44 82 H30 Z"/></svg>`,
+  `<svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M28 24 L18 32 L25 44 L30 40 V80 H70 V40 L75 44 L82 32 L72 24 M50 24 V80"/></svg>`,
 ];
-const g=i=>G[i%G.length];
-const seg=k=>{let s='';for(let i=1;i<=5;i++)s+=`<i class="${i<=k?'f':''}"></i>`;return s;};
-const KNOWN=["sehr unentdeckt","unentdeckt","im Aufstieg","bekannt","jeder kennt sie"];
+const g   = i => G[i % G.length];
+const seg = k => { let s=''; for(let i=1;i<=5;i++) s+=`<i class="${i<=k?'f':''}"></i>`; return s; };
+const KNOWN = ["sehr unentdeckt","unentdeckt","im Aufstieg","bekannt","jeder kennt sie"];
 
-function renderHits(list){
-  document.getElementById('hitCount').textContent=list.length?`${list.length} Marken`:'';
-  document.getElementById('hitsEmpty').innerHTML = list.length?'' :
-    `<div class="empty">Keine exakten Treffer für diese Suche.<br><b>Versuch:</b> „oversized hoodie", „baggy 90s", „minimal earthtones", „wollhose", „raw denim slim".</div>`;
-  const host=document.getElementById('gal');host.innerHTML='';
-  list.forEach((b,i)=>{
-    const el=document.createElement('div');
-    el.className='it'+(b.known>=5?' faded':'');
-    el.innerHTML=`
+async function run() {
+  const query = document.getElementById('q').value.trim();
+  const btn = document.getElementById('goBtn');
+  btn.disabled = true;
+  document.getElementById('chips').innerHTML = '<span class="chip loading">Übersetze …</span>';
+
+  const t = await translate(query);
+  renderChips(t);
+  btn.disabled = false;
+
+  const H = [], D = [];
+  BRANDS.forEach(b => {
+    const c = classify(b, t);
+    if (c.zone === "hit")  H.push({...b, why: c.why});
+    else if (c.zone === "disc") D.push({...b, why: c.why});
+  });
+  const Hf = SIZE === 'all' ? H : H.filter(b => b.sizing === SIZE);
+  const Df = SIZE === 'all' ? D : D.filter(b => b.sizing === SIZE);
+
+  Hf.sort((a, b) => SORT === 'disc' ? a.known - b.known : b.known - a.known);
+  Df.sort((a, b) => a.known - b.known);
+  renderHits(Hf);
+  renderDisc(Df.slice(0, 4));
+}
+
+function renderChips(t) {
+  const all = [...t.type, ...t.fit, ...t.vibe, ...t.palette, ...t.material];
+  let h = '<span class="cl">Erkannt →</span>';
+  if (all.length === 0) h += '<span class="chip" style="border-style:dashed;color:var(--soft)">nichts erkannt</span>';
+  else h += all.map(x => `<span class="chip">${x}</span>`).join('');
+  if (t.size) h += `<span class="chip size">Größe ${t.size} · Stufe-1-Filter</span>`;
+  document.getElementById('chips').innerHTML = h;
+}
+
+function renderHits(list) {
+  document.getElementById('hitCount').textContent = list.length ? `${list.length} Marken` : '';
+  document.getElementById('hitsEmpty').innerHTML = list.length ? '' :
+    `<div class="empty">Keine exakten Treffer.<br><b>Versuch:</b> „oversized hoodie", „baggy 90s", „minimal earthtones", „workwear jacke", „raw denim slim".</div>`;
+  const host = document.getElementById('gal');
+  host.innerHTML = '';
+  list.forEach((b, i) => {
+    const el = document.createElement('div');
+    el.className = 'it' + (b.known >= 5 ? ' faded' : '');
+    el.innerHTML = `
       <div class="frame" tabindex="0" role="button" aria-label="${b.name} öffnen">${g(i)}<span class="tag">FIG.${String(i+1).padStart(2,'0')} · LOOKBOOK</span><div class="shop"><span>Marke ansehen</span></div></div>
       <div class="meta"><div><div class="nm">${b.name}${b.mark?`<sup>${b.mark}</sup>`:''}</div><div class="does">${b.does}</div>
         <div class="why">passt über: <b>${b.why.slice(0,4).join(' · ')||'—'}</b></div></div>
@@ -318,12 +330,15 @@ function renderHits(list){
     mountFb(el.querySelector('.fb'));
   });
 }
-function renderDisc(list){
-  const host=document.getElementById('dg');host.innerHTML='';
-  if(!list.length){host.innerHTML='<div class="dakin">Für diese Suche keine angrenzenden Marken.</div>';return;}
-  list.forEach((b,i)=>{
-    const el=document.createElement('div');el.className='dt';
-    el.innerHTML=`
+
+function renderDisc(list) {
+  const host = document.getElementById('dg');
+  host.innerHTML = '';
+  if (!list.length) { host.innerHTML = '<div class="dakin" style="color:var(--darksoft)">Für diese Suche keine angrenzenden Marken.</div>'; return; }
+  list.forEach((b, i) => {
+    const el = document.createElement('div');
+    el.className = 'dt';
+    el.innerHTML = `
       <div class="dframe" tabindex="0" role="button" aria-label="${b.name} öffnen">${g(i+1)}</div>
       <div class="dnm">${b.name}${b.mark?`<sup>${b.mark}</sup>`:''}</div>
       <div class="dakin">verwandt über: ${b.why.slice(0,2).join(' · ')}</div>
@@ -332,32 +347,42 @@ function renderDisc(list){
   });
 }
 
-function mountFb(el){
-  el.innerHTML=`<div class="ask">Kennst du die Marke?</div><div class="btns"><button data-v="no">Nein</button><button data-v="yes">Ja</button></div>`;
-  el.querySelectorAll('button').forEach(b=>b.onclick=()=>{el.dataset.knew=b.dataset.v;askFit(el);});
+function mountFb(el) {
+  el.innerHTML = `<div class="ask">Kennst du die Marke?</div><div class="btns"><button data-v="no">Nein</button><button data-v="yes">Ja</button></div>`;
+  el.querySelectorAll('button').forEach(b => b.onclick = () => { el.dataset.knew = b.dataset.v; askFit(el); });
 }
-function askFit(el){
-  el.innerHTML=`<div class="ask">Passt sie zu deiner Suche?</div><div class="btns"><button data-v="up">👍 Passt</button><button data-v="down">👎 Daneben</button></div>`;
-  el.querySelectorAll('button').forEach(b=>b.onclick=()=>{el.dataset.fit=b.dataset.v;verdict(el);});
+function askFit(el) {
+  el.innerHTML = `<div class="ask">Passt sie zu deiner Suche?</div><div class="btns"><button data-v="up">👍 Passt</button><button data-v="down">👎 Daneben</button></div>`;
+  el.querySelectorAll('button').forEach(b => b.onclick = () => { el.dataset.fit = b.dataset.v; verdict(el); });
 }
-function verdict(el){
-  const kn=el.dataset.knew,ft=el.dataset.fit;let tx,c='';
-  if(kn==='no'&&ft==='up'){tx='🎯 Volltreffer';c='hit';hits++;}
-  else if(kn==='no'&&ft==='down')tx='Neu, aber daneben';
-  else if(kn==='yes'&&ft==='up')tx='Korrekt, aber bekannt';
-  else tx='Daneben';
+function verdict(el) {
+  const kn = el.dataset.knew, ft = el.dataset.fit; let tx, c = '';
+  if      (kn==='no'  && ft==='up')   { tx='🎯 Volltreffer'; c='hit'; hits++; }
+  else if (kn==='no'  && ft==='down')   tx='Neu, aber daneben';
+  else if (kn==='yes' && ft==='up')     tx='Korrekt, aber bekannt';
+  else                                  tx='Daneben';
   rated++;
-  el.innerHTML=`<div class="verdict ${c}"><span class="dot"></span>${tx}</div>`;
-  document.getElementById('hitC').textContent=hits;
-  document.getElementById('ratedC').textContent=rated;
-  document.getElementById('rateC').textContent='('+(rated?Math.round(hits/rated*100)+'%':'–')+')';
+  el.innerHTML = `<div class="verdict ${c}"><span class="dot"></span>${tx}</div>`;
+  document.getElementById('hitC').textContent  = hits;
+  document.getElementById('ratedC').textContent = rated;
+  document.getElementById('rateC').textContent  = '(' + (rated ? Math.round(hits/rated*100)+'%' : '–') + ')';
 }
-function setSort(s){SORT=s;
-  document.getElementById('sDisc').classList.toggle('on',s==='disc');
-  document.getElementById('sFame').classList.toggle('on',s==='fame');
+
+function setSort(s) {
+  SORT = s;
+  document.getElementById('sDisc').classList.toggle('on', s==='disc');
+  document.getElementById('sFame').classList.toggle('on', s==='fame');
   run();
 }
-run();
+
+function setSize(s) {
+  SIZE = s;
+  document.getElementById('szAll').classList.toggle('on', s==='all');
+  document.getElementById('szAlpha').classList.toggle('on', s==='alpha');
+  document.getElementById('szNum').classList.toggle('on', s==='numeric');
+  run();
+}
 </script>
 </body>
 </html>
+```
