@@ -25,7 +25,7 @@
 
   {"id":"sourire","name":"Sourire","mark":"","does":"Kleines Label, reduzierte Silhouetten.",
    "type":["tee","hose","hemd"],"fit":["relaxed","regular"],"vibe":["minimal","elevated-basics"],"palette":["clean-white","earthtones","schwarz-mono"],"material":["heavyweight-cotton","cut-and-sew"],
-   "known":1,"tier":"indie","founded":2022,"sizing":"alpha","affiliate":false,"wl":true,"url":""},
+   "known":1,"tier":"indie","founded":2022,"sizing":"alpha","affiliate":false,"wl":true,"url":"https://sourire-worldwide.com"},
 
   {"id":"tehra","name":"Tehra","mark":"","does":"Indie-Label, grÃ¼ndergefÃ¼hrt.",
    "type":["tee","hose","jacke","hemd"],"fit":["relaxed","oversized","regular"],"vibe":["elevated-basics","minimal","archive"],"palette":["earthtones","schwarz-mono","washed"],"material":["heavyweight-cotton","cut-and-sew"],
@@ -65,7 +65,7 @@
 
   {"id":"sacralite","name":"sacralite","mark":"","does":"Stille, archivale Silhouetten in gedeckten TÃ¶nen. Sehr klein, grÃ¼ndergefÃ¼hrt.",
    "type":["hemd","hose","jacke","tee"],"fit":["relaxed","regular","oversized"],"vibe":["archive","minimal","vintage"],"palette":["earthtones","washed","schwarz-mono"],"material":["cut-and-sew","heavyweight-cotton"],
-   "known":1,"tier":"indie","founded":2022,"sizing":"alpha","affiliate":false,"wl":false,"url":""},
+   "known":1,"tier":"indie","founded":2022,"sizing":"alpha","affiliate":false,"wl":false,"url":"https://sacralite.com"},
 
   {"id":"josephatelier","name":"Joseph Atelier","mark":"","does":"Konstruktive Schnitte, europÃ¤ische Herstellung, wenig LÃ¤rm.",
    "type":["hemd","hose","jacke","strick"],"fit":["regular","relaxed","tailored"],"vibe":["minimal","archive","elevated-basics"],"palette":["earthtones","schwarz-mono","clean-white"],"material":["wolle","cut-and-sew","heavyweight-cotton"],
