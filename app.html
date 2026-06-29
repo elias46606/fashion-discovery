@@ -269,7 +269,8 @@ function productMatches(p, t) {
   if (filters.sizes.size && !p.sizes?.some(s => filters.sizes.has(s.label) && s.available)) return false;
   if (filters.materials.size && !p.materials?.some(m => filters.materials.has(m))) return false;
   if (filters.seasons.size && !p.seasons?.some(s => filters.seasons.has(s))) return false;
-  return !words.length || words.some(w => hay.includes(w));
+  const matchCount = words.filter(w => hay.includes(w)).length;
+return !words.length || matchCount >= Math.ceil(words.length * 0.6);
 }
 
 // ── SVG placeholders
@@ -437,6 +438,13 @@ async function run() {
     if (hasProducts(b)) {
       // Product-level matching
       const matchingProds = b.products.filter(p => productMatches(p, t));
+if (matchingProds.length) {
+  const qwords = (t.raw||'').toLowerCase().split(/\s+/).filter(w=>w.length>2);
+  const best = matchingProds.sort((pa,pb) => {
+    const sc = x => qwords.filter(w=>[x.title,x.description,...(x.fits||[])].join(' ').toLowerCase().includes(w)).length;
+    return sc(pb)-sc(pa);
+  })[0];
+  hitItems.push({ type: 'product', brand: b, ...best });
       if (matchingProds.length) {
         matchingProds.forEach(p => hitItems.push({ type: 'product', brand: b, ...p }));
       } else {
