@@ -3,227 +3,225 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Fashion Discovery</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<title>Fashion Discovery — Treffer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
 <style>
-  :root{
-    --paper:#FAFAF7;--ink:#13130F;--soft:#838177;--faint:#9a988f;--line:#e4e2db;
-    --imgA:#e9e7e0;--imgB:#d4d2c9;--dark:#13130F;--darksoft:#7d7b72;--darkline:#2b2a24;
+  :root {
+    --paper: #FAFAF7; --ink: #13130F; --soft: #838177; --faint: #9a988f;
+    --line: #e4e2db; --card: #f4f2ec; --good: #2f6b3e; --sold: #b8b3a7;
   }
-  *{box-sizing:border-box;margin:0;padding:0}
-  html{-webkit-text-size-adjust:100%}
-  body{background:var(--paper);color:var(--ink);font-family:"Hanken Grotesk",system-ui,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.45}
-  ::selection{background:var(--ink);color:var(--paper)}
-  button:focus-visible,input:focus-visible,[tabindex]:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
-  .wrap{max-width:1240px;margin:0 auto;padding:0 40px}
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-text-size-adjust: 100%; }
+  body { background: var(--paper); color: var(--ink); font-family: "Hanken Grotesk", system-ui, sans-serif; font-size: 16px; line-height: 1.5; -webkit-font-smoothing: antialiased; }
+  .wrap { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
 
-  header{position:sticky;top:0;z-index:40;background:var(--paper);border-bottom:1px solid var(--ink)}
-  .htop{display:flex;justify-content:space-between;align-items:center;padding:16px 0 14px}
-  .kicker{font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:var(--faint);font-weight:600}
-  .nordstern{text-align:right;font-family:"Space Mono",monospace;font-size:10.5px;color:var(--soft);line-height:1.5}
-  .nordstern .big{font-size:15px;color:var(--ink);font-weight:700}
-  .nordstern .lab{letter-spacing:.12em;text-transform:uppercase;color:var(--faint);font-size:9px}
+  /* Header */
+  header { border-bottom: 1px solid var(--ink); position: sticky; top: 0; z-index: 40; background: var(--paper); }
+  .topline { display: flex; justify-content: space-between; align-items: center; padding: 16px 0; gap: 16px; flex-wrap: wrap; }
+  .brandmark { font-family: "Space Mono", monospace; font-size: 11px; letter-spacing: .32em; text-transform: uppercase; color: var(--faint); font-weight: 600; text-decoration: none; }
+  .brandmark:hover { color: var(--ink); }
+  .nordstern-head { font-family: "Space Mono", monospace; font-size: 11px; color: var(--soft); text-align: right; }
+  .nordstern-head b { color: var(--ink); }
 
-  .qline{display:flex;align-items:center;gap:18px;padding:6px 0 12px}
-  .qline input{flex:1;min-width:0;border:none;background:transparent;color:var(--ink);font-family:"Hanken Grotesk",sans-serif;
-    font-size:clamp(26px,5vw,50px);font-weight:300;letter-spacing:-.03em;line-height:1;padding:4px 0}
-  .qline input:focus{outline:none}
-  .qline .go{border:1px solid var(--ink);background:var(--ink);color:var(--paper);font-family:"Space Mono",monospace;
-    font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:10px 18px;cursor:pointer;white-space:nowrap;transition:.14s}
-  .qline .go:hover{background:transparent;color:var(--ink)}
-  .qline .go:disabled{opacity:.4;cursor:default}
+  /* Search */
+  .search-block { padding: 20px 0 14px; border-bottom: 1px solid var(--line); }
+  .search-row { display: flex; gap: 10px; align-items: center; }
+  #q { flex: 1; min-width: 0; background: transparent; border: none; border-bottom: 1px solid var(--line); padding: 10px 0; font-size: clamp(22px,4vw,42px); font-family: "Hanken Grotesk", sans-serif; font-weight: 300; letter-spacing: -.02em; color: var(--ink); }
+  #q:focus { outline: none; border-bottom-color: var(--ink); }
+  .go { border: 1px solid var(--ink); background: var(--ink); color: var(--paper); font-family: "Space Mono", monospace; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; padding: 10px 18px; cursor: pointer; white-space: nowrap; transition: .14s; }
+  .go:hover { background: transparent; color: var(--ink); }
+  .go:disabled { opacity: .4; cursor: default; }
 
-  .chips{display:flex;flex-wrap:wrap;gap:7px;align-items:center;padding-bottom:14px;min-height:34px}
-  .chips .cl{font-family:"Space Mono",monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);margin-right:4px}
-  .chip{font-family:"Space Mono",monospace;font-size:10px;letter-spacing:.03em;border:1px solid var(--ink);padding:3px 9px;border-radius:30px}
-  .chip.size{border-style:dashed;color:var(--soft)}
-  .chip.loading{border-style:dashed;color:var(--faint);animation:pulse 1s infinite}
-  @keyframes pulse{0%,100%{opacity:.4}50%{opacity:1}}
+  /* Chips */
+  .chip-bar { display: flex; flex-wrap: wrap; gap: 7px; padding: 12px 0; min-height: 38px; border-bottom: 1px solid var(--line); }
+  .chip-label { font-family: "Space Mono", monospace; font-size: 9px; letter-spacing: .1em; text-transform: uppercase; color: var(--faint); align-self: center; margin-right: 4px; }
+  .tag { font-family: "Space Mono", monospace; font-size: 10px; border: 1px solid var(--ink); padding: 3px 9px; border-radius: 30px; }
+  .tag.loading { border-style: dashed; color: var(--faint); animation: pulse 1s infinite; }
+  @keyframes pulse { 0%,100%{opacity:.4}50%{opacity:1} }
 
-  .subbar{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;padding-bottom:16px}
-  .thesis{font-size:13px;color:var(--soft);font-weight:500}
-  .thesis b{color:var(--ink);font-weight:700}
-  .sort{display:flex;align-items:center;gap:9px;font-family:"Space Mono",monospace;font-size:10px;color:var(--faint);letter-spacing:.04em}
-  .sort .seg{display:flex;border:1px solid var(--ink)}
-  .sort button{border:none;background:transparent;color:var(--soft);font-family:inherit;font-size:10px;letter-spacing:.06em;
-    text-transform:uppercase;padding:6px 11px;cursor:pointer}
-  .sort button.on{background:var(--ink);color:var(--paper)}
+  /* Filter bar */
+  .filterbar { display: flex; flex-wrap: wrap; gap: 20px; padding: 14px 0; border-bottom: 1px solid var(--line); }
+  .fg { display: flex; align-items: center; gap: 8px; }
+  .flabel { font-family: "Space Mono", monospace; font-size: 9px; letter-spacing: .1em; text-transform: uppercase; color: var(--faint); }
+  .fchips { display: flex; flex-wrap: wrap; gap: 5px; }
+  .fchip { font-family: "Space Mono", monospace; font-size: 10px; background: transparent; border: 1px solid var(--line); color: var(--soft); padding: 3px 10px; border-radius: 30px; cursor: pointer; transition: .12s; }
+  .fchip:hover { border-color: var(--ink); color: var(--ink); }
+  .fchip.on { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .clear { background: none; border: none; cursor: pointer; font-family: "Space Mono", monospace; font-size: 10px; color: var(--faint); text-decoration: underline; padding: 0; margin-left: auto; }
 
-  .sizebar{display:flex;align-items:center;gap:9px;padding-bottom:18px;font-family:"Space Mono",monospace;font-size:10px;color:var(--faint);letter-spacing:.04em;flex-wrap:wrap}
-  .sizebar .sl{font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint)}
-  .sizebar .seg{display:flex;border:1px solid var(--line)}
-  .sizebar button{border:none;background:transparent;color:var(--soft);font-family:inherit;font-size:10px;letter-spacing:.06em;
-    text-transform:uppercase;padding:5px 11px;cursor:pointer;transition:.14s}
-  .sizebar button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
-  .sizebar .hint{font-size:9px;color:var(--faint);letter-spacing:.03em}
+  /* Meta row */
+  .meta-row { display: flex; justify-content: space-between; align-items: baseline; padding: 18px 0 14px; gap: 12px; flex-wrap: wrap; }
+  .result-count { font-family: "Space Mono", monospace; font-size: 11px; color: var(--soft); }
+  .sort-row { display: flex; align-items: center; gap: 8px; font-family: "Space Mono", monospace; font-size: 10px; color: var(--faint); }
+  .seg { display: flex; border: 1px solid var(--ink); }
+  .seg button { border: none; background: transparent; color: var(--soft); font-family: "Space Mono", monospace; font-size: 10px; letter-spacing: .06em; text-transform: uppercase; padding: 5px 11px; cursor: pointer; }
+  .seg button.on { background: var(--ink); color: var(--paper); }
 
-  .zh{display:flex;align-items:baseline;gap:14px;margin:38px 0 24px}
-  .zh .n{font-family:"Space Mono",monospace;font-size:11px;color:var(--faint);letter-spacing:.1em}
-  .zh h2{font-size:15px;font-weight:700;letter-spacing:-.01em}
-  .zh .d{font-size:12px;color:var(--faint);font-weight:500}
-  .zh .cnt{margin-left:auto;font-family:"Space Mono",monospace;font-size:10px;color:var(--faint)}
+  /* Grid */
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 32px 24px; padding: 8px 0 80px; }
 
-  .gal{display:grid;grid-template-columns:repeat(3,1fr);gap:42px 30px}
-  .empty{font-family:"Space Mono",monospace;font-size:12px;color:var(--soft);padding:10px 0 6px;line-height:1.7}
-  .empty b{color:var(--ink)}
-  .it{display:flex;flex-direction:column}
-  .frame{position:relative;width:100%;aspect-ratio:3/4;overflow:hidden;background:linear-gradient(150deg,var(--imgA),var(--imgB));cursor:pointer}
-  .frame svg{position:absolute;inset:0;margin:auto;width:50%;height:50%;color:#b4b1a6;transition:transform .5s ease,opacity .3s}
-  .frame .tag{position:absolute;bottom:9px;left:10px;font-family:"Space Mono",monospace;font-size:8px;letter-spacing:.12em;color:#00000038;z-index:1}
-  .frame:hover svg{transform:scale(1.05)}
-  .frame .shop{position:absolute;inset:0;display:flex;align-items:flex-end;justify-content:flex-end;padding:12px;opacity:0;transition:.25s;z-index:2}
-  .frame:hover .shop{opacity:1}
-  .frame .shop span{background:var(--ink);color:var(--paper);font-family:"Space Mono",monospace;font-size:9px;letter-spacing:.08em;padding:6px 10px;text-transform:uppercase}
-  .frame img.og{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .4s}
-  .frame img.og.loaded{opacity:1}
-  .frame.has-img svg{opacity:0}
-  .meta{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-top:14px}
-  .nm{font-size:20px;font-weight:600;letter-spacing:-.02em;line-height:1.04;cursor:pointer}
-  .nm:hover{text-decoration:underline;text-underline-offset:3px}
-  .nm sup{font-size:.46em;color:var(--faint);font-weight:500}
-  .does{font-size:12.5px;color:var(--soft);font-weight:500;margin-top:4px;max-width:34ch}
-  .why{font-family:"Space Mono",monospace;font-size:9px;letter-spacing:.04em;color:var(--faint);margin-top:7px}
-  .why b{color:var(--soft);font-weight:400}
-  .tor{font-size:8.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink);border:1px solid var(--ink);border-radius:30px;padding:3px 9px;white-space:nowrap;font-weight:600;font-family:"Space Mono",monospace}
-  .know{display:flex;align-items:center;gap:3px;margin-top:12px}
-  .know i{width:17px;height:2px;background:var(--line)}
-  .know i.f{background:var(--ink)}
-  .know small{font-family:"Space Mono",monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);margin-left:8px}
-  .it.faded .frame{opacity:.42;filter:saturate(.5)}
-  .it.faded:hover .frame{opacity:.72}
-  .it.faded .nm{color:var(--soft)}
+  /* Card — brand-only mode */
+  .card { display: flex; flex-direction: column; }
+  .thumb { aspect-ratio: 3/4; background: linear-gradient(150deg,#e9e7e0,#d4d2c9); overflow: hidden; margin-bottom: 14px; position: relative; cursor: pointer; }
+  .thumb img { width: 100%; height: 100%; object-fit: cover; display: block; opacity: 0; transition: opacity .4s; }
+  .thumb img.loaded { opacity: 1; }
+  .thumb svg { position: absolute; inset: 0; margin: auto; width: 46%; height: 46%; color: #b4b1a6; }
+  .thumb.has-img svg { opacity: 0; }
+  .thumb-tag { position: absolute; bottom: 9px; left: 10px; font-family: "Space Mono", monospace; font-size: 8px; letter-spacing: .12em; color: rgba(0,0,0,.22); }
+  .thumb-open { position: absolute; inset: 0; display: flex; align-items: flex-end; justify-content: flex-end; padding: 12px; opacity: 0; transition: .2s; }
+  .thumb:hover .thumb-open { opacity: 1; }
+  .thumb-open span { background: var(--ink); color: var(--paper); font-family: "Space Mono", monospace; font-size: 9px; letter-spacing: .08em; padding: 6px 10px; text-transform: uppercase; }
+  .card-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
+  .brand-name { font-size: 18px; font-weight: 600; letter-spacing: -.01em; cursor: pointer; }
+  .brand-name:hover { text-decoration: underline; text-underline-offset: 3px; }
+  .tor { font-family: "Space Mono", monospace; font-size: 8px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink); border: 1px solid var(--ink); border-radius: 30px; padding: 3px 9px; white-space: nowrap; }
+  .brand-does { font-size: 12px; color: var(--soft); margin-top: 3px; font-weight: 500; }
+  .know { display: flex; align-items: center; gap: 3px; margin-top: 10px; }
+  .know i { width: 16px; height: 2px; background: var(--line); }
+  .know i.f { background: var(--ink); }
+  .know small { font-family: "Space Mono", monospace; font-size: 9px; letter-spacing: .1em; text-transform: uppercase; color: var(--faint); margin-left: 7px; }
 
-  .fb{margin-top:14px;border-top:1px solid var(--line);padding-top:12px;min-height:46px}
-  .fb .ask{font-family:"Space Mono",monospace;font-size:10px;color:var(--soft);letter-spacing:.02em;margin-bottom:8px}
-  .fb .btns{display:flex;gap:8px}
-  .fb .btns button{border:1px solid var(--ink);background:transparent;color:var(--ink);font-family:"Space Mono",monospace;
-    font-size:10.5px;letter-spacing:.04em;padding:6px 13px;cursor:pointer}
-  .fb .btns button:hover{background:var(--ink);color:var(--paper)}
-  .verdict{display:flex;align-items:center;gap:8px;font-family:"Space Mono",monospace;font-size:11px}
-  .verdict .dot{width:8px;height:8px;border-radius:50%;background:var(--soft);flex:none}
-  .verdict.hit{font-weight:700}
-  .verdict.hit .dot{background:var(--ink)}
+  /* Card — product mode */
+  .prod-title { font-size: 14px; color: var(--ink); margin: 2px 0 5px; }
+  .prod-meta { font-family: "Space Mono", monospace; font-size: 10px; color: var(--soft); margin-bottom: 10px; }
+  .sizes { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 10px; }
+  .size { font-family: "Space Mono", monospace; font-size: 11px; border: 1px solid var(--line); padding: 3px 8px; border-radius: 2px; min-width: 28px; text-align: center; }
+  .size.out { color: var(--sold); border-color: #e7e3d9; text-decoration: line-through; }
+  .size.match { border-color: var(--ink); font-weight: 700; }
+  .price { font-family: "Space Mono", monospace; font-size: 13px; margin-bottom: 10px; }
+  .to-product { display: inline-block; text-align: center; text-decoration: none; background: var(--ink); color: var(--paper); font-family: "Space Mono", monospace; font-size: 11px; letter-spacing: .04em; padding: 9px 14px; margin-bottom: 12px; transition: opacity .12s; }
+  .to-product:hover { opacity: .82; }
 
-  .disc{background:var(--dark);color:var(--paper);margin-top:72px;padding:54px 0 70px}
-  .disc .zh{margin-top:0}
-  .disc .zh h2{color:var(--paper)}
-  .disc .zh .n,.disc .zh .d,.disc .zh .cnt{color:var(--darksoft)}
-  .dg{display:grid;grid-template-columns:repeat(4,1fr);gap:26px}
-  .dt{cursor:pointer}
-  .dframe{position:relative;width:100%;aspect-ratio:3/4;overflow:hidden;background:linear-gradient(150deg,#26251f,#191812)}
-  .dframe svg{position:absolute;inset:0;margin:auto;width:48%;height:48%;color:#46443c;transition:.45s}
-  .dframe img.og{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .4s}
-  .dframe img.og.loaded{opacity:1}
-  .dframe.has-img svg{opacity:0}
-  .dt:hover .dframe svg{transform:scale(1.05);color:#5c5a4f}
-  .dnm{font-size:16px;font-weight:600;margin-top:12px;letter-spacing:-.01em}
-  .dnm sup{font-size:.5em;color:var(--darksoft)}
-  .dakin{font-size:10.5px;color:var(--darksoft);margin-top:3px;font-weight:500}
-  .wl{display:inline-block;margin-top:8px;font-family:"Space Mono",monospace;font-size:8px;letter-spacing:.12em;border:1px solid var(--darkline);color:var(--darksoft);padding:3px 7px;text-transform:uppercase}
-  .ok1{display:inline-block;margin-top:8px;font-family:"Space Mono",monospace;font-size:8px;letter-spacing:.12em;color:var(--darksoft);text-transform:uppercase}
+  /* Feedback */
+  .fb { margin-top: 12px; border-top: 1px solid var(--line); padding-top: 10px; }
+  .fb-ask { font-family: "Space Mono", monospace; font-size: 10px; color: var(--soft); margin-bottom: 7px; }
+  .fb-btns { display: flex; gap: 7px; }
+  .fb-btns button { border: 1px solid var(--ink); background: transparent; color: var(--ink); font-family: "Space Mono", monospace; font-size: 10px; padding: 5px 12px; cursor: pointer; }
+  .fb-btns button:hover { background: var(--ink); color: var(--paper); }
+  .verdict { display: flex; align-items: center; gap: 7px; font-family: "Space Mono", monospace; font-size: 11px; }
+  .verdict .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--soft); flex: none; }
+  .verdict.hit .dot { background: var(--ink); }
 
-  .foot{padding:28px 0 46px;font-family:"Space Mono",monospace;font-size:10px;color:var(--faint);line-height:1.8}
-  .foot b{color:var(--soft);font-weight:400}
+  /* Discovery zone */
+  .disc-section { background: #13130F; color: #FAFAF7; padding: 52px 0 68px; margin-top: 60px; }
+  .disc-section .zh { display: flex; align-items: baseline; gap: 14px; margin-bottom: 24px; }
+  .disc-section .zh span { font-family: "Space Mono", monospace; font-size: 11px; color: #7d7b72; }
+  .disc-section .zh h2 { font-size: 15px; font-weight: 700; color: #FAFAF7; }
+  .disc-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 24px; }
+  .disc-card { cursor: pointer; }
+  .disc-thumb { aspect-ratio: 3/4; background: linear-gradient(150deg,#26251f,#191812); overflow: hidden; position: relative; margin-bottom: 12px; }
+  .disc-thumb img { width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity .4s; }
+  .disc-thumb img.loaded { opacity: 1; }
+  .disc-thumb svg { position: absolute; inset: 0; margin: auto; width: 46%; height: 46%; color: #46443c; transition: .4s; }
+  .disc-thumb.has-img svg { opacity: 0; }
+  .disc-card:hover .disc-thumb svg { transform: scale(1.05); color: #5c5a4f; }
+  .disc-name { font-size: 15px; font-weight: 600; letter-spacing: -.01em; color: #FAFAF7; }
+  .disc-sub { font-size: 10px; color: #7d7b72; margin-top: 3px; font-family: "Space Mono", monospace; }
+  .disc-wl { display: inline-block; margin-top: 7px; font-family: "Space Mono", monospace; font-size: 8px; letter-spacing: .12em; border: 1px solid #2b2a24; color: #7d7b72; padding: 2px 7px; text-transform: uppercase; }
 
-  @media (max-width:880px){.wrap{padding:0 24px}.gal{grid-template-columns:repeat(2,1fr);gap:32px 22px}.dg{grid-template-columns:repeat(2,1fr)}}
-  @media (max-width:520px){.gal{grid-template-columns:1fr}.dg{grid-template-columns:1fr}.htop{align-items:flex-start}}
-  @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+  .empty { font-family: "Space Mono", monospace; font-size: 12px; color: var(--soft); padding: 48px 0; line-height: 1.8; }
+  footer { border-top: 1px solid var(--line); padding: 24px 0 50px; font-family: "Space Mono", monospace; font-size: 10px; color: var(--faint); line-height: 1.8; }
+
+  @media(max-width:880px){ .wrap{padding:0 20px} .disc-grid{grid-template-columns:repeat(2,1fr)} }
+  @media(max-width:540px){ .grid{grid-template-columns:1fr} .disc-grid{grid-template-columns:1fr} }
+  @media(prefers-reduced-motion:reduce){ *{transition:none!important} }
 </style>
 </head>
 <body>
 
 <header>
   <div class="wrap">
-    <div class="htop">
-      <div class="kicker"><a href="index.html" style="text-decoration:none;color:inherit">Fashion Discovery</a></div>
-      <div class="nordstern">
-        <span class="lab">Nordstern · Volltreffer</span><br>
-        <span class="big" id="hitC">0</span> <span id="rateC">(–)</span> <span style="color:var(--faint)">/ <span id="ratedC">0</span> bewertet</span>
+    <div class="topline">
+      <a class="brandmark" href="index.html">Fashion Discovery</a>
+      <div class="nordstern-head" id="nordsternHead">Nordstern: <b>—</b> · neu + passt</div>
+    </div>
+    <div class="search-block">
+      <div class="search-row">
+        <input id="q" type="text" placeholder="oversized hoodie earthtones …" autocomplete="off" onkeydown="if(event.key==='Enter')run()" />
+        <button class="go" id="goBtn" onclick="run()">Suchen</button>
       </div>
     </div>
-    <div class="qline">
-      <input id="q" value="oversized hoodie" aria-label="Suche" onkeydown="if(event.key==='Enter')run()" />
-      <button class="go" id="goBtn" onclick="run()">Suchen</button>
-    </div>
-    <div class="chips" id="chips"></div>
-    <div class="subbar">
-      <div class="thesis"><b>Bekanntes sinkt. Unentdecktes steigt.</b> &nbsp;Relevanz ist das Tor, Entdeckung die Sortierung.</div>
-      <div class="sort">Sortierung
-        <div class="seg">
-          <button id="sDisc" class="on" onclick="setSort('disc')">Entdeckung</button>
-          <button id="sFame" onclick="setSort('fame')">Bekanntheit</button>
-        </div>
+    <div class="chip-bar" id="chipBar"><span class="tag loading">Lade …</span></div>
+    <div class="filterbar" id="filterBar" style="display:none">
+      <div class="fg">
+        <span class="flabel">Größe</span>
+        <div class="fchips" id="sizeChips"></div>
       </div>
-    </div>
-    <div class="sizebar">
-      <span class="sl">Größe ·</span>
-      <div class="seg">
-        <button id="szAll" class="on" onclick="setSize('all')">Alle</button>
-        <button id="szAlpha" onclick="setSize('alpha')">XS – XXL</button>
-        <button id="szNum" onclick="setSize('numeric')">Numerisch</button>
+      <div class="fg">
+        <span class="flabel">Material</span>
+        <div class="fchips" id="matChips"></div>
       </div>
-      <span class="hint">Stufe 1 — führt diese Größenrange grundsätzlich</span>
+      <div class="fg">
+        <span class="flabel">Saison</span>
+        <div class="fchips" id="seasonChips"></div>
+      </div>
+      <button class="clear" onclick="clearFilters()">Filter zurücksetzen</button>
     </div>
   </div>
 </header>
 
 <main class="wrap">
-  <div class="zh"><span class="n">01</span><h2>Treffer</h2><span class="d">— machen genau das · hartes Relevanz-Tor</span><span class="cnt" id="hitCount"></span></div>
-  <div id="hitsEmpty"></div>
-  <div class="gal" id="gal"></div>
+  <div class="meta-row">
+    <div class="result-count" id="resultCount"></div>
+    <div class="sort-row">Sortierung
+      <div class="seg">
+        <button id="sDisc" class="on" onclick="setSort('disc')">Entdeckung</button>
+        <button id="sFame" onclick="setSort('fame')">Bekanntheit</button>
+      </div>
+    </div>
+  </div>
+  <div id="emptyMsg"></div>
+  <div class="grid" id="grid"></div>
 </main>
 
-<section class="disc">
+<section class="disc-section" id="discSection" style="display:none">
   <div class="wrap">
-    <div class="zh"><span class="n">02</span><h2>Ähnliche Marken entdecken</h2><span class="d">— im Geiste verwandt · elastische Zone</span></div>
-    <div class="dg" id="dg"></div>
+    <div class="zh"><span>02</span><h2>Im Geiste verwandt</h2><span>— elastische Zone</span></div>
+    <div class="disc-grid" id="discGrid"></div>
   </div>
 </section>
 
 <div class="wrap">
-  <div class="foot">
-    <b>61 MARKEN · ECHTER SEED.</b> Tags sind Startpunkt — beim Ausbau jeden Shop verifizieren.<br>
-    <b>Übersetzer:</b> Claude API via <code>/api/translate</code> (Vercel Serverless). Bei Fehler: regelbasierter Fallback.
-  </div>
+  <footer>
+    <b style="color:var(--soft)">Fashion Discovery · Echter Seed.</b> Bekanntes sinkt. Unentdecktes steigt.<br>
+    Produktdaten via Shopify-Feed · Übersetzung via Claude API (Vercel)
+  </footer>
 </div>
 
 <script>
+// ── URL-Param
 const _qParam = new URLSearchParams(location.search).get('q');
 if (_qParam) document.getElementById('q').value = _qParam;
 
+// ── State
 let BRANDS = [];
+let SORT = 'disc';
+const filters = { sizes: new Set(), materials: new Set(), seasons: new Set() };
+let hits = 0, rated = 0;
 
-fetch('brands.json')
-  .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
-  .then(data => { BRANDS = data; run(); })
-  .catch(() => {
-    document.getElementById('gal').innerHTML =
-      '<p class="empty">Daten konnten nicht geladen werden.</p>';
-  });
+// ── Discovery Score (Famousness Penalty)
+function score(b) {
+  const f = b.famousness || { searchVolume: 500, stockistReach: 200, followerCount: 100 };
+  return f.searchVolume * 1.0 + f.stockistReach * 0.4 + f.followerCount * 0.1 - (b.freshnessBonus || 0);
+}
 
+// ── Has Products?
+function hasProducts(b) { return b.products && b.products.length > 0; }
+
+// ── Tag matching (für Brands ohne Produktdaten)
 const LEX = {
-  type: {shirt:"hemd",hemd:"hemd",tshirt:"tee",tee:"tee","t-shirt":"tee",hoodie:"hoodie",kapuzen:"hoodie",
-    sweat:"sweat",sweater:"strick",pullover:"strick",strick:"strick",knit:"strick",hose:"hose",pants:"hose",
-    trousers:"hose",jeans:"denim",denim:"denim",jacke:"jacke",jacket:"jacke",mantel:"mantel",coat:"mantel"},
-  fit: {oversized:"oversized",oversize:"oversized",boxy:"boxy",baggy:"baggy",weit:"baggy",slim:"slim",
-    skinny:"skinny",straight:"straight","wide-leg":"wide-leg",wide:"wide-leg",cropped:"cropped",
-    kurz:"cropped",tailored:"tailored",regular:"regular",relaxed:"relaxed"},
-  vibe: {minimal:"minimal",minimalistisch:"minimal",workwear:"workwear",outdoor:"outdoor",gorpcore:"outdoor",
-    archive:"archive",military:"military",vintage:"vintage",retro:"vintage",technical:"technical",
-    tech:"technical",basics:"elevated-basics",essentials:"elevated-basics",grunge:"grunge",
-    "90s":"90s","90er":"90s",streetwear:"streetwear",street:"streetwear"},
-  palette: {earthtone:"earthtones",earthtones:"earthtones",erdton:"earthtones",erdtöne:"earthtones",
-    schwarz:"schwarz-mono",black:"schwarz-mono",mono:"schwarz-mono",washed:"washed",used:"washed",
-    weiß:"clean-white",white:"clean-white",clean:"clean-white",bold:"bold",bunt:"bold",farbig:"bold"},
-  material: {wolle:"wolle",wool:"wolle",technical:"technical",raw:"raw-denim","raw-denim":"raw-denim",
-    heavyweight:"heavyweight-cotton",schwer:"heavyweight-cotton",cotton:"heavyweight-cotton","cut-and-sew":"cut-and-sew"},
+  type:{shirt:"hemd",hemd:"hemd",tshirt:"tee",tee:"tee","t-shirt":"tee",hoodie:"hoodie",sweat:"sweat",sweater:"strick",strick:"strick",knit:"strick",hose:"hose",pants:"hose",jeans:"denim",denim:"denim",jacke:"jacke",jacket:"jacke",mantel:"mantel"},
+  fit:{oversized:"oversized",oversize:"oversized",boxy:"boxy",baggy:"baggy",slim:"slim",straight:"straight",relaxed:"relaxed",regular:"regular",wide:"wide-leg","wide-leg":"wide-leg",cropped:"cropped",tailored:"tailored"},
+  vibe:{minimal:"minimal",workwear:"workwear",outdoor:"outdoor",archive:"archive",military:"military",vintage:"vintage",technical:"technical",basics:"elevated-basics",essentials:"elevated-basics",grunge:"grunge","90s":"90s","90er":"90s",streetwear:"streetwear"},
+  palette:{earthtone:"earthtones",earthtones:"earthtones",erdton:"earthtones",schwarz:"schwarz-mono",black:"schwarz-mono",washed:"washed",weiß:"clean-white",white:"clean-white",bold:"bold"},
+  material:{wolle:"wolle",wool:"wolle",technical:"technical",raw:"raw-denim","raw-denim":"raw-denim",heavyweight:"heavyweight-cotton",cotton:"heavyweight-cotton"},
 };
 
 function localTranslate(query) {
-  const out = {type:[],fit:[],vibe:[],palette:[],material:[],size:null};
-  const q = " " + query.toLowerCase().replace(/[-/]/g, " $& ") + " ";
+  const out = { type:[], fit:[], vibe:[], palette:[], material:[], size:null, raw: query };
+  const q = " " + query.toLowerCase() + " ";
   const sz = query.match(/\b(2[8-9]|3[0-8]|4[0-2])\b/);
   if (sz) out.size = "numeric";
   for (const cat in LEX) {
@@ -240,168 +238,248 @@ function localTranslate(query) {
 async function translate(query) {
   try {
     const res = await fetch('https://fashion-discovery-eta.vercel.app/api/translate', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({query}),
+      method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({query}),
     });
-    if (!res.ok) throw new Error(res.status);
+    if (!res.ok) throw new Error();
     const tags = await res.json();
-    const sz = query.match(/\b(2[8-9]|3[0-8]|4[0-2])\b/);
-    tags.size = sz ? "numeric" : null;
+    tags.size = query.match(/\b(2[8-9]|3[0-8]|4[0-2])\b/) ? "numeric" : null;
+    tags.raw = query;
     return tags;
-  } catch {
-    return localTranslate(query);
-  }
+  } catch { return localTranslate(query); }
 }
 
-function otherTags(b) { return [...b.fit, ...b.vibe, ...b.palette, ...b.material]; }
-function reqOther(t)  { return [...t.fit, ...t.vibe, ...t.palette, ...t.material]; }
-function overlap(a, b){ return a.filter(x => b.includes(x)); }
-
-function classify(brand, t) {
-  const ro = reqOther(t);
-  const oOver = overlap(ro, otherTags(brand));
-  const typeOk = t.type.length === 0 || t.type.some(x => brand.type.includes(x));
-  let gate;
-  if (t.type.length) { gate = typeOk && (ro.length === 0 || oOver.length >= 1); }
-  else               { gate = oOver.length >= Math.min(2, ro.length || 99) && ro.length > 0; }
-  if (gate && t.size && brand.sizing !== t.size) gate = false;
-  if (gate) return {zone:"hit", why: [...overlap(t.type, brand.type), ...oOver]};
-  const adj = overlap([...t.vibe, ...t.palette], otherTags(brand));
-  if (adj.length >= 1) return {zone:"disc", why: adj};
-  return {zone:"none"};
+// ── Brand relevance check (tag-based, for brands without products)
+function brandMatches(b, t) {
+  const tags = b.styleTags || [];
+  const req = [...(t.type||[]), ...(t.fit||[]), ...(t.vibe||[]), ...(t.palette||[]), ...(t.material||[])];
+  if (!req.length) return { match: true, zone: 'hit', why: [] };
+  const hits = req.filter(r => tags.some(tag => tag.includes(r) || r.includes(tag)));
+  if (hits.length >= Math.min(2, req.length)) return { match: true, zone: 'hit', why: hits };
+  if (hits.length >= 1) return { match: true, zone: 'disc', why: hits };
+  return { match: false };
 }
 
-let SORT = 'disc', SIZE = 'all', hits = 0, rated = 0;
+// ── Product text match
+function productMatches(p, t) {
+  const raw = t.raw || '';
+  if (!raw) return true;
+  const hay = [p.title, p.description, ...(p.materials||[]), ...(p.seasons||[]), ...(p.fits||[])].join(' ').toLowerCase();
+  const words = raw.toLowerCase().split(/\s+/).filter(w => w.length > 2);
+  // Size filter
+  if (filters.sizes.size && !p.sizes?.some(s => filters.sizes.has(s.label) && s.available)) return false;
+  if (filters.materials.size && !p.materials?.some(m => filters.materials.has(m))) return false;
+  if (filters.seasons.size && !p.seasons?.some(s => filters.seasons.has(s))) return false;
+  return !words.length || words.some(w => hay.includes(w));
+}
 
-const G = [
+// ── SVG placeholders
+const SVGS = [
   `<svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M30 22 L20 30 L26 40 L30 36 V78 H70 V36 L74 40 L80 30 L70 22 L60 22 Q50 30 40 22 Z"/></svg>`,
-  `<svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M32 20 L18 30 L24 44 L32 40 V80 H68 V40 L76 44 L82 30 L68 20 Q50 32 32 20 Z"/><path d="M42 20 Q50 30 58 20"/><path d="M50 40 V64"/></svg>`,
   `<svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M34 18 H66 L70 82 H56 L50 44 L44 82 H30 Z"/></svg>`,
   `<svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M28 24 L18 32 L25 44 L30 40 V80 H70 V40 L75 44 L82 32 L72 24 M50 24 V80"/></svg>`,
+  `<svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M32 20 L18 30 L24 44 L32 40 V80 H68 V40 L76 44 L82 30 L68 20 Q50 32 32 20 Z"/></svg>`,
 ];
-const g   = i => G[i % G.length];
+const svg = i => SVGS[i % SVGS.length];
 const seg = k => { let s=''; for(let i=1;i<=5;i++) s+=`<i class="${i<=k?'f':''}"></i>`; return s; };
-const KNOWN = ["sehr unentdeckt","unentdeckt","im Aufstieg","bekannt","jeder kennt sie"];
+const KNOWN_LABEL = ["sehr unentdeckt","unentdeckt","im Aufstieg","bekannt","jeder kennt sie"];
 
-async function run() {
-  const query = document.getElementById('q').value.trim();
-  const btn = document.getElementById('goBtn');
-  btn.disabled = true;
-  document.getElementById('chips').innerHTML = '<span class="chip loading">Übersetze …</span>';
-
-  const t = await translate(query);
-  renderChips(t);
-  btn.disabled = false;
-
-  const H = [], D = [];
-  BRANDS.forEach(b => {
-    const c = classify(b, t);
-    if (c.zone === "hit")  H.push({...b, why: c.why});
-    else if (c.zone === "disc") D.push({...b, why: c.why});
-  });
-  const Hf = SIZE === 'all' ? H : H.filter(b => b.sizing === SIZE);
-  const Df = SIZE === 'all' ? D : D.filter(b => b.sizing === SIZE);
-
-  Hf.sort((a, b) => SORT === 'disc' ? a.known - b.known : b.known - a.known);
-  Df.sort((a, b) => a.known - b.known);
-  renderHits(Hf);
-  renderDisc(Df.slice(0, 4));
-  loadOgImages();
+function famToKnown(b) {
+  const s = score(b);
+  if (s < 50) return 1;
+  if (s < 120) return 2;
+  if (s < 300) return 3;
+  if (s < 600) return 4;
+  return 5;
 }
 
-function renderChips(t) {
-  const all = [...t.type, ...t.fit, ...t.vibe, ...t.palette, ...t.material];
-  let h = '<span class="cl">Erkannt →</span>';
-  if (all.length === 0) h += '<span class="chip" style="border-style:dashed;color:var(--soft)">nichts erkannt</span>';
-  else h += all.map(x => `<span class="chip">${x}</span>`).join('');
-  if (t.size) h += `<span class="chip size">Größe ${t.size} · Stufe-1-Filter</span>`;
-  document.getElementById('chips').innerHTML = h;
-}
+// ── Render hits (brand cards or product cards)
+function renderHits(items) {
+  const grid = document.getElementById('grid');
+  grid.innerHTML = '';
+  document.getElementById('resultCount').textContent = items.length ? `${items.length} Treffer` : '';
+  document.getElementById('emptyMsg').innerHTML = items.length ? '' :
+    `<div class="empty">Keine Treffer. Versuch: „oversized hoodie", „minimal earthtones", „workwear jacke".</div>`;
 
-function openBrand(url) { if (url) window.open(url, '_blank', 'noopener'); }
-
-function renderHits(list) {
-  document.getElementById('hitCount').textContent = list.length ? `${list.length} Marken` : '';
-  document.getElementById('hitsEmpty').innerHTML = list.length ? '' :
-    `<div class="empty">Keine exakten Treffer.<br><b>Versuch:</b> „oversized hoodie", „baggy 90s", „minimal earthtones", „workwear jacke", „raw denim slim".</div>`;
-  const host = document.getElementById('gal');
-  host.innerHTML = '';
-  list.forEach((b, i) => {
+  items.forEach((item, i) => {
     const el = document.createElement('div');
-    el.className = 'it' + (b.known >= 5 ? ' faded' : '');
-    el.dataset.url = b.url || '';
-    const click = b.url ? `onclick="openBrand('${b.url}')" style="cursor:pointer"` : '';
-    el.innerHTML = `
-      <div class="frame" tabindex="0" role="button" aria-label="${b.name} öffnen" ${click}>${g(i)}<span class="tag">FIG.${String(i+1).padStart(2,'0')} · LOOKBOOK</span><div class="shop"><span>${b.url ? 'Shop öffnen' : 'Kein Link'}</span></div></div>
-      <div class="meta"><div><div class="nm" ${click}>${b.name}${b.mark?`<sup>${b.mark}</sup>`:''}</div><div class="does">${b.does}</div>
-        <div class="why">passt über: <b>${b.why.slice(0,4).join(' · ')||'—'}</b></div></div>
-        <div class="tor">Echt ✓</div></div>
-      <div class="know">${seg(b.known)}<small>${KNOWN[b.known-1]}</small></div>
-      <div class="fb"></div>`;
-    host.appendChild(el);
+    el.className = 'card';
+    const k = famToKnown(item.brand);
+    const openUrl = item.productUrl || item.brand.shopDomain || '';
+    const openClick = openUrl ? `onclick="window.open('${openUrl}','_blank','noopener')" style="cursor:pointer"` : '';
+
+    if (item.type === 'product') {
+      const sizeRow = (item.sizes || []).map(s => {
+        const m = filters.sizes.has(s.label);
+        return `<span class="size${!s.available?' out':''}${m&&s.available?' match':''}">${s.label}</span>`;
+      }).join('');
+      const mat = (item.materials||[]).join(' · ');
+      const seasons = (item.seasons||[]).map(s=>({sommer:'Sommer',winter:'Winter',uebergang:'Übergang',ganzjaehrig:'Ganzjährig'}[s]||s)).join(' / ');
+      const price = item.priceMinor ? `€${(item.priceMinor/100).toFixed(2).replace('.',',')}` : '';
+
+      el.innerHTML = `
+        <div class="thumb" data-url="${item.brand.shopDomain}" ${openClick}>${svg(i)}<span class="thumb-tag">FIG.${String(i+1).padStart(2,'0')}</span><div class="thumb-open"><span>Produkt →</span></div></div>
+        <div class="card-top"><div><div class="brand-name" ${openClick}>${item.brand.name}</div><div class="prod-title">${item.title}</div></div><span class="tor">Echt ✓</span></div>
+        ${mat||seasons ? `<div class="prod-meta">${[mat,seasons].filter(Boolean).join(' — ')}</div>` : ''}
+        ${sizeRow ? `<div class="sizes">${sizeRow}</div>` : ''}
+        ${price ? `<div class="price">${price}</div>` : ''}
+        ${openUrl ? `<a class="to-product" href="${openUrl}" target="_blank" rel="noopener">Zum Produkt ↗</a>` : ''}
+        <div class="know">${seg(k)}<small>${KNOWN_LABEL[k-1]}</small></div>
+        <div class="fb"></div>`;
+    } else {
+      el.innerHTML = `
+        <div class="thumb" data-url="${item.brand.shopDomain}" ${openClick}>${svg(i)}<span class="thumb-tag">FIG.${String(i+1).padStart(2,'0')}</span><div class="thumb-open"><span>Shop →</span></div></div>
+        <div class="card-top"><div class="brand-name" ${openClick}>${item.brand.name}</div><span class="tor">Echt ✓</span></div>
+        <div class="brand-does">${item.why.length ? 'passt: ' + item.why.slice(0,4).join(' · ') : ''}</div>
+        <div class="know">${seg(k)}<small>${KNOWN_LABEL[k-1]}</small></div>
+        <div class="fb"></div>`;
+    }
+    grid.appendChild(el);
     mountFb(el.querySelector('.fb'));
   });
+
+  loadOgImages(grid);
 }
 
-function renderDisc(list) {
-  const host = document.getElementById('dg');
-  host.innerHTML = '';
-  if (!list.length) { host.innerHTML = '<div class="dakin" style="color:var(--darksoft)">Für diese Suche keine angrenzenden Marken.</div>'; return; }
-  list.forEach((b, i) => {
+// ── Render discovery zone
+function renderDisc(brands) {
+  const sec = document.getElementById('discSection');
+  const dg = document.getElementById('discGrid');
+  if (!brands.length) { sec.style.display = 'none'; return; }
+  sec.style.display = '';
+  dg.innerHTML = '';
+  brands.slice(0,4).forEach((b, i) => {
     const el = document.createElement('div');
-    el.className = 'dt';
-    el.dataset.url = b.url || '';
-    const click = b.url ? `onclick="openBrand('${b.url}')"` : '';
+    el.className = 'disc-card';
+    const openClick = b.shopDomain ? `onclick="window.open('${b.shopDomain}','_blank','noopener')"` : '';
     el.innerHTML = `
-      <div class="dframe" tabindex="0" role="button" aria-label="${b.name} öffnen" ${click}>${g(i+1)}</div>
-      <div class="dnm" ${click}>${b.name}${b.mark?`<sup>${b.mark}</sup>`:''}</div>
-      <div class="dakin">verwandt über: ${b.why.slice(0,2).join(' · ')}</div>
-      ${b.wl?'<span class="wl">Watchlist · geparkt</span>':'<span class="ok1">Tor 1 ✓</span>'}`;
-    host.appendChild(el);
+      <div class="disc-thumb" data-url="${b.shopDomain}" ${openClick}>${svg(i+2)}</div>
+      <div class="disc-name" ${openClick}>${b.name}</div>
+      <div class="disc-sub">verwandt</div>
+      ${b.watchlist ? '<span class="disc-wl">Watchlist · geparkt</span>' : ''}`;
+    dg.appendChild(el);
   });
+  loadOgImages(dg);
 }
 
-async function loadOgImages() {
-  const cards = document.querySelectorAll('[data-url]');
-  for (const card of cards) {
-    const url = card.dataset.url;
+// ── OG image loader
+async function loadOgImages(container) {
+  const items = container.querySelectorAll('[data-url]');
+  for (const item of items) {
+    const url = item.dataset.url;
     if (!url) continue;
     try {
       const r = await fetch(`https://fashion-discovery-eta.vercel.app/api/ogimage?url=${encodeURIComponent(url)}`);
       const { img } = await r.json();
       if (!img) continue;
-      const frame = card.querySelector('.frame, .dframe');
-      if (!frame) continue;
       const el = document.createElement('img');
-      el.className = 'og';
       el.src = img;
       el.alt = '';
-      el.onload = () => { el.classList.add('loaded'); frame.classList.add('has-img'); };
-      frame.appendChild(el);
+      el.onload = () => { el.classList.add('loaded'); item.classList.add('has-img'); };
+      item.appendChild(el);
     } catch {}
   }
 }
 
+// ── Filter chips (only when products exist)
+function buildFilterChips(brands) {
+  const hasProds = brands.some(hasProducts);
+  document.getElementById('filterBar').style.display = hasProds ? '' : 'none';
+  if (!hasProds) return;
+
+  const allSizes = [...new Set(brands.flatMap(b => b.products.flatMap(p => (p.sizes||[]).map(s=>s.label))))].sort((a,b)=>a.localeCompare(b,'en',{numeric:true}));
+  const allMats = [...new Set(brands.flatMap(b => b.products.flatMap(p => p.materials||[])))].sort();
+  const allSeasons = ['sommer','uebergang','winter','ganzjaehrig'].filter(s => brands.some(b => b.products.some(p => (p.seasons||[]).includes(s))));
+  const SL = {sommer:'Sommer',winter:'Winter',uebergang:'Übergang',ganzjaehrig:'Ganzjährig'};
+
+  function chips(containerId, values, set, label) {
+    const el = document.getElementById(containerId);
+    el.innerHTML = '';
+    values.forEach(v => {
+      const b = document.createElement('button');
+      b.className = 'fchip' + (set.has(v) ? ' on' : '');
+      b.textContent = label ? label(v) : v;
+      b.onclick = () => { set.has(v) ? set.delete(v) : set.add(v); b.classList.toggle('on'); run(); };
+      el.appendChild(b);
+    });
+  }
+  chips('sizeChips', allSizes, filters.sizes);
+  chips('matChips', allMats, filters.materials);
+  chips('seasonChips', allSeasons, filters.seasons, v => SL[v]||v);
+}
+
+function clearFilters() {
+  filters.sizes.clear(); filters.materials.clear(); filters.seasons.clear();
+  document.querySelectorAll('.fchip').forEach(c => c.classList.remove('on'));
+  run();
+}
+
+// ── Main run
+let currentTags = null;
+async function run() {
+  if (!BRANDS.length) return;
+  const query = document.getElementById('q').value.trim();
+  document.getElementById('goBtn').disabled = true;
+  document.getElementById('chipBar').innerHTML = '<span class="tag loading">Übersetze …</span>';
+
+  const t = query ? await translate(query) : { type:[], fit:[], vibe:[], palette:[], material:[], size:null, raw:'' };
+  currentTags = t;
+  document.getElementById('goBtn').disabled = false;
+
+  // Render chip bar
+  const allTags = [...(t.type||[]),...(t.fit||[]),...(t.vibe||[]),...(t.palette||[]),...(t.material||[])];
+  document.getElementById('chipBar').innerHTML = allTags.length
+    ? '<span class="chip-label">Erkannt →</span>' + allTags.map(x=>`<span class="tag">${x}</span>`).join('')
+    : '<span class="chip-label">Alle Marken</span>';
+
+  const hitItems = [], discBrands = [];
+
+  BRANDS.forEach(b => {
+    if (hasProducts(b)) {
+      // Product-level matching
+      const matchingProds = b.products.filter(p => productMatches(p, t));
+      if (matchingProds.length) {
+        matchingProds.forEach(p => hitItems.push({ type: 'product', brand: b, ...p }));
+      } else {
+        // Brand has products but none match → disc?
+        const br = brandMatches(b, t);
+        if (br.zone === 'disc') discBrands.push(b);
+      }
+    } else {
+      // Brand-level tag matching
+      const br = brandMatches(b, t);
+      if (br.zone === 'hit') hitItems.push({ type: 'brand', brand: b, why: br.why });
+      else if (br.zone === 'disc') discBrands.push(b);
+    }
+  });
+
+  // Sort
+  hitItems.sort((a,b) => SORT === 'disc' ? score(a.brand) - score(b.brand) : score(b.brand) - score(a.brand));
+  discBrands.sort((a,b) => score(a) - score(b));
+
+  renderHits(hitItems);
+  renderDisc(discBrands);
+  buildFilterChips(BRANDS);
+}
+
+// ── Feedback
 function mountFb(el) {
-  el.innerHTML = `<div class="ask">Kennst du die Marke?</div><div class="btns"><button data-v="no">Nein</button><button data-v="yes">Ja</button></div>`;
+  el.innerHTML = `<div class="fb-ask">Kennst du die Marke?</div><div class="fb-btns"><button data-v="no">Nein</button><button data-v="yes">Ja</button></div>`;
   el.querySelectorAll('button').forEach(b => b.onclick = () => { el.dataset.knew = b.dataset.v; askFit(el); });
 }
 function askFit(el) {
-  el.innerHTML = `<div class="ask">Passt sie zu deiner Suche?</div><div class="btns"><button data-v="up">👍 Passt</button><button data-v="down">👎 Daneben</button></div>`;
+  el.innerHTML = `<div class="fb-ask">Passt sie zur Suche?</div><div class="fb-btns"><button data-v="up">👍 Passt</button><button data-v="down">👎 Daneben</button></div>`;
   el.querySelectorAll('button').forEach(b => b.onclick = () => { el.dataset.fit = b.dataset.v; verdict(el); });
 }
 function verdict(el) {
   const kn = el.dataset.knew, ft = el.dataset.fit; let tx, c = '';
-  if      (kn==='no'  && ft==='up')   { tx='🎯 Volltreffer'; c='hit'; hits++; }
-  else if (kn==='no'  && ft==='down')   tx='Neu, aber daneben';
-  else if (kn==='yes' && ft==='up')     tx='Korrekt, aber bekannt';
-  else                                  tx='Daneben';
+  if (kn==='no' && ft==='up')  { tx='🎯 Volltreffer'; c='hit'; hits++; }
+  else if (kn==='no')            tx='Neu, aber daneben';
+  else if (ft==='up')            tx='Korrekt, aber bekannt';
+  else                           tx='Daneben';
   rated++;
   el.innerHTML = `<div class="verdict ${c}"><span class="dot"></span>${tx}</div>`;
-  document.getElementById('hitC').textContent  = hits;
-  document.getElementById('ratedC').textContent = rated;
-  document.getElementById('rateC').textContent  = '(' + (rated ? Math.round(hits/rated*100)+'%' : '–') + ')';
+  document.getElementById('nordsternHead').innerHTML =
+    `Nordstern: <b>${rated ? Math.round(hits/rated*100)+'%' : '—'}</b> · neu + passt`;
 }
 
 function setSort(s) {
@@ -411,13 +489,16 @@ function setSort(s) {
   run();
 }
 
-function setSize(s) {
-  SIZE = s;
-  document.getElementById('szAll').classList.toggle('on', s==='all');
-  document.getElementById('szAlpha').classList.toggle('on', s==='alpha');
-  document.getElementById('szNum').classList.toggle('on', s==='numeric');
-  run();
-}
+// ── Init
+fetch('brands.json')
+  .then(r => { if (!r.ok) throw new Error(); return r.json(); })
+  .then(data => {
+    BRANDS = data;
+    run();
+  })
+  .catch(() => {
+    document.getElementById('grid').innerHTML = '<div class="empty">Daten konnten nicht geladen werden.</div>';
+  });
 </script>
 </body>
 </html>
