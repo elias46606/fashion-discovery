@@ -1,250 +1,249 @@
 [
   {"id":"trendtvision","name":"Trendt Vision","mark":"","does":"Kleines deutsches Label, Drop-orientiert, Indie-Streetwear.",
    "type":["tee","hoodie","sweat","hose"],"fit":["oversized","baggy","relaxed"],"vibe":["streetwear","elevated-basics","90s"],"palette":["schwarz-mono","bold","washed"],"material":["heavyweight-cotton"],
-   "known":1,"tier":"indie","founded":2020,"sizing":"alpha","affiliate":false,"wl":true},
+   "known":1,"tier":"indie","founded":2020,"sizing":"alpha","affiliate":false,"wl":true,"url":""},
 
   {"id":"nofs","name":"NOFS","mark":"","does":"None of Us â€” deutsches Indie-Label, Community-getrieben.",
    "type":["tee","hoodie","sweat","hose","jacke"],"fit":["oversized","baggy","relaxed"],"vibe":["streetwear","elevated-basics","90s"],"palette":["schwarz-mono","bold","clean-white"],"material":["heavyweight-cotton"],
-   "known":1,"tier":"indie","founded":2021,"sizing":"alpha","affiliate":false,"wl":true},
+   "known":1,"tier":"indie","founded":2021,"sizing":"alpha","affiliate":false,"wl":true,"url":""},
 
   {"id":"deputydept","name":"deputy dept.","mark":"","does":"GrÃ¼ndergefÃ¼hrtes deutsches Indie-Label, minimale PrÃ¤senz.",
    "type":["tee","hose","hemd","hoodie"],"fit":["relaxed","oversized","regular"],"vibe":["elevated-basics","minimal","streetwear"],"palette":["schwarz-mono","earthtones","washed"],"material":["heavyweight-cotton","cut-and-sew"],
-   "known":1,"tier":"indie","founded":2021,"sizing":"alpha","affiliate":false,"wl":true},
+   "known":1,"tier":"indie","founded":2021,"sizing":"alpha","affiliate":false,"wl":true,"url":""},
 
   {"id":"vato","name":"VATO","mark":"","does":"Kleines deutsches Streetwear-Label, Drop-Kultur.",
    "type":["tee","hoodie","sweat","hose"],"fit":["oversized","baggy"],"vibe":["streetwear","90s","elevated-basics"],"palette":["schwarz-mono","bold"],"material":["heavyweight-cotton"],
-   "known":1,"tier":"indie","founded":2020,"sizing":"alpha","affiliate":false,"wl":true},
+   "known":1,"tier":"indie","founded":2020,"sizing":"alpha","affiliate":false,"wl":true,"url":""},
 
   {"id":"truefellas","name":"True Fellas","mark":"","does":"Deutsches Indie-Label, eigenstÃ¤ndige Ã„sthetik.",
    "type":["tee","hoodie","sweat","hose"],"fit":["oversized","relaxed","baggy"],"vibe":["streetwear","elevated-basics","grunge"],"palette":["schwarz-mono","washed","bold"],"material":["heavyweight-cotton"],
-   "known":1,"tier":"indie","founded":2019,"sizing":"alpha","affiliate":false,"wl":true},
+   "known":1,"tier":"indie","founded":2019,"sizing":"alpha","affiliate":false,"wl":true,"url":""},
 
   {"id":"liju","name":"Liju","mark":"","does":"Sehr kleines Indie-Label, grÃ¼ndergefÃ¼hrt.",
    "type":["tee","hose","hemd"],"fit":["relaxed","regular","oversized"],"vibe":["minimal","elevated-basics","archive"],"palette":["earthtones","schwarz-mono","washed"],"material":["heavyweight-cotton","cut-and-sew"],
-   "known":1,"tier":"indie","founded":2022,"sizing":"alpha","affiliate":false,"wl":true},
+   "known":1,"tier":"indie","founded":2022,"sizing":"alpha","affiliate":false,"wl":true,"url":""},
 
   {"id":"sourire","name":"Sourire","mark":"","does":"Kleines Label, reduzierte Silhouetten.",
    "type":["tee","hose","hemd"],"fit":["relaxed","regular"],"vibe":["minimal","elevated-basics"],"palette":["clean-white","earthtones","schwarz-mono"],"material":["heavyweight-cotton","cut-and-sew"],
-   "known":1,"tier":"indie","founded":2022,"sizing":"alpha","affiliate":false,"wl":true},
+   "known":1,"tier":"indie","founded":2022,"sizing":"alpha","affiliate":false,"wl":true,"url":""},
 
   {"id":"tehra","name":"Tehra","mark":"","does":"Indie-Label, grÃ¼ndergefÃ¼hrt.",
    "type":["tee","hose","jacke","hemd"],"fit":["relaxed","oversized","regular"],"vibe":["elevated-basics","minimal","archive"],"palette":["earthtones","schwarz-mono","washed"],"material":["heavyweight-cotton","cut-and-sew"],
-   "known":1,"tier":"indie","founded":2021,"sizing":"alpha","affiliate":false,"wl":true},
+   "known":1,"tier":"indie","founded":2021,"sizing":"alpha","affiliate":false,"wl":true,"url":""},
 
   {"id":"devour","name":"DEVOUR","mark":"","does":"devourarchive â€” archivales Indie-Label, very small.",
    "type":["tee","hose","jacke","hemd"],"fit":["relaxed","oversized","regular"],"vibe":["archive","minimal","vintage"],"palette":["earthtones","schwarz-mono","washed"],"material":["cut-and-sew","heavyweight-cotton"],
-   "known":1,"tier":"indie","founded":2021,"sizing":"alpha","affiliate":false,"wl":true},
+   "known":1,"tier":"indie","founded":2021,"sizing":"alpha","affiliate":false,"wl":true,"url":""},
 
   {"id":"skagenclothing","name":"Skagen Clothing","mark":"","does":"Skandinavisch inspiriertes Indie-Label.",
    "type":["tee","hemd","hose","jacke"],"fit":["regular","relaxed"],"vibe":["minimal","elevated-basics","outdoor"],"palette":["earthtones","clean-white","washed"],"material":["heavyweight-cotton","cut-and-sew"],
-   "known":1,"tier":"indie","founded":2020,"sizing":"alpha","affiliate":false,"wl":true},
+   "known":1,"tier":"indie","founded":2020,"sizing":"alpha","affiliate":false,"wl":true,"url":""},
 
   {"id":"oill","name":"OILL","mark":"","does":"Kleines Indie-Label, eigenstÃ¤ndige Ã„sthetik.",
    "type":["tee","hose","hoodie"],"fit":["oversized","relaxed","baggy"],"vibe":["streetwear","elevated-basics"],"palette":["schwarz-mono","bold","earthtones"],"material":["heavyweight-cotton"],
-   "known":1,"tier":"indie","founded":2021,"sizing":"alpha","affiliate":false,"wl":true},
+   "known":1,"tier":"indie","founded":2021,"sizing":"alpha","affiliate":false,"wl":true,"url":""},
 
   {"id":"tectum","name":"Tectum Clothing","mark":"","does":"Outdoor/Technical Indie-Label.",
    "type":["jacke","hose","hemd","tee"],"fit":["regular","relaxed"],"vibe":["outdoor","technical","workwear"],"palette":["earthtones","schwarz-mono"],"material":["technical","heavyweight-cotton"],
-   "known":1,"tier":"indie","founded":2021,"sizing":"alpha","affiliate":false,"wl":true},
+   "known":1,"tier":"indie","founded":2021,"sizing":"alpha","affiliate":false,"wl":true,"url":""},
 
   {"id":"thea3b","name":"THEA3B","mark":"","does":"Sehr kleines Indie-Label.",
    "type":["tee","hose","hoodie"],"fit":["oversized","relaxed"],"vibe":["elevated-basics","streetwear","archive"],"palette":["schwarz-mono","earthtones"],"material":["heavyweight-cotton","cut-and-sew"],
-   "known":1,"tier":"indie","founded":2022,"sizing":"alpha","affiliate":false,"wl":true},
+   "known":1,"tier":"indie","founded":2022,"sizing":"alpha","affiliate":false,"wl":true,"url":""},
 
   {"id":"fivefourfive","name":"Fivefourfive","mark":"","does":"Kleines Indie-Label, Drop-Kultur.",
    "type":["tee","hoodie","sweat","hose"],"fit":["oversized","relaxed","baggy"],"vibe":["streetwear","elevated-basics","90s"],"palette":["schwarz-mono","bold","washed"],"material":["heavyweight-cotton"],
-   "known":1,"tier":"indie","founded":2021,"sizing":"alpha","affiliate":false,"wl":true},
+   "known":1,"tier":"indie","founded":2021,"sizing":"alpha","affiliate":false,"wl":true,"url":""},
 
   {"id":"anovair","name":"Anovair","mark":"","does":"Vintage-inspirierte Henleys & Essentials, grÃ¼ndergefÃ¼hrt.",
    "type":["hemd","strick","hose","tee","denim"],"fit":["relaxed","regular"],"vibe":["vintage","elevated-basics","archive"],"palette":["earthtones","washed"],"material":["wolle","heavyweight-cotton","cut-and-sew","raw-denim"],
-   "known":1,"tier":"indie","founded":2022,"sizing":"alpha","affiliate":false,"wl":false},
+   "known":1,"tier":"indie","founded":2022,"sizing":"alpha","affiliate":false,"wl":false,"url":"https://anovair.com"},
 
   {"id":"systemic","name":"Systemic","mark":"Â®","does":"Minimalistische, technische Cut-and-sew-StÃ¼cke.",
    "type":["tee","hemd","hose","jacke"],"fit":["boxy","regular","oversized"],"vibe":["minimal","technical","archive"],"palette":["schwarz-mono","clean-white"],"material":["cut-and-sew","technical","heavyweight-cotton"],
-   "known":1,"tier":"indie","founded":2021,"sizing":"alpha","affiliate":false,"wl":false},
+   "known":1,"tier":"indie","founded":2021,"sizing":"alpha","affiliate":false,"wl":false,"url":""},
 
   {"id":"sacralite","name":"sacralite","mark":"","does":"Stille, archivale Silhouetten in gedeckten TÃ¶nen. Sehr klein, grÃ¼ndergefÃ¼hrt.",
    "type":["hemd","hose","jacke","tee"],"fit":["relaxed","regular","oversized"],"vibe":["archive","minimal","vintage"],"palette":["earthtones","washed","schwarz-mono"],"material":["cut-and-sew","heavyweight-cotton"],
-   "known":1,"tier":"indie","founded":2022,"sizing":"alpha","affiliate":false,"wl":false},
+   "known":1,"tier":"indie","founded":2022,"sizing":"alpha","affiliate":false,"wl":false,"url":""},
 
   {"id":"josephatelier","name":"Joseph Atelier","mark":"","does":"Konstruktive Schnitte, europÃ¤ische Herstellung, wenig LÃ¤rm.",
    "type":["hemd","hose","jacke","strick"],"fit":["regular","relaxed","tailored"],"vibe":["minimal","archive","elevated-basics"],"palette":["earthtones","schwarz-mono","clean-white"],"material":["wolle","cut-and-sew","heavyweight-cotton"],
-   "known":1,"tier":"indie","founded":2021,"sizing":"alpha","affiliate":false,"wl":false},
+   "known":1,"tier":"indie","founded":2021,"sizing":"alpha","affiliate":false,"wl":false,"url":""},
 
   {"id":"6pm","name":"6PM","mark":"","does":"Elevated Basics mit Drop-Kultur, Berlin.",
    "type":["tee","hoodie","sweat","hose"],"fit":["oversized","boxy","relaxed"],"vibe":["elevated-basics","minimal","streetwear","90s"],"palette":["schwarz-mono","washed","clean-white"],"material":["heavyweight-cotton"],
-   "known":2,"tier":"indie","founded":2019,"sizing":"alpha","affiliate":false,"wl":false},
+   "known":2,"tier":"indie","founded":2019,"sizing":"alpha","affiliate":false,"wl":false,"url":"https://6pmseason.com"},
 
   {"id":"pequs","name":"Pequs","mark":"","does":"Roher, skandinavisch geprÃ¤gter Workwear-Touch.",
    "type":["hose","jacke","hemd","denim"],"fit":["relaxed","regular","wide-leg"],"vibe":["workwear","minimal","archive"],"palette":["earthtones","washed"],"material":["raw-denim","heavyweight-cotton"],
-   "known":2,"tier":"indie","founded":2020,"sizing":"numeric","affiliate":false,"wl":false},
+   "known":2,"tier":"indie","founded":2020,"sizing":"numeric","affiliate":false,"wl":false,"url":"https://www.pequs.com"},
 
   {"id":"ere","name":"Ã©re studios","mark":"","does":"Cut-and-sew Archive in gedeckten TÃ¶nen.",
    "type":["jacke","hose","hemd","tee"],"fit":["relaxed","regular","oversized"],"vibe":["archive","minimal","technical"],"palette":["earthtones","washed"],"material":["cut-and-sew","technical"],
-   "known":2,"tier":"indie","founded":2018,"sizing":"alpha","affiliate":false,"wl":false},
+   "known":2,"tier":"indie","founded":2018,"sizing":"alpha","affiliate":false,"wl":false,"url":""},
 
   {"id":"palmes","name":"Palmes","mark":"","does":"Tennis-inspirierte Indie-StÃ¼cke aus DÃ¤nemark. Sportlich, leise.",
    "type":["tee","hemd","jacke","sweat"],"fit":["regular","relaxed","boxy"],"vibe":["vintage","elevated-basics","outdoor"],"palette":["clean-white","earthtones","bold"],"material":["heavyweight-cotton","cut-and-sew"],
-   "known":2,"tier":"indie","founded":2020,"sizing":"alpha","affiliate":false,"wl":false},
+   "known":2,"tier":"indie","founded":2020,"sizing":"alpha","affiliate":false,"wl":false,"url":"https://palmestennis.com"},
 
   {"id":"waxlondon","name":"Wax London","mark":"","does":"Britische Indie-Marke, natÃ¼rliche Materialien, saubere Schnitte.",
    "type":["hemd","hose","jacke","tee"],"fit":["regular","relaxed","straight"],"vibe":["vintage","workwear","elevated-basics"],"palette":["earthtones","washed","clean-white"],"material":["heavyweight-cotton","wolle","raw-denim"],
-   "known":2,"tier":"indie","founded":2016,"sizing":"alpha","affiliate":false,"wl":false},
+   "known":2,"tier":"indie","founded":2016,"sizing":"alpha","affiliate":false,"wl":false,"url":"https://waxlondon.com"},
 
   {"id":"arnarmar","name":"Arnar Mar Jonsson","mark":"","does":"IslÃ¤ndisches Archive-Label, poetische Silhouetten, EinzelstÃ¼cke.",
    "type":["jacke","hemd","strick","hose"],"fit":["relaxed","oversized","regular"],"vibe":["archive","outdoor","military","vintage"],"palette":["earthtones","washed","schwarz-mono"],"material":["wolle","cut-and-sew","heavyweight-cotton"],
-   "known":2,"tier":"indie","founded":2014,"sizing":"alpha","affiliate":false,"wl":false},
+   "known":2,"tier":"indie","founded":2014,"sizing":"alpha","affiliate":false,"wl":false,"url":"https://arnarmarjonsson.com"},
 
   {"id":"colors","name":"COLORS","mark":"Â®","does":"Reduzierte Earthtone-Essentials.",
    "type":["tee","hose","strick"],"fit":["regular","relaxed"],"vibe":["minimal","elevated-basics"],"palette":["earthtones","washed","clean-white"],"material":["heavyweight-cotton","cut-and-sew"],
-   "known":2,"tier":"indie","founded":2021,"sizing":"alpha","affiliate":false,"wl":true},
+   "known":2,"tier":"indie","founded":2021,"sizing":"alpha","affiliate":false,"wl":true,"url":""},
 
   {"id":"coleboxton","name":"Cole Buxton","mark":"","does":"Britisches Bodybuilder-Aesthetic-Label, schwerer Baumwoll-Fokus.",
    "type":["tee","hoodie","sweat","hose"],"fit":["oversized","boxy","regular"],"vibe":["elevated-basics","minimal","vintage"],"palette":["schwarz-mono","earthtones","clean-white"],"material":["heavyweight-cotton","cut-and-sew"],
-   "known":2,"tier":"indie","founded":2017,"sizing":"alpha","affiliate":false,"wl":false},
+   "known":2,"tier":"indie","founded":2017,"sizing":"alpha","affiliate":false,"wl":false,"url":"https://coleboxton.com"},
 
   {"id":"akindofguise","name":"A Kind of Guise","mark":"","does":"MÃ¼nchner Label, elevated Handwerk, eigene Stoffe, europÃ¤ische Produktion.",
    "type":["hemd","hose","jacke","strick","tee"],"fit":["relaxed","regular","tailored"],"vibe":["minimal","elevated-basics","archive","workwear"],"palette":["earthtones","clean-white","schwarz-mono"],"material":["wolle","cut-and-sew","heavyweight-cotton"],
-   "known":2,"tier":"indie","founded":2011,"sizing":"alpha","affiliate":false,"wl":false},
+   "known":2,"tier":"indie","founded":2011,"sizing":"alpha","affiliate":false,"wl":false,"url":"https://akindofguise.com"},
 
   {"id":"sunflower","name":"Sunflower","mark":"","does":"DÃ¤nisches Indie-Label, reduzierte Silhouetten, natÃ¼rliche Materialien.",
    "type":["tee","hemd","hose","strick","jacke"],"fit":["relaxed","regular"],"vibe":["minimal","elevated-basics","vintage"],"palette":["earthtones","washed","clean-white"],"material":["heavyweight-cotton","wolle","cut-and-sew"],
-   "known":2,"tier":"indie","founded":2015,"sizing":"alpha","affiliate":false,"wl":false},
+   "known":2,"tier":"indie","founded":2015,"sizing":"alpha","affiliate":false,"wl":false,"url":"https://sunflower-studio.com"},
 
   {"id":"stanray","name":"Stan Ray","mark":"","does":"US-Workwear-Revival, ikonische Painter Pants, nÃ¼chterne FunktionalitÃ¤t.",
    "type":["hose","hemd","jacke"],"fit":["relaxed","straight","regular","wide-leg"],"vibe":["workwear","vintage","military"],"palette":["earthtones","washed","schwarz-mono"],"material":["heavyweight-cotton","raw-denim"],
-   "known":2,"tier":"indie","founded":1931,"sizing":"numeric","affiliate":false,"wl":false},
+   "known":2,"tier":"indie","founded":1931,"sizing":"numeric","affiliate":false,"wl":false,"url":"https://stanray.com"},
 
   {"id":"mertra","name":"MERTRA MERTRA","mark":"","does":"TÃ¼rkisch-europÃ¤isches Streetwear-Label, intensive Drops, eigenwillige Grafiken.",
    "type":["tee","hoodie","sweat","hose"],"fit":["oversized","baggy","boxy"],"vibe":["streetwear","grunge","90s","archive"],"palette":["schwarz-mono","bold","washed"],"material":["heavyweight-cotton"],
-   "known":2,"tier":"indie","founded":2018,"sizing":"alpha","affiliate":false,"wl":false},
+   "known":2,"tier":"indie","founded":2018,"sizing":"alpha","affiliate":false,"wl":false,"url":"https://mertramertra.com"},
 
   {"id":"peso","name":"PESO","mark":"â„¢","does":"Drop-getriebene Streetwear aus DÃ¼sseldorf.",
    "type":["tee","hoodie","sweat","jacke"],"fit":["oversized","boxy","baggy"],"vibe":["streetwear","90s","elevated-basics"],"palette":["bold","schwarz-mono","clean-white"],"material":["heavyweight-cotton"],
-   "known":3,"tier":"indie","founded":2016,"sizing":"alpha","affiliate":false,"wl":false},
+   "known":3,"tier":"indie","founded":2016,"sizing":"alpha","affiliate":false,"wl":false,"url":""},
 
   {"id":"ourlegacy","name":"Our Legacy","mark":"","does":"Schwedisches Label, archivale Washes, konstruktive Schnitte.",
    "type":["hemd","hose","jacke","tee","strick"],"fit":["relaxed","regular","boxy","wide-leg"],"vibe":["archive","vintage","minimal","elevated-basics"],"palette":["earthtones","washed","schwarz-mono"],"material":["raw-denim","cut-and-sew","heavyweight-cotton","wolle"],
-   "known":3,"tier":"indie","founded":2005,"sizing":"alpha","affiliate":false,"wl":false},
+   "known":3,"tier":"indie","founded":2005,"sizing":"alpha","affiliate":false,"wl":false,"url":"https://ourlegacy.com"},
 
   {"id":"studionicolson","name":"Studio Nicholson","mark":"","does":"Britisches Minimal-Label, elongierte Silhouetten, wenig SchnÃ¶rkel.",
    "type":["hose","jacke","hemd","strick","mantel"],"fit":["straight","wide-leg","regular","tailored","relaxed"],"vibe":["minimal","elevated-basics","archive"],"palette":["schwarz-mono","earthtones","clean-white"],"material":["wolle","cut-and-sew","technical"],
-   "known":3,"tier":"indie","founded":2010,"sizing":"alpha","affiliate":false,"wl":false},
+   "known":3,"tier":"indie","founded":2010,"sizing":"alpha","affiliate":false,"wl":false,"url":"https://studionicholson.com"},
 
   {"id":"braindead","name":"Brain Dead","mark":"","does":"LA-Indie mit Kunst-Referenzen, grafisch, konsequent eigenstÃ¤ndig.",
    "type":["tee","hoodie","jacke","hemd"],"fit":["oversized","boxy","regular"],"vibe":["grunge","90s","streetwear","archive"],"palette":["bold","schwarz-mono","washed"],"material":["heavyweight-cotton","cut-and-sew"],
-   "known":3,"tier":"indie","founded":2014,"sizing":"alpha","affiliate":false,"wl":false},
+   "known":3,"tier":"indie","founded":2014,"sizing":"alpha","affiliate":false,"wl":false,"url":"https://deadinside.com"},
 
   {"id":"engineeredgarments","name":"Engineered Garments","mark":"","does":"Neely Johnsons Workwear-Reinterpretation. Funky Details, US-Produktion.",
    "type":["jacke","hemd","hose","mantel"],"fit":["relaxed","regular","baggy"],"vibe":["workwear","military","vintage","outdoor"],"palette":["earthtones","washed","bold"],"material":["heavyweight-cotton","raw-denim","wolle"],
-   "known":3,"tier":"indie","founded":1999,"sizing":"alpha","affiliate":false,"wl":false},
+   "known":3,"tier":"indie","founded":1999,"sizing":"alpha","affiliate":false,"wl":false,"url":"https://engineeredgarments.com"},
 
   {"id":"norsepro","name":"Norse Projects","mark":"","does":"DÃ¤nisches Minimal-Workwear, qualitÃ¤tsbewusst, weltweit verfÃ¼gbar.",
    "type":["hemd","jacke","hose","tee","strick"],"fit":["regular","relaxed","straight"],"vibe":["minimal","workwear","outdoor","elevated-basics"],"palette":["earthtones","clean-white","schwarz-mono"],"material":["wolle","heavyweight-cotton","technical","cut-and-sew"],
-   "known":3,"tier":"etabliert","founded":2004,"sizing":"alpha","affiliate":true,"wl":false},
+   "known":3,"tier":"etabliert","founded":2004,"sizing":"alpha","affiliate":true,"wl":false,"url":"https://norseprojects.com"},
 
   {"id":"fillingpieces","name":"Filling Pieces","mark":"","does":"NiederlÃ¤ndisches Label, Sneakers & Apparel, Premium-Segment.",
    "type":["tee","hose","jacke","strick"],"fit":["regular","slim","relaxed"],"vibe":["minimal","elevated-basics","archive"],"palette":["schwarz-mono","earthtones","clean-white"],"material":["cut-and-sew","heavyweight-cotton","technical"],
-   "known":3,"tier":"etabliert","founded":2009,"sizing":"alpha","affiliate":true,"wl":false},
+   "known":3,"tier":"etabliert","founded":2009,"sizing":"alpha","affiliate":true,"wl":false,"url":"https://fillingpieces.com"},
 
   {"id":"dime","name":"Dime","mark":"","does":"Kanadisches Skate-Label, ironisch, eigenstÃ¤ndig, Drop-getrieben.",
    "type":["tee","hoodie","hemd","jacke","hose"],"fit":["baggy","relaxed","regular"],"vibe":["90s","streetwear","vintage","grunge"],"palette":["bold","washed","clean-white","schwarz-mono"],"material":["heavyweight-cotton"],
-   "known":3,"tier":"indie","founded":2013,"sizing":"alpha","affiliate":false,"wl":false},
+   "known":3,"tier":"indie","founded":2013,"sizing":"alpha","affiliate":false,"wl":false,"url":"https://dimemtl.com"},
 
   {"id":"soulland","name":"Soulland","mark":"","does":"DÃ¤nisches Indie-Label, verspielt-elevated, breites Sortiment.",
    "type":["tee","hemd","hose","jacke","strick"],"fit":["regular","relaxed","boxy"],"vibe":["elevated-basics","archive","minimal","outdoor"],"palette":["earthtones","clean-white","bold"],"material":["heavyweight-cotton","cut-and-sew","wolle"],
-   "known":3,"tier":"indie","founded":2002,"sizing":"alpha","affiliate":false,"wl":false},
+   "known":3,"tier":"indie","founded":2002,"sizing":"alpha","affiliate":false,"wl":false,"url":"https://soulland.com"},
 
   {"id":"arteantwerp","name":"Arte Antwerp","mark":"","does":"Belgisches Label, 90s-Grafik-Aesthetic, breite Kollektion.",
    "type":["tee","hemd","hose","jacke","strick"],"fit":["regular","relaxed","boxy"],"vibe":["elevated-basics","90s","archive","vintage"],"palette":["earthtones","washed","clean-white","bold"],"material":["heavyweight-cotton","cut-and-sew"],
-   "known":3,"tier":"indie","founded":2014,"sizing":"alpha","affiliate":false,"wl":false},
+   "known":3,"tier":"indie","founded":2014,"sizing":"alpha","affiliate":false,"wl":false,"url":"https://arte-antwerp.com"},
 
   {"id":"032c","name":"032c","mark":"","does":"Berliner Konzept-Label aus dem Kultur-Magazin, archival-schwer.",
    "type":["tee","hoodie","sweat","hose","jacke"],"fit":["oversized","boxy","regular"],"vibe":["archive","grunge","technical","90s"],"palette":["schwarz-mono","bold"],"material":["heavyweight-cotton","cut-and-sew"],
-   "known":3,"tier":"indie","founded":2000,"sizing":"alpha","affiliate":false,"wl":false},
+   "known":3,"tier":"indie","founded":2000,"sizing":"alpha","affiliate":false,"wl":false,"url":"https://032c.com"},
 
   {"id":"gmhb","name":"GmbH","mark":"","does":"Berliner Avantgarde-Label, technisch-politisch, Runway-Referenzen.",
    "type":["tee","hose","jacke","hemd"],"fit":["slim","regular","tailored"],"vibe":["technical","archive","minimal","grunge"],"palette":["schwarz-mono","bold"],"material":["technical","cut-and-sew"],
-   "known":3,"tier":"indie","founded":2016,"sizing":"alpha","affiliate":false,"wl":false},
+   "known":3,"tier":"indie","founded":2016,"sizing":"alpha","affiliate":false,"wl":false,"url":"https://g-m-b-h.eu"},
 
   {"id":"hankjobenhavn","name":"Han KjÃ¸benhavn","mark":"","does":"DÃ¤nisches Label, Eyewear-Ursprung, eigenstÃ¤ndige Workwear-Haltung.",
    "type":["hemd","hose","tee","jacke","denim"],"fit":["relaxed","regular","straight"],"vibe":["workwear","vintage","elevated-basics","outdoor"],"palette":["earthtones","washed","clean-white"],"material":["raw-denim","heavyweight-cotton","cut-and-sew"],
-   "known":3,"tier":"etabliert","founded":2008,"sizing":"alpha","affiliate":false,"wl":false},
+   "known":3,"tier":"etabliert","founded":2008,"sizing":"alpha","affiliate":false,"wl":false,"url":"https://hankjobenhavn.com"},
 
   {"id":"nn07","name":"NN07","mark":"","does":"DÃ¤nisch-skandinavisches Minimal-Workwear, weiche Materialien.",
    "type":["hose","hemd","strick","tee","jacke"],"fit":["regular","relaxed","straight","slim"],"vibe":["minimal","elevated-basics","workwear"],"palette":["earthtones","schwarz-mono","clean-white"],"material":["wolle","cut-and-sew","heavyweight-cotton"],
-   "known":3,"tier":"etabliert","founded":2007,"sizing":"numeric","affiliate":true,"wl":false},
+   "known":3,"tier":"etabliert","founded":2007,"sizing":"numeric","affiliate":true,"wl":false,"url":"https://nn07.com"},
 
   {"id":"closed","name":"Closed","mark":"","does":"Deutsches Denim-Premium-Label, zeitlose Washes.",
    "type":["denim","hose","hemd","tee","strick"],"fit":["slim","straight","regular","relaxed"],"vibe":["minimal","elevated-basics","vintage"],"palette":["washed","schwarz-mono","earthtones"],"material":["raw-denim","heavyweight-cotton","wolle"],
-   "known":3,"tier":"etabliert","founded":1978,"sizing":"numeric","affiliate":true,"wl":false},
+   "known":3,"tier":"etabliert","founded":1978,"sizing":"numeric","affiliate":true,"wl":false,"url":"https://closed.com"},
 
   {"id":"represent","name":"Represent","mark":"","does":"Premium-Streetwear aus UK, breit verfÃ¼gbar.",
    "type":["tee","hoodie","hose","denim","jacke"],"fit":["regular","slim","relaxed","baggy"],"vibe":["streetwear","elevated-basics","grunge"],"palette":["schwarz-mono","washed","bold"],"material":["raw-denim","heavyweight-cotton"],
-   "known":4,"tier":"etabliert","founded":2011,"sizing":"alpha","affiliate":true,"wl":false},
+   "known":4,"tier":"etabliert","founded":2011,"sizing":"alpha","affiliate":true,"wl":false,"url":"https://representclo.com"},
 
   {"id":"corteiz","name":"Corteiz","mark":"","does":"Londoner Drop-Streetwear, Community-First, Hype-getrieben.",
    "type":["tee","hoodie","jacke","hose"],"fit":["oversized","baggy","relaxed"],"vibe":["streetwear","90s","military"],"palette":["schwarz-mono","bold","clean-white"],"material":["heavyweight-cotton"],
-   "known":4,"tier":"etabliert","founded":2017,"sizing":"alpha","affiliate":false,"wl":false},
+   "known":4,"tier":"etabliert","founded":2017,"sizing":"alpha","affiliate":false,"wl":false,"url":"https://crtz.xyz"},
 
   {"id":"carharttWIP","name":"Carhartt WIP","mark":"","does":"Workwear-Ikone, europÃ¤ische Interpretation, Ã¼berall erhÃ¤ltlich.",
    "type":["jacke","hose","hemd","tee","denim"],"fit":["regular","relaxed","baggy","straight"],"vibe":["workwear","streetwear","military","outdoor"],"palette":["earthtones","washed","schwarz-mono"],"material":["raw-denim","heavyweight-cotton"],
-   "known":4,"tier":"etabliert","founded":1989,"sizing":"numeric","affiliate":true,"wl":false},
+   "known":4,"tier":"etabliert","founded":1989,"sizing":"numeric","affiliate":true,"wl":false,"url":"https://carhartt-wip.com"},
 
   {"id":"apc","name":"A.P.C.","mark":"","does":"FranzÃ¶sisches Minimal-Label, Denim-Fokus, zeitlose Basics.",
    "type":["denim","hemd","hose","jacke","tee","strick"],"fit":["slim","straight","regular"],"vibe":["minimal","elevated-basics","vintage"],"palette":["schwarz-mono","washed","clean-white","earthtones"],"material":["raw-denim","wolle","cut-and-sew"],
-   "known":4,"tier":"etabliert","founded":1987,"sizing":"numeric","affiliate":true,"wl":false},
+   "known":4,"tier":"etabliert","founded":1987,"sizing":"numeric","affiliate":true,"wl":false,"url":"https://www.apc.fr"},
 
   {"id":"cpcompany","name":"C.P. Company","mark":"","does":"Italienisches Workwear-Erbe, Goggle-Jacken, breite VerfÃ¼gbarkeit.",
    "type":["jacke","hemd","tee","sweat","mantel"],"fit":["regular","relaxed"],"vibe":["workwear","outdoor","military","technical"],"palette":["earthtones","schwarz-mono","bold"],"material":["technical","heavyweight-cotton"],
-   "known":4,"tier":"etabliert","founded":1975,"sizing":"numeric","affiliate":true,"wl":false},
+   "known":4,"tier":"etabliert","founded":1975,"sizing":"numeric","affiliate":true,"wl":false,"url":"https://www.cpcompany.com"},
 
   {"id":"stussy","name":"StÃ¼ssy","mark":"","does":"OG-Streetwear, weltweit bekannt seit 1980.",
    "type":["tee","hoodie","hemd","jacke"],"fit":["boxy","regular","relaxed"],"vibe":["streetwear","90s","archive","military"],"palette":["bold","schwarz-mono"],"material":["heavyweight-cotton"],
-   "known":4,"tier":"etabliert","founded":1980,"sizing":"alpha","affiliate":true,"wl":false},
+   "known":4,"tier":"etabliert","founded":1980,"sizing":"alpha","affiliate":true,"wl":false,"url":"https://www.stussy.com"},
 
   {"id":"aimeleondore","name":"AimÃ© Leon Dore","mark":"","does":"New Yorker Archive-Elevated, Basketball-Ã„sthetik, breite Fangemeinde.",
    "type":["tee","hemd","hose","strick","hoodie","jacke"],"fit":["relaxed","regular","boxy"],"vibe":["elevated-basics","vintage","archive","90s"],"palette":["earthtones","washed","schwarz-mono","clean-white"],"material":["heavyweight-cotton","wolle","cut-and-sew"],
-   "known":4,"tier":"etabliert","founded":2014,"sizing":"alpha","affiliate":false,"wl":false},
+   "known":4,"tier":"etabliert","founded":2014,"sizing":"alpha","affiliate":false,"wl":false,"url":"https://aimeleondore.com"},
 
   {"id":"patta","name":"Patta","mark":"","does":"Amsterdamer Streetwear-Institution, Community-first, Nike-Kollabos.",
    "type":["tee","hoodie","sweat","hose","jacke"],"fit":["baggy","relaxed","regular"],"vibe":["streetwear","90s","elevated-basics","outdoor"],"palette":["bold","schwarz-mono","earthtones"],"material":["heavyweight-cotton","technical"],
-   "known":4,"tier":"etabliert","founded":2004,"sizing":"alpha","affiliate":false,"wl":false},
+   "known":4,"tier":"etabliert","founded":2004,"sizing":"alpha","affiliate":false,"wl":false,"url":"https://patta.nl"},
 
   {"id":"dickies","name":"Dickies","mark":"","does":"US-Workwear-Klassiker, Ã¼berall erhÃ¤ltlich, gÃ¼nstig.",
    "type":["hose","hemd","jacke","tee"],"fit":["regular","relaxed","baggy","straight"],"vibe":["workwear","vintage","streetwear"],"palette":["schwarz-mono","earthtones","bold"],"material":["heavyweight-cotton","raw-denim"],
-   "known":5,"tier":"mainstream","founded":1922,"sizing":"numeric","affiliate":true,"wl":false},
+   "known":5,"tier":"mainstream","founded":1922,"sizing":"numeric","affiliate":true,"wl":false,"url":"https://www.dickies.eu"},
 
   {"id":"polork","name":"Polo Ralph Lauren","mark":"","does":"Preppy-Ikone â€” Notnagel, kennt jeder.",
    "type":["tee","hemd","strick","hose","jacke","mantel"],"fit":["regular","slim","relaxed"],"vibe":["vintage","elevated-basics","workwear"],"palette":["earthtones","clean-white","bold","schwarz-mono"],"material":["heavyweight-cotton","wolle"],
-   "known":5,"tier":"mainstream","founded":1967,"sizing":"alpha","affiliate":true,"wl":false},
+   "known":5,"tier":"mainstream","founded":1967,"sizing":"alpha","affiliate":true,"wl":false,"url":"https://www.ralphlauren.com"},
 
   {"id":"diesel","name":"Diesel","mark":"","does":"90s-Denim-Ikone, Comeback durch Y2K-Ã„sthetik â€” breite Bekanntheit.",
    "type":["denim","tee","hemd","hose","jacke"],"fit":["slim","straight","regular","baggy"],"vibe":["grunge","90s","streetwear","vintage"],"palette":["washed","schwarz-mono","bold"],"material":["raw-denim","heavyweight-cotton"],
-   "known":5,"tier":"mainstream","founded":1978,"sizing":"numeric","affiliate":true,"wl":false},
+   "known":5,"tier":"mainstream","founded":1978,"sizing":"numeric","affiliate":true,"wl":false,"url":"https://www.diesel.com"},
 
   {"id":"stoneisland","name":"Stone Island","mark":"","does":"Italienisches Technical-Workwear, Kompass-Patch, Kultstatus.",
    "type":["jacke","sweat","tee","mantel"],"fit":["regular","relaxed"],"vibe":["technical","outdoor","military","workwear"],"palette":["earthtones","schwarz-mono","bold"],"material":["technical","heavyweight-cotton"],
-   "known":5,"tier":"mainstream","founded":1982,"sizing":"numeric","affiliate":true,"wl":false},
+   "known":5,"tier":"mainstream","founded":1982,"sizing":"numeric","affiliate":true,"wl":false,"url":"https://www.stoneisland.com"},
 
   {"id":"acnestudios","name":"Acne Studios","mark":"","does":"Schwedisches Designerlabel, Denim-Ursprung, breite PopularitÃ¤t.",
    "type":["tee","hemd","hose","jacke","strick","mantel","denim"],"fit":["oversized","regular","slim","straight"],"vibe":["minimal","archive","elevated-basics"],"palette":["schwarz-mono","clean-white","bold","earthtones"],"material":["wolle","cut-and-sew","heavyweight-cotton","raw-denim"],
-   "known":5,"tier":"mainstream","founded":1996,"sizing":"alpha","affiliate":true,"wl":false},
+   "known":5,"tier":"mainstream","founded":1996,"sizing":"alpha","affiliate":true,"wl":false,"url":"https://www.acnestudios.com"},
 
   {"id":"adidas","name":"Adidas","mark":"","does":"Sportswear-Gigant, Notnagel.",
    "type":["tee","hoodie","sweat","hose","jacke"],"fit":["regular","relaxed","oversized","slim"],"vibe":["streetwear","technical","outdoor","90s"],"palette":["bold","schwarz-mono","clean-white"],"material":["technical","heavyweight-cotton"],
-   "known":5,"tier":"mainstream","founded":1949,"sizing":"alpha","affiliate":true,"wl":false},
+   "known":5,"tier":"mainstream","founded":1949,"sizing":"alpha","affiliate":true,"wl":false,"url":"https://www.adidas.de"},
 
   {"id":"nike","name":"Nike","mark":"","does":"Sportswear-Gigant â€” Notnagel, kennt jeder.",
    "type":["tee","hoodie","sweat","hose","jacke"],"fit":["regular","oversized","relaxed"],"vibe":["streetwear","technical","outdoor"],"palette":["bold","schwarz-mono","clean-white"],"material":["technical","heavyweight-cotton"],
-   "known":5,"tier":"mainstream","founded":1964,"sizing":"alpha","affiliate":true,"wl":false},
+   "known":5,"tier":"mainstream","founded":1964,"sizing":"alpha","affiliate":true,"wl":false,"url":"https://www.nike.com/de"},
 
   {"id":"zara","name":"Zara","mark":"","does":"Fast Fashion â€” Notnagel, nur ganz unten.",
    "type":["tee","hemd","hose","jacke","mantel","strick","denim"],"fit":["slim","regular","relaxed","straight","oversized"],"vibe":["minimal","elevated-basics","vintage"],"palette":["schwarz-mono","earthtones","clean-white","bold"],"material":["heavyweight-cotton","wolle"],
-   "known":5,"tier":"mainstream","founded":1975,"sizing":"alpha","affiliate":true,"wl":false},
+   "known":5,"tier":"mainstream","founded":1975,"sizing":"alpha","affiliate":true,"wl":false,"url":"https://www.zara.com/de"},
 
   {"id":"hm","name":"H&M","mark":"","does":"Fast Fashion â€” Notnagel, nur ganz unten.",
    "type":["tee","hemd","hose","jacke","strick","denim","sweat"],"fit":["slim","regular","relaxed","oversized"],"vibe":["minimal","elevated-basics","streetwear"],"palette":["schwarz-mono","clean-white","earthtones","bold"],"material":["heavyweight-cotton"],
-   "known":5,"tier":"mainstream","founded":1947,"sizing":"alpha","affiliate":true,"wl":false}
+   "known":5,"tier":"mainstream","founded":1947,"sizing":"alpha","affiliate":true,"wl":false,"url":"https://www.hm.com/de"}
 ]
-
