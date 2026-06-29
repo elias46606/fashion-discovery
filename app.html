@@ -21,7 +21,7 @@
 
   header{position:sticky;top:0;z-index:40;background:var(--paper);border-bottom:1px solid var(--ink)}
   .htop{display:flex;justify-content:space-between;align-items:center;padding:16px 0 14px}
-  .<div class="kicker"><a href="index.html" style="text-decoration:none;color:inherit">Fashion Discovery</a></div>
+  .kicker{font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:var(--faint);font-weight:600}
   .nordstern{text-align:right;font-family:"Space Mono",monospace;font-size:10.5px;color:var(--soft);line-height:1.5}
   .nordstern .big{font-size:15px;color:var(--ink);font-weight:700}
   .nordstern .lab{letter-spacing:.12em;text-transform:uppercase;color:var(--faint);font-size:9px}
@@ -70,12 +70,15 @@
   .empty b{color:var(--ink)}
   .it{display:flex;flex-direction:column}
   .frame{position:relative;width:100%;aspect-ratio:3/4;overflow:hidden;background:linear-gradient(150deg,var(--imgA),var(--imgB));cursor:pointer}
-  .frame svg{position:absolute;inset:0;margin:auto;width:50%;height:50%;color:#b4b1a6;transition:transform .5s ease}
-  .frame .tag{position:absolute;bottom:9px;left:10px;font-family:"Space Mono",monospace;font-size:8px;letter-spacing:.12em;color:#00000038}
+  .frame svg{position:absolute;inset:0;margin:auto;width:50%;height:50%;color:#b4b1a6;transition:transform .5s ease,opacity .3s}
+  .frame .tag{position:absolute;bottom:9px;left:10px;font-family:"Space Mono",monospace;font-size:8px;letter-spacing:.12em;color:#00000038;z-index:1}
   .frame:hover svg{transform:scale(1.05)}
-  .frame .shop{position:absolute;inset:0;display:flex;align-items:flex-end;justify-content:flex-end;padding:12px;opacity:0;transition:.25s}
+  .frame .shop{position:absolute;inset:0;display:flex;align-items:flex-end;justify-content:flex-end;padding:12px;opacity:0;transition:.25s;z-index:2}
   .frame:hover .shop{opacity:1}
   .frame .shop span{background:var(--ink);color:var(--paper);font-family:"Space Mono",monospace;font-size:9px;letter-spacing:.08em;padding:6px 10px;text-transform:uppercase}
+  .frame img.og{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .4s}
+  .frame img.og.loaded{opacity:1}
+  .frame.has-img svg{opacity:0}
   .meta{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-top:14px}
   .nm{font-size:20px;font-weight:600;letter-spacing:-.02em;line-height:1.04;cursor:pointer}
   .nm:hover{text-decoration:underline;text-underline-offset:3px}
@@ -111,6 +114,9 @@
   .dt{cursor:pointer}
   .dframe{position:relative;width:100%;aspect-ratio:3/4;overflow:hidden;background:linear-gradient(150deg,#26251f,#191812)}
   .dframe svg{position:absolute;inset:0;margin:auto;width:48%;height:48%;color:#46443c;transition:.45s}
+  .dframe img.og{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .4s}
+  .dframe img.og.loaded{opacity:1}
+  .dframe.has-img svg{opacity:0}
   .dt:hover .dframe svg{transform:scale(1.05);color:#5c5a4f}
   .dnm{font-size:16px;font-weight:600;margin-top:12px;letter-spacing:-.01em}
   .dnm sup{font-size:.5em;color:var(--darksoft)}
@@ -233,7 +239,7 @@ function localTranslate(query) {
 
 async function translate(query) {
   try {
-    const res = await fetch('/api/translate', {
+    const res = await fetch('https://fashion-discovery-eta.vercel.app/api/translate', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({query}),
@@ -301,6 +307,7 @@ async function run() {
   Df.sort((a, b) => a.known - b.known);
   renderHits(Hf);
   renderDisc(Df.slice(0, 4));
+  loadOgImages();
 }
 
 function renderChips(t) {
@@ -323,6 +330,7 @@ function renderHits(list) {
   list.forEach((b, i) => {
     const el = document.createElement('div');
     el.className = 'it' + (b.known >= 5 ? ' faded' : '');
+    el.dataset.url = b.url || '';
     const click = b.url ? `onclick="openBrand('${b.url}')" style="cursor:pointer"` : '';
     el.innerHTML = `
       <div class="frame" tabindex="0" role="button" aria-label="${b.name} öffnen" ${click}>${g(i)}<span class="tag">FIG.${String(i+1).padStart(2,'0')} · LOOKBOOK</span><div class="shop"><span>${b.url ? 'Shop öffnen' : 'Kein Link'}</span></div></div>
@@ -343,6 +351,7 @@ function renderDisc(list) {
   list.forEach((b, i) => {
     const el = document.createElement('div');
     el.className = 'dt';
+    el.dataset.url = b.url || '';
     const click = b.url ? `onclick="openBrand('${b.url}')"` : '';
     el.innerHTML = `
       <div class="dframe" tabindex="0" role="button" aria-label="${b.name} öffnen" ${click}>${g(i+1)}</div>
@@ -351,6 +360,27 @@ function renderDisc(list) {
       ${b.wl?'<span class="wl">Watchlist · geparkt</span>':'<span class="ok1">Tor 1 ✓</span>'}`;
     host.appendChild(el);
   });
+}
+
+async function loadOgImages() {
+  const cards = document.querySelectorAll('[data-url]');
+  for (const card of cards) {
+    const url = card.dataset.url;
+    if (!url) continue;
+    try {
+      const r = await fetch(`https://fashion-discovery-eta.vercel.app/api/ogimage?url=${encodeURIComponent(url)}`);
+      const { img } = await r.json();
+      if (!img) continue;
+      const frame = card.querySelector('.frame, .dframe');
+      if (!frame) continue;
+      const el = document.createElement('img');
+      el.className = 'og';
+      el.src = img;
+      el.alt = '';
+      el.onload = () => { el.classList.add('loaded'); frame.classList.add('has-img'); };
+      frame.appendChild(el);
+    } catch {}
+  }
 }
 
 function mountFb(el) {
