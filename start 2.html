@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Fashion Discovery</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#FAFAF7;--ink:#13130F;--soft:#838177;--faint:#9a988f;--line:#e4e2db;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{background:var(--paper);color:var(--ink);font-family:"Hanken Grotesk",system-ui,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.45;display:flex;flex-direction:column}
+  ::selection{background:var(--ink);color:var(--paper)}
+  button:focus-visible,input:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+
+  .wrap{max-width:1240px;margin:0 auto;padding:0 40px;width:100%}
+
+  header{border-bottom:1px solid var(--ink);padding:18px 0}
+  .htop{display:flex;justify-content:space-between;align-items:center}
+  .kicker{font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:var(--faint);font-weight:600}
+  .nav{font-family:"Space Mono",monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--soft)}
+
+  .hero{flex:1;display:flex;flex-direction:column;justify-content:center;padding:80px 0 60px;
+    animation:fadeUp .55s cubic-bezier(.22,.68,0,1.2) both}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+
+  .eyebrow{font-family:"Space Mono",monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--faint);margin-bottom:28px}
+  .headline{font-size:clamp(42px,7vw,96px);font-weight:300;letter-spacing:-.04em;line-height:1;margin-bottom:32px;max-width:14ch}
+  .headline em{font-style:normal;font-weight:700}
+  .sub{font-size:15px;color:var(--soft);font-weight:500;max-width:52ch;line-height:1.65;margin-bottom:56px}
+  .sub b{color:var(--ink);font-weight:600}
+
+  .sform{display:flex;gap:0;border:1px solid var(--ink);max-width:620px;transition:box-shadow .2s}
+  .sform:focus-within{box-shadow:0 0 0 3px var(--ink)}
+  .sform input{flex:1;min-width:0;border:none;background:transparent;color:var(--ink);font-family:"Hanken Grotesk",sans-serif;
+    font-size:18px;font-weight:400;padding:16px 20px;letter-spacing:-.01em}
+  .sform input:focus{outline:none}
+  .sform input::placeholder{color:var(--faint)}
+  .sform button{border:none;border-left:1px solid var(--ink);background:var(--ink);color:var(--paper);
+    font-family:"Space Mono",monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+    padding:16px 24px;cursor:pointer;white-space:nowrap;transition:.14s}
+  .sform button:hover{background:#2a2920}
+
+  .examples{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:20px}
+  .ex-label{font-family:"Space Mono",monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);margin-right:4px}
+  .ex{font-family:"Space Mono",monospace;font-size:10px;letter-spacing:.03em;border:1px solid var(--line);
+    color:var(--soft);padding:5px 12px;border-radius:30px;cursor:pointer;background:transparent;transition:.12s}
+  .ex:hover{border-color:var(--ink);color:var(--ink)}
+
+  .manifesto{border-top:1px solid var(--line);padding:40px 0 56px;display:grid;grid-template-columns:repeat(3,1fr);gap:40px}
+  .mblock .ml{font-family:"Space Mono",monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);margin-bottom:10px}
+  .mblock p{font-size:13px;color:var(--soft);line-height:1.7;font-weight:500}
+  .mblock p b{color:var(--ink);font-weight:600}
+
+  footer{border-top:1px solid var(--line);padding:20px 0}
+  .foot{display:flex;justify-content:space-between;align-items:center;font-family:"Space Mono",monospace;font-size:9px;color:var(--faint);letter-spacing:.06em}
+
+  @media(max-width:720px){
+    .wrap{padding:0 24px}
+    .headline{font-size:clamp(36px,10vw,64px)}
+    .manifesto{grid-template-columns:1fr;gap:28px}
+    .hero{padding:56px 0 48px}
+  }
+  @media(max-width:480px){
+    .sform{flex-direction:column}
+    .sform button{border-left:none;border-top:1px solid var(--ink)}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="htop">
+      <div class="kicker">Fashion Discovery</div>
+      <div class="nav" id="brandCount">61 Marken · Echter Seed</div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="hero">
+    <div class="eyebrow">01 · Entdeckungsmaschine</div>
+    <h1 class="headline">Find labels, not <em>logos.</em></h1>
+    <p class="sub">
+      Beschreib deinen Stil — wir zeigen dir Marken, die du noch nicht kennst.
+      <b>Bekanntheit senkt das Ranking.</b> Relevanz ist das Tor.
+    </p>
+
+    <form class="sform" onsubmit="go(event)">
+      <input id="q" type="text" placeholder="oversized hoodie earthtones …" autocomplete="off" autofocus />
+      <button type="submit">Suchen</button>
+    </form>
+
+    <div class="examples">
+      <span class="ex-label">z.B. →</span>
+      <button class="ex" onclick="go2('oversized hoodie')">oversized hoodie</button>
+      <button class="ex" onclick="go2('workwear jacke earthtones')">workwear jacke earthtones</button>
+      <button class="ex" onclick="go2('minimal tee schwarz')">minimal tee schwarz</button>
+      <button class="ex" onclick="go2('baggy 90s streetwear')">baggy 90s streetwear</button>
+      <button class="ex" onclick="go2('archive strick wolle')">archive strick wolle</button>
+      <button class="ex" onclick="go2('raw denim slim')">raw denim slim</button>
+    </div>
+  </section>
+
+  <section class="manifesto">
+    <div class="mblock">
+      <div class="ml">Prinzip</div>
+      <p><b>Relevanz ist das Tor.</b> Eine Marke erscheint nur, wenn sie wirklich macht, was du suchst — kein Rauschen, keine Füller.</p>
+    </div>
+    <div class="mblock">
+      <div class="ml">Sortierung</div>
+      <p><b>Unbekannt steigt, bekannt sinkt.</b> Nike und Adidas tauchen ganz unten auf — falls du sie wirklich brauchst.</p>
+    </div>
+    <div class="mblock">
+      <div class="ml">Ehrlichkeit</div>
+      <p><b>Kein bezahltes Ranking.</b> Affiliate-Links existieren — sie ändern nie die Reihenfolge. Das ist das Versprechen.</p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <span>Fashion Discovery · Echter Seed</span>
+      <span>Bekanntes sinkt. Unentdecktes steigt.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+function go(e) {
+  e.preventDefault();
+  const q = document.getElementById('q').value.trim();
+  if (q) location.href = 'app.html?q=' + encodeURIComponent(q);
+}
+function go2(v) {
+  location.href = 'app.html?q=' + encodeURIComponent(v);
+}
+
+// Placeholder rotiert wenn Feld nicht fokussiert
+const hints = [
+  'oversized hoodie earthtones …',
+  'workwear jacke washed …',
+  'minimal tee schwarz …',
+  'baggy 90s streetwear …',
+  'archive strick wolle …',
+  'raw denim slim …',
+];
+let hi = 0;
+const inp = document.getElementById('q');
+setInterval(() => {
+  if (document.activeElement === inp) return;
+  hi = (hi + 1) % hints.length;
+  inp.placeholder = hints[hi];
+}, 3000);
+
+// Marken-Count aus brands.json
+fetch('brands.json')
+  .then(r => r.json())
+  .then(d => {
+    document.getElementById('brandCount').textContent = d.length + ' Marken · Echter Seed';
+  })
+  .catch(() => {});
+</script>
+</body>
+</html>
