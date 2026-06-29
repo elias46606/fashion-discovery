@@ -22,7 +22,7 @@ jobs:
         run: npm install tsx --save-dev
 
       - name: Ingest ausführen
-        run: npx tsx ingest.ts brands.seed.json brands.json
+        run: npx tsx ingest.ts ./brands.seed.json ./brands.json
 
       - name: brands.json committen
         run: |
