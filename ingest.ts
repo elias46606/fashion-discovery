@@ -107,7 +107,13 @@ async function fetchAllProducts(shopDomain: string): Promise<ShopifyProduct[]> {
       console.warn(`  ↳ ${shopDomain}: HTTP ${res.status}, kein offener Feed.`);
       break;
     }
-    const data = (await res.json()) as ShopifyPage;
+        let data: ShopifyPage;
+    try {
+      data = (await res.json()) as ShopifyPage;
+    } catch {
+      console.warn(`  ↳ ${shopDomain}: Kein gültiges JSON, kein Shopify-Feed.`);
+      break;
+    }
     if (!data.products?.length) break;
     out.push(...data.products);
     if (data.products.length < limit) break;
