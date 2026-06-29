@@ -386,7 +386,7 @@ function buildFilterChips(brands) {
   document.getElementById('filterBar').style.display = hasProds ? '' : 'none';
   if (!hasProds) return;
 
-  const allSizes = [...new Set(brands.flatMap(b => b.products.flatMap(p => (p.sizes||[]).map(s=>s.label))))].sort((a,b)=>a.localeCompare(b,'en',{numeric:true}));
+   elias46606.github.io/fashion-discovery
   const allMats = [...new Set(brands.flatMap(b => b.products.flatMap(p => p.materials||[])))].sort();
   const allSeasons = ['sommer','uebergang','winter','ganzjaehrig'].filter(s => brands.some(b => b.products.some(p => (p.seasons||[]).includes(s))));
   const SL = {sommer:'Sommer',winter:'Winter',uebergang:'Übergang',ganzjaehrig:'Ganzjährig'};
