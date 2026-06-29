@@ -387,7 +387,9 @@ function buildFilterChips(brands) {
   document.getElementById('filterBar').style.display = hasProds ? '' : 'none';
   if (!hasProds) return;
 
-   elias46606.github.io/fashion-discovery
+     const sizeCount = {};
+  brands.forEach(b => b.products.forEach(p => (p.sizes||[]).forEach(s => { sizeCount[s.label] = (sizeCount[s.label]||0)+1; })));
+  const allSizes = Object.entries(sizeCount).filter(([,n])=>n>=3).sort((a,b)=>b[1]-a[1]).slice(0,20).map(([l])=>l).sort((a,b)=>a.localeCompare(b,'en',{numeric:true}));
   const allMats = [...new Set(brands.flatMap(b => b.products.flatMap(p => p.materials||[])))].sort();
   const allSeasons = ['sommer','uebergang','winter','ganzjaehrig'].filter(s => brands.some(b => b.products.some(p => (p.seasons||[]).includes(s))));
   const SL = {sommer:'Sommer',winter:'Winter',uebergang:'Übergang',ganzjaehrig:'Ganzjährig'};
@@ -445,10 +447,7 @@ if (matchingProds.length) {
     return sc(pb)-sc(pa);
   })[0];
   hitItems.push({ type: 'product', brand: b, ...best });
-      if (matchingProds.length) {
-        matchingProds.forEach(p => hitItems.push({ type: 'product', brand: b, ...p }));
       } else {
-        // Brand has products but none match → disc?
         const br = brandMatches(b, t);
         if (br.zone === 'disc') discBrands.push(b);
       }
