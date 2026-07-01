@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Account — Fashion Discovery</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#FAFAF7;--ink:#13130F;--soft:#838177;--faint:#9a988f;--line:#e4e2db;--good:#2f6b3e;--warn:#b3401f;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{background:var(--paper);color:var(--ink);font-family:"Hanken Grotesk",system-ui,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.45;display:flex;flex-direction:column}
+  ::selection{background:var(--ink);color:var(--paper)}
+  button:focus-visible,input:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+
+  .wrap{max-width:1240px;margin:0 auto;padding:0 40px;width:100%}
+  .narrow{max-width:460px;margin:0 auto;padding:0 24px;width:100%}
+
+  header{border-bottom:1px solid var(--ink);padding:18px 0}
+  .htop{display:flex;justify-content:space-between;align-items:center}
+  .kicker{font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:var(--faint);font-weight:600;text-decoration:none}
+  .kicker:hover{color:var(--ink)}
+  .nav{font-family:"Space Mono",monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--soft)}
+  .nav a{color:var(--soft);text-decoration:none;margin-left:16px}
+  .nav a:hover{color:var(--ink)}
+
+  main{flex:1;display:flex;flex-direction:column;justify-content:center;padding:60px 0}
+
+  .eyebrow{font-family:"Space Mono",monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--faint);margin-bottom:20px;text-align:center}
+  h1{font-size:clamp(28px,5vw,38px);font-weight:300;letter-spacing:-.03em;line-height:1.1;margin-bottom:12px;text-align:center}
+  h1 em{font-style:normal;font-weight:700}
+  .sub{font-size:13px;color:var(--soft);font-weight:500;text-align:center;line-height:1.6;margin-bottom:36px}
+
+  .tabs{display:flex;border:1px solid var(--ink);margin-bottom:28px}
+  .tab{flex:1;border:none;background:transparent;color:var(--soft);font-family:"Space Mono",monospace;
+    font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:12px;cursor:pointer;transition:.14s}
+  .tab.on{background:var(--ink);color:var(--paper)}
+  .tab:not(.on):hover{background:#efece3}
+
+  form{display:none}
+  form.on{display:block}
+
+  .field{margin-bottom:16px}
+  label{display:block;font-family:"Space Mono",monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);margin-bottom:6px}
+  input[type=email],input[type=password],input[type=text]{
+    width:100%;border:1px solid var(--line);background:#fff;color:var(--ink);
+    font-family:"Hanken Grotesk",sans-serif;font-size:15px;padding:12px 14px;border-radius:2px;
+  }
+  input:focus{outline:none;border-color:var(--ink)}
+
+  .opt-in{display:flex;gap:10px;align-items:flex-start;margin:20px 0;padding:14px;background:#f4f2ec;border:1px solid var(--line);border-radius:2px}
+  .opt-in input{margin-top:3px;flex:none}
+  .opt-in .ot{font-size:13px;color:var(--ink);font-weight:600;margin-bottom:3px}
+  .opt-in .od{font-size:12px;color:var(--soft);line-height:1.5}
+
+  .submit{
+    width:100%;border:1px solid var(--ink);background:var(--ink);color:var(--paper);
+    font-family:"Space Mono",monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+    padding:14px;cursor:pointer;transition:.14s;margin-top:6px;
+  }
+  .submit:hover{background:#2a2920}
+
+  .fine{font-family:"Space Mono",monospace;font-size:10.5px;color:var(--faint);line-height:1.8;margin-top:22px;text-align:center}
+  .fine a{color:var(--soft)}
+
+  .firewall{
+    font-family:"Space Mono",monospace;font-size:10.5px;color:var(--soft);
+    border:1px dashed var(--line);padding:12px 14px;margin-top:28px;line-height:1.7;
+  }
+  .firewall b{color:var(--ink)}
+
+  .status{
+    font-family:"Space Mono",monospace;font-size:11px;padding:10px 14px;border-radius:2px;
+    margin-bottom:16px;display:none;
+  }
+  .status.show{display:block}
+  .status.info{background:#f4f2ec;color:var(--soft);border:1px solid var(--line)}
+
+  footer{border-top:1px solid var(--line);padding:20px 0}
+  .foot{display:flex;justify-content:space-between;align-items:center;font-family:"Space Mono",monospace;font-size:9px;color:var(--faint);letter-spacing:.06em;flex-wrap:wrap;gap:8px}
+  .foot a{color:var(--faint);text-decoration:underline;margin-left:14px}
+  .foot a:hover{color:var(--ink)}
+
+  @media(max-width:720px){
+    .wrap{padding:0 24px}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="htop">
+      <a class="kicker" href="index.html">Fashion Discovery</a>
+      <div class="nav"><a href="index.html">Start</a><a href="app.html">Suche</a></div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="narrow">
+    <div class="eyebrow">Konto</div>
+    <h1>Merken, was <em>passt.</em></h1>
+    <p class="sub">Ein Account speichert Favoriten und Suchen für dich — mehr nicht.</p>
+
+    <div class="tabs">
+      <button class="tab on" id="tabLogin" onclick="showForm('login')">Login</button>
+      <button class="tab" id="tabRegister" onclick="showForm('register')">Registrieren</button>
+    </div>
+
+    <div class="status info" id="status"></div>
+
+    <!-- LOGIN -->
+    <form id="loginForm" class="on" onsubmit="handleLogin(event)">
+      <div class="field">
+        <label for="loginEmail">E-Mail</label>
+        <input type="email" id="loginEmail" required autocomplete="email" placeholder="du@beispiel.de" />
+      </div>
+      <div class="field">
+        <label for="loginPassword">Passwort</label>
+        <input type="password" id="loginPassword" required autocomplete="current-password" placeholder="••••••••" />
+      </div>
+      <button class="submit" type="submit">Anmelden</button>
+      <div class="fine">Passwort vergessen? <a href="#">Zurücksetzen</a> — folgt mit Backend-Anbindung.</div>
+    </form>
+
+    <!-- REGISTER -->
+    <form id="registerForm" onsubmit="handleRegister(event)">
+      <div class="field">
+        <label for="regEmail">E-Mail</label>
+        <input type="email" id="regEmail" required autocomplete="email" placeholder="du@beispiel.de" />
+      </div>
+      <div class="field">
+        <label for="regPassword">Passwort</label>
+        <input type="password" id="regPassword" required autocomplete="new-password" minlength="8" placeholder="mind. 8 Zeichen" />
+      </div>
+      <div class="field">
+        <label for="regPasswordRepeat">Passwort wiederholen</label>
+        <input type="password" id="regPasswordRepeat" required autocomplete="new-password" placeholder="••••••••" />
+      </div>
+
+      <div class="opt-in">
+        <input type="checkbox" id="styleOptIn" />
+        <div>
+          <div class="ot">Stilprofil aktivieren (optional)</div>
+          <div class="od">Speichert deine bisherigen Suchen &amp; Favoriten, um dir künftig passendere Vorschläge
+            zu zeigen. Rein persönlich — <b>beeinflusst niemals das allgemeine Marken-Ranking</b>. Jederzeit
+            in den Kontoeinstellungen abschaltbar.</div>
+        </div>
+      </div>
+
+      <button class="submit" type="submit">Konto erstellen</button>
+      <div class="fine">Mit der Registrierung akzeptierst du die <a href="datenschutz.html">Datenschutzerklärung</a>.</div>
+    </form>
+
+    <div class="firewall">
+      <b>Firewall-Prinzip:</b> Account-, Favoriten- und Stilprofildaten wirken sich ausschließlich auf deine
+      persönliche Ansicht aus (Favoriten, gespeicherte Suchen, individuelle Reihenfolge). Sie fließen nicht in
+      das öffentliche Discovery-Ranking ein — genau wie Affiliate-Links nie das Ranking verändern.
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <span>Fashion Discovery · Echter Seed</span>
+    <span><a href="impressum.html">Impressum</a><a href="datenschutz.html">Datenschutz</a></span>
+  </div>
+</footer>
+
+<script>
+// =============================================================================
+// Account-Frontend — Formulare & Zustand. KEIN Backend angebunden.
+// -----------------------------------------------------------------------------
+// Empfehlung für ein kleines Projekt ohne eigenen Server: Supabase Auth
+// (großzügiger Free-Tier, E-Mail/Passwort + OAuth out of the box, direkt aus
+// dem Frontend über @supabase/supabase-js ansprechbar, keine eigene Backend-
+// Infrastruktur nötig). Alternative: Firebase Authentication (ähnlich einfach,
+// stärker ans Google-Ökosystem gebunden). Ein eigenes JWT-System auf einem
+// kleinen Server lohnt sich erst, wenn mehr Logik als reine Auth gebraucht wird.
+//
+// Integrationspunkte sind unten mit TODO markiert. Bis dahin simuliert dieser
+// Code nur den Ablauf (Erfolgs-/Fehlermeldung), ohne Daten zu speichern.
+// =============================================================================
+
+function showForm(which) {
+  document.getElementById('loginForm').classList.toggle('on', which === 'login');
+  document.getElementById('registerForm').classList.toggle('on', which === 'register');
+  document.getElementById('tabLogin').classList.toggle('on', which === 'login');
+  document.getElementById('tabRegister').classList.toggle('on', which === 'register');
+  hideStatus();
+}
+
+function showStatus(msg) {
+  const el = document.getElementById('status');
+  el.textContent = msg;
+  el.classList.add('show');
+}
+function hideStatus() {
+  document.getElementById('status').classList.remove('show');
+}
+
+async function handleLogin(e) {
+  e.preventDefault();
+  const email = document.getElementById('loginEmail').value;
+  // TODO: Supabase-Beispiel (sobald Client eingebunden):
+  // const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+  showStatus(`Demo — Login noch nicht angebunden (${email}).`);
+}
+
+async function handleRegister(e) {
+  e.preventDefault();
+  const email = document.getElementById('regEmail').value;
+  const pw = document.getElementById('regPassword').value;
+  const pw2 = document.getElementById('regPasswordRepeat').value;
+  const styleOptIn = document.getElementById('styleOptIn').checked;
+
+  if (pw !== pw2) { showStatus('Passwörter stimmen nicht überein.'); return; }
+
+  // TODO: Supabase-Beispiel (sobald Client eingebunden):
+  // const { data, error } = await supabase.auth.signUp({ email, password: pw });
+  // if (!error && styleOptIn) await supabase.from('profiles').upsert({ id: data.user.id, style_opt_in: true });
+
+  showStatus(`Demo — Registrierung noch nicht angebunden (${email}, Stilprofil: ${styleOptIn ? 'ja' : 'nein'}).`);
+}
+</script>
+</body>
+</html>
