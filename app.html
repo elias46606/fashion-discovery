@@ -65,8 +65,8 @@
     padding: 1px 7px; font-size: 9px; letter-spacing: 0;
   }
   .filters-toggle .chevron { transition: transform .15s ease; font-size: 12px; }
+  .filters-toggle.closed .chevron { transform: rotate(-90deg); }
   .filterbar[data-open="false"] { display: none; }
-  .filterbar[data-open="false"] + .filters-toggle .chevron { transform: rotate(-90deg); }
 
   .filterbar { display: flex; flex-wrap: wrap; gap: 20px; padding: 14px 0; border-bottom: 1px solid var(--line); }
   .fg { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
@@ -348,6 +348,16 @@ function famToKnown(b) {
   return 5;
 }
 
+// ── XSS-Schutz: alle externen Shop-Daten müssen hierdurch, bevor sie in innerHTML landen
+function esc(str) {
+  return String(str ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+// ── Gate 1: Authentizitäts-Funnel. Nur verifizierte Marken dürfen ins Haupt-Ranking (Gate 2).
+function passesGate1(b) {
+  return b.founderVisible === true && b.originalImagery === true && b.networkConfirmed === true;
+}
+
 // ── Render hits (brand cards or product cards)
 function renderHits(items) {
   const grid = document.getElementById('grid');
@@ -361,31 +371,32 @@ function renderHits(items) {
     el.className = 'card';
     const k = famToKnown(item.brand);
     const openUrl = item.productUrl || item.brand.shopDomain || '';
-    const openClick = openUrl ? `onclick="window.open('${openUrl}','_blank','noopener')" style="cursor:pointer"` : '';
+    const openClick = openUrl ? `onclick="window.open('${esc(openUrl)}','_blank','noopener')" style="cursor:pointer"` : '';
+    const badge = passesGate1(item.brand) ? 'Echt ✓' : 'Ungeprüft';
 
     if (item.type === 'product') {
       const sizeRow = (item.sizes || []).map(s => {
         const m = filters.sizes.has(s.label);
-        return `<span class="size${!s.available?' out':''}${m&&s.available?' match':''}">${s.label}</span>`;
+        return `<span class="size${!s.available?' out':''}${m&&s.available?' match':''}">${esc(s.label)}</span>`;
       }).join('');
-      const mat = (item.materials||[]).join(' · ');
+      const mat = (item.materials||[]).map(esc).join(' · ');
       const seasons = (item.seasons||[]).map(s=>({sommer:'Sommer',winter:'Winter',uebergang:'Übergang',ganzjaehrig:'Ganzjährig'}[s]||s)).join(' / ');
       const price = item.priceMinor ? `€${(item.priceMinor/100).toFixed(2).replace('.',',')}` : '';
 
       el.innerHTML = `
-        <div class="thumb" data-url="${item.brand.shopDomain}" ${openClick}>${svg(i)}<span class="thumb-tag">FIG.${String(i+1).padStart(2,'0')}</span><div class="thumb-open"><span>Produkt →</span></div></div>
-        <div class="card-top"><div><div class="brand-name" ${openClick}>${item.brand.name}</div><div class="prod-title">${item.title}</div></div><span class="tor">Echt ✓</span></div>
+        <div class="thumb" data-url="${esc(item.brand.shopDomain)}" ${openClick}>${svg(i)}<span class="thumb-tag">FIG.${String(i+1).padStart(2,'0')}</span><div class="thumb-open"><span>Produkt →</span></div></div>
+        <div class="card-top"><div><div class="brand-name" ${openClick}>${esc(item.brand.name)}</div><div class="prod-title">${esc(item.title)}</div></div><span class="tor">${badge}</span></div>
         ${mat||seasons ? `<div class="prod-meta">${[mat,seasons].filter(Boolean).join(' — ')}</div>` : ''}
         ${sizeRow ? `<div class="sizes">${sizeRow}</div>` : ''}
         ${price ? `<div class="price">${price}</div>` : ''}
-        ${openUrl ? `<a class="to-product" href="${openUrl}" target="_blank" rel="noopener">Zum Produkt ↗</a>` : ''}
+        ${openUrl ? `<a class="to-product" href="${esc(openUrl)}" target="_blank" rel="noopener">Zum Produkt ↗</a>` : ''}
         <div class="know">${seg(k)}<small>${KNOWN_LABEL[k-1]}</small></div>
         <div class="fb"></div>`;
     } else {
       el.innerHTML = `
-        <div class="thumb" data-url="${item.brand.shopDomain}" ${openClick}>${svg(i)}<span class="thumb-tag">FIG.${String(i+1).padStart(2,'0')}</span><div class="thumb-open"><span>Shop →</span></div></div>
-        <div class="card-top"><div class="brand-name" ${openClick}>${item.brand.name}</div><span class="tor">Echt ✓</span></div>
-        <div class="brand-does">${item.why.length ? 'passt: ' + item.why.slice(0,4).join(' · ') : ''}</div>
+        <div class="thumb" data-url="${esc(item.brand.shopDomain)}" ${openClick}>${svg(i)}<span class="thumb-tag">FIG.${String(i+1).padStart(2,'0')}</span><div class="thumb-open"><span>Shop →</span></div></div>
+        <div class="card-top"><div class="brand-name" ${openClick}>${esc(item.brand.name)}</div><span class="tor">${badge}</span></div>
+        <div class="brand-does">${item.why.length ? 'passt: ' + item.why.map(esc).slice(0,4).join(' · ') : ''}</div>
         <div class="know">${seg(k)}<small>${KNOWN_LABEL[k-1]}</small></div>
         <div class="fb"></div>`;
     }
@@ -406,12 +417,12 @@ function renderDisc(brands) {
   brands.slice(0,4).forEach((b, i) => {
     const el = document.createElement('div');
     el.className = 'disc-card';
-    const openClick = b.shopDomain ? `onclick="window.open('${b.shopDomain}','_blank','noopener')"` : '';
+    const openClick = b.shopDomain ? `onclick="window.open('${esc(b.shopDomain)}','_blank','noopener')"` : '';
     el.innerHTML = `
-      <div class="disc-thumb" data-url="${b.shopDomain}" ${openClick}>${svg(i+2)}</div>
-      <div class="disc-name" ${openClick}>${b.name}</div>
+      <div class="disc-thumb" data-url="${esc(b.shopDomain)}" ${openClick}>${svg(i+2)}</div>
+      <div class="disc-name" ${openClick}>${esc(b.name)}</div>
       <div class="disc-sub">verwandt</div>
-      ${b.watchlist ? '<span class="disc-wl">Watchlist · geparkt</span>' : ''}`;
+      ${!passesGate1(b) ? '<span class="disc-wl">Ungeprüft · in Prüfung</span>' : ''}`;
     dg.appendChild(el);
   });
   loadOgImages(dg);
@@ -537,6 +548,7 @@ async function run() {
   const hitItems = [], discBrands = [];
 
   BRANDS.forEach(b => {
+    const gate1 = passesGate1(b); // Two-Gate: unverifizierte Marken dürfen nie ins Haupt-Ranking, egal wie gut sie taggen
     if (hasProducts(b)) {
       let prods = b.products;
       if (filters.gender) prods = prods.filter(p => !p.gender || p.gender === filters.gender || p.gender === 'unisex');
@@ -548,15 +560,20 @@ async function run() {
           const sc = x => qwords.filter(w=>[x.title,x.description,...(x.fits||[])].join(' ').toLowerCase().includes(w)).length;
           return sc(pb)-sc(pa);
         })[0];
-        hitItems.push({ type: 'product', brand: b, ...best });
+        if (gate1) hitItems.push({ type: 'product', brand: b, ...best });
+        else discBrands.push(b);
       } else {
         const br = brandMatches(b, t);
-        if (br.zone === 'disc') discBrands.push(b);
+        if (br.zone === 'hit' || br.zone === 'disc') discBrands.push(b);
       }
     } else {
       const br = brandMatches(b, t);
-      if (br.zone === 'hit') hitItems.push({ type: 'brand', brand: b, why: br.why });
-      else if (br.zone === 'disc') discBrands.push(b);
+      if (br.zone === 'hit') {
+        if (gate1) hitItems.push({ type: 'brand', brand: b, why: br.why });
+        else discBrands.push(b);
+      } else if (br.zone === 'disc') {
+        discBrands.push(b);
+      }
     }
   });
 
