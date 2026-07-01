@@ -249,11 +249,15 @@ function hasProducts(b) { return b.products && b.products.length > 0; }
 
 // ── Tag matching (für Brands ohne Produktdaten)
 const LEX = {
-  type:{shirt:"hemd",hemd:"hemd",tshirt:"tee",tee:"tee","t-shirt":"tee",hoodie:"hoodie",sweat:"sweat",sweater:"strick",strick:"strick",knit:"strick",hose:"hose",pants:"hose",jeans:"denim",denim:"denim",jacke:"jacke",jacket:"jacke",mantel:"mantel"},
+  type:{shirt:"hemd",hemd:"hemd",tshirt:"tee",tee:"tee","t-shirt":"tee",hoodie:"hoodie",sweat:"sweat",sweater:"strick",strick:"strick",knit:"strick",hose:"hose",pants:"hose",jeans:"denim",denim:"denim",jacke:"jacke",jacket:"jacke",mantel:"mantel",cargo:"hose","cargo-hose":"hose",cargohose:"hose",cargopants:"hose",
+    oxford:"hemd",polo:"hemd",short:"hose",shorts:"hose",boots:"schuhe",stiefel:"schuhe",sneaker:"schuhe",sneakers:"schuhe"},
   fit:{oversized:"oversized",oversize:"oversized",boxy:"boxy",baggy:"baggy",slim:"slim",straight:"straight",relaxed:"relaxed",regular:"regular",wide:"wide-leg","wide-leg":"wide-leg",cropped:"cropped",tailored:"tailored"},
-  vibe:{minimal:"minimal",workwear:"workwear",outdoor:"outdoor",archive:"archive",military:"military",vintage:"vintage",technical:"technical",basics:"elevated-basics",essentials:"elevated-basics",grunge:"grunge","90s":"90s","90er":"90s",streetwear:"streetwear"},
-  palette:{earthtone:"earthtones",earthtones:"earthtones",erdton:"earthtones",schwarz:"schwarz-mono",black:"schwarz-mono",washed:"washed",weiß:"clean-white",white:"clean-white",bold:"bold"},
-  material:{wolle:"wolle",wool:"wolle",technical:"technical",raw:"raw-denim","raw-denim":"raw-denim",heavyweight:"heavyweight-cotton",cotton:"heavyweight-cotton"},
+  vibe:{minimal:"minimal",workwear:"workwear",outdoor:"outdoor",archive:"archive",military:"military",vintage:"vintage",technical:"technical",basics:"elevated-basics",essentials:"elevated-basics",grunge:"grunge","90s":"90s","90er":"90s",streetwear:"streetwear",
+    gorpcore:"outdoor","gorp-core":"outdoor",y2k:"90s",quiet:"minimal","quiet-luxury":"minimal",quietluxury:"minimal",athleisure:"elevated-basics",cargocore:"workwear",
+    crochet:"vintage",häkel:"vintage",haekel:"vintage",western:"vintage",preppy:"elevated-basics"},
+  palette:{earthtone:"earthtones",earthtones:"earthtones",erdton:"earthtones",erdtöne:"earthtones",schwarz:"schwarz-mono",black:"schwarz-mono",washed:"washed",weiß:"clean-white",white:"clean-white",bold:"bold",beige:"earthtones",olive:"earthtones",
+    lila:"bold",flieder:"bold",purple:"bold",lavender:"bold"},
+  material:{wolle:"wolle",wool:"wolle",technical:"technical",raw:"raw-denim","raw-denim":"raw-denim",heavyweight:"heavyweight-cotton",cotton:"heavyweight-cotton",seide:"seide",silk:"seide"},
 };
 
 function localTranslate(query) {
