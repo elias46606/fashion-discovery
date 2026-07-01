@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Fashion Discovery — Treffer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --paper: #FAFAF7; --ink: #13130F; --soft: #838177; --faint: #9a988f;
+    --line: #e4e2db; --card: #f4f2ec; --good: #2f6b3e; --sold: #b8b3a7;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-text-size-adjust: 100%; }
+  body { background: var(--paper); color: var(--ink); font-family: "Hanken Grotesk", system-ui, sans-serif; font-size: 16px; line-height: 1.5; -webkit-font-smoothing: antialiased; }
+  .wrap { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
+
+  /* Header */
+  header { border-bottom: 1px solid var(--ink); position: sticky; top: 0; z-index: 40; background: var(--paper); }
+  .topline { display: flex; justify-content: space-between; align-items: center; padding: 16px 0; gap: 16px; flex-wrap: wrap; }
+  .brandmark { font-family: "Space Mono", monospace; font-size: 11px; letter-spacing: .32em; text-transform: uppercase; color: var(--faint); font-weight: 600; text-decoration: none; }
+  .brandmark:hover { color: var(--ink); }
+  .nordstern-head { font-family: "Space Mono", monospace; font-size: 11px; color: var(--soft); text-align: right; }
+  .nordstern-head b { color: var(--ink); }
+
+  /* Gender */
+  .gender-block { padding: 16px 0 0; }
+  .gender-row { display: flex; gap: 8px; flex-wrap: wrap; }
+  .gender-chip {
+    font-family: "Space Mono", monospace; font-size: 11px;
+    background: transparent; border: 1px solid var(--line); color: var(--soft);
+    padding: 6px 14px; border-radius: 30px; cursor: pointer; transition: .12s;
+  }
+  .gender-chip:hover { border-color: var(--ink); color: var(--ink); }
+  .gender-chip.on { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+
+  /* Search */
+  .search-block { padding: 20px 0 14px; border-bottom: 1px solid var(--line); }
+  .search-row { display: flex; gap: 10px; align-items: center; }
+  #q { flex: 1; min-width: 0; background: transparent; border: none; border-bottom: 1px solid var(--line); padding: 10px 0; font-size: clamp(22px,4vw,42px); font-family: "Hanken Grotesk", sans-serif; font-weight: 300; letter-spacing: -.02em; color: var(--ink); }
+  #q:focus { outline: none; border-bottom-color: var(--ink); }
+  .go { border: 1px solid var(--ink); background: var(--ink); color: var(--paper); font-family: "Space Mono", monospace; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; padding: 10px 18px; cursor: pointer; white-space: nowrap; transition: .14s; }
+  .go:hover { background: transparent; color: var(--ink); }
+  .go:disabled { opacity: .4; cursor: default; }
+
+  /* Chips */
+  .chip-bar { display: flex; flex-wrap: wrap; gap: 7px; padding: 12px 0; min-height: 38px; border-bottom: 1px solid var(--line); }
+  .chip-label { font-family: "Space Mono", monospace; font-size: 9px; letter-spacing: .1em; text-transform: uppercase; color: var(--faint); align-self: center; margin-right: 4px; }
+  .tag { font-family: "Space Mono", monospace; font-size: 10px; border: 1px solid var(--ink); padding: 3px 9px; border-radius: 30px; }
+  .tag.loading { border-style: dashed; color: var(--faint); animation: pulse 1s infinite; }
+  @keyframes pulse { 0%,100%{opacity:.4}50%{opacity:1} }
+
+  /* Filter toggle + panel */
+  .filters-toggle {
+    width: 100%; display: flex; align-items: center; justify-content: space-between;
+    background: none; border: none; cursor: pointer; padding: 12px 0;
+    font-family: "Space Mono", monospace; font-size: 10px; text-transform: uppercase;
+    letter-spacing: .1em; color: var(--faint); border-bottom: 1px solid var(--line);
+  }
+  .filters-toggle .ft-label { display: flex; align-items: center; gap: 8px; }
+  .filters-toggle .ft-count {
+    background: var(--ink); color: var(--paper); border-radius: 30px;
+    padding: 1px 7px; font-size: 9px; letter-spacing: 0;
+  }
+  .filters-toggle .chevron { transition: transform .15s ease; font-size: 12px; }
+  .filterbar[data-open="false"] { display: none; }
+  .filterbar[data-open="false"] + .filters-toggle .chevron { transform: rotate(-90deg); }
+
+  .filterbar { display: flex; flex-wrap: wrap; gap: 20px; padding: 14px 0; border-bottom: 1px solid var(--line); }
+  .fg { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .flabel { font-family: "Space Mono", monospace; font-size: 9px; letter-spacing: .1em; text-transform: uppercase; color: var(--faint); }
+  .fchips { display: flex; flex-wrap: wrap; gap: 5px; }
+  .fchip { font-family: "Space Mono", monospace; font-size: 10px; background: transparent; border: 1px solid var(--line); color: var(--soft); padding: 3px 10px; border-radius: 30px; cursor: pointer; transition: .12s; }
+  .fchip:hover { border-color: var(--ink); color: var(--ink); }
+  .fchip.on { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .clear { background: none; border: none; cursor: pointer; font-family: "Space Mono", monospace; font-size: 10px; color: var(--faint); text-decoration: underline; padding: 0; margin-left: auto; }
+
+  /* Meta row */
+  .meta-row { display: flex; justify-content: space-between; align-items: baseline; padding: 18px 0 14px; gap: 12px; flex-wrap: wrap; }
+  .result-count { font-family: "Space Mono", monospace; font-size: 11px; color: var(--soft); }
+  .sort-row { display: flex; align-items: center; gap: 8px; font-family: "Space Mono", monospace; font-size: 10px; color: var(--faint); }
+  .seg { display: flex; border: 1px solid var(--ink); }
+  .seg button { border: none; background: transparent; color: var(--soft); font-family: "Space Mono", monospace; font-size: 10px; letter-spacing: .06em; text-transform: uppercase; padding: 5px 11px; cursor: pointer; }
+  .seg button.on { background: var(--ink); color: var(--paper); }
+
+  /* Grid */
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 32px 24px; padding: 8px 0 80px; }
+
+  /* Card — brand-only mode */
+  .card { display: flex; flex-direction: column; }
+  .thumb { aspect-ratio: 3/4; background: linear-gradient(150deg,#e9e7e0,#d4d2c9); overflow: hidden; margin-bottom: 14px; position: relative; cursor: pointer; }
+  .thumb img { width: 100%; height: 100%; object-fit: cover; display: block; opacity: 0; transition: opacity .4s; }
+  .thumb img.loaded { opacity: 1; }
+  .thumb svg { position: absolute; inset: 0; margin: auto; width: 46%; height: 46%; color: #b4b1a6; }
+  .thumb.has-img svg { opacity: 0; }
+  .thumb-tag { position: absolute; bottom: 9px; left: 10px; font-family: "Space Mono", monospace; font-size: 8px; letter-spacing: .12em; color: rgba(0,0,0,.22); }
+  .thumb-open { position: absolute; inset: 0; display: flex; align-items: flex-end; justify-content: flex-end; padding: 12px; opacity: 0; transition: .2s; }
+  .thumb:hover .thumb-open { opacity: 1; }
+  .thumb-open span { background: var(--ink); color: var(--paper); font-family: "Space Mono", monospace; font-size: 9px; letter-spacing: .08em; padding: 6px 10px; text-transform: uppercase; }
+  .card-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
+  .brand-name { font-size: 18px; font-weight: 600; letter-spacing: -.01em; cursor: pointer; }
+  .brand-name:hover { text-decoration: underline; text-underline-offset: 3px; }
+  .tor { font-family: "Space Mono", monospace; font-size: 8px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink); border: 1px solid var(--ink); border-radius: 30px; padding: 3px 9px; white-space: nowrap; }
+  .brand-does { font-size: 12px; color: var(--soft); margin-top: 3px; font-weight: 500; }
+  .know { display: flex; align-items: center; gap: 3px; margin-top: 10px; }
+  .know i { width: 16px; height: 2px; background: var(--line); }
+  .know i.f { background: var(--ink); }
+  .know small { font-family: "Space Mono", monospace; font-size: 9px; letter-spacing: .1em; text-transform: uppercase; color: var(--faint); margin-left: 7px; }
+
+  /* Card — product mode */
+  .prod-title { font-size: 14px; color: var(--ink); margin: 2px 0 5px; }
+  .prod-meta { font-family: "Space Mono", monospace; font-size: 10px; color: var(--soft); margin-bottom: 10px; }
+  .sizes { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 10px; }
+  .size { font-family: "Space Mono", monospace; font-size: 11px; border: 1px solid var(--line); padding: 3px 8px; border-radius: 2px; min-width: 28px; text-align: center; }
+  .size.out { color: var(--sold); border-color: #e7e3d9; text-decoration: line-through; }
+  .size.match { border-color: var(--ink); font-weight: 700; }
+  .price { font-family: "Space Mono", monospace; font-size: 13px; margin-bottom: 10px; }
+  .to-product { display: inline-block; text-align: center; text-decoration: none; background: var(--ink); color: var(--paper); font-family: "Space Mono", monospace; font-size: 11px; letter-spacing: .04em; padding: 9px 14px; margin-bottom: 12px; transition: opacity .12s; }
+  .to-product:hover { opacity: .82; }
+
+  /* Feedback */
+  .fb { margin-top: 12px; border-top: 1px solid var(--line); padding-top: 10px; }
+  .fb-ask { font-family: "Space Mono", monospace; font-size: 10px; color: var(--soft); margin-bottom: 7px; }
+  .fb-btns { display: flex; gap: 7px; }
+  .fb-btns button { border: 1px solid var(--ink); background: transparent; color: var(--ink); font-family: "Space Mono", monospace; font-size: 10px; padding: 5px 12px; cursor: pointer; }
+  .fb-btns button:hover { background: var(--ink); color: var(--paper); }
+  .verdict { display: flex; align-items: center; gap: 7px; font-family: "Space Mono", monospace; font-size: 11px; }
+  .verdict .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--soft); flex: none; }
+  .verdict.hit .dot { background: var(--ink); }
+
+  /* Discovery zone */
+  .disc-section { background: #13130F; color: #FAFAF7; padding: 52px 0 68px; margin-top: 60px; }
+  .disc-section .zh { display: flex; align-items: baseline; gap: 14px; margin-bottom: 24px; }
+  .disc-section .zh span { font-family: "Space Mono", monospace; font-size: 11px; color: #7d7b72; }
+  .disc-section .zh h2 { font-size: 15px; font-weight: 700; color: #FAFAF7; }
+  .disc-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 24px; }
+  .disc-card { cursor: pointer; }
+  .disc-thumb { aspect-ratio: 3/4; background: linear-gradient(150deg,#26251f,#191812); overflow: hidden; position: relative; margin-bottom: 12px; }
+  .disc-thumb img { width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity .4s; }
+  .disc-thumb img.loaded { opacity: 1; }
+  .disc-thumb svg { position: absolute; inset: 0; margin: auto; width: 46%; height: 46%; color: #46443c; transition: .4s; }
+  .disc-thumb.has-img svg { opacity: 0; }
+  .disc-card:hover .disc-thumb svg { transform: scale(1.05); color: #5c5a4f; }
+  .disc-name { font-size: 15px; font-weight: 600; letter-spacing: -.01em; color: #FAFAF7; }
+  .disc-sub { font-size: 10px; color: #7d7b72; margin-top: 3px; font-family: "Space Mono", monospace; }
+  .disc-wl { display: inline-block; margin-top: 7px; font-family: "Space Mono", monospace; font-size: 8px; letter-spacing: .12em; border: 1px solid #2b2a24; color: #7d7b72; padding: 2px 7px; text-transform: uppercase; }
+
+  .empty { font-family: "Space Mono", monospace; font-size: 12px; color: var(--soft); padding: 48px 0; line-height: 1.8; }
+  footer { border-top: 1px solid var(--line); padding: 24px 0 50px; font-family: "Space Mono", monospace; font-size: 10px; color: var(--faint); line-height: 1.8; }
+
+  @media(max-width:880px){ .wrap{padding:0 20px} .disc-grid{grid-template-columns:repeat(2,1fr)} }
+  @media(max-width:540px){ .grid{grid-template-columns:1fr} .disc-grid{grid-template-columns:1fr} }
+  @media(prefers-reduced-motion:reduce){ *{transition:none!important} }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="topline">
+      <a class="brandmark" href="index.html">Fashion Discovery</a>
+      <div class="nordstern-head" id="nordsternHead">Nordstern: <b>—</b> · neu + passt</div>
+    </div>
+    <div class="gender-block">
+      <div class="gender-row" id="genderChips"></div>
+    </div>
+    <div class="search-block">
+      <div class="search-row">
+        <input id="q" type="text" placeholder="oversized hoodie earthtones …" autocomplete="off" onkeydown="if(event.key==='Enter')run()" />
+        <button class="go" id="goBtn" onclick="run()">Suchen</button>
+      </div>
+    </div>
+    <div class="chip-bar" id="chipBar"><span class="tag loading">Lade …</span></div>
+    <button class="filters-toggle" id="filtersToggle" onclick="toggleFilters()">
+      <span class="ft-label">Filter <span class="ft-count" id="ftCount" style="display:none">0</span></span>
+      <span class="chevron">▾</span>
+    </button>
+    <div class="filterbar" id="filterBar" data-open="true" style="display:none">
+      <div class="fg">
+        <span class="flabel">Größe</span>
+        <div class="fchips" id="sizeChips"></div>
+      </div>
+      <div class="fg">
+        <span class="flabel">Preis</span>
+        <div class="fchips" id="priceChips"></div>
+      </div>
+      <div class="fg">
+        <span class="flabel">Material</span>
+        <div class="fchips" id="matChips"></div>
+      </div>
+      <div class="fg">
+        <span class="flabel">Saison</span>
+        <div class="fchips" id="seasonChips"></div>
+      </div>
+      <button class="clear" onclick="clearFilters()">Filter zurücksetzen</button>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="meta-row">
+    <div class="result-count" id="resultCount"></div>
+    <div class="sort-row">Sortierung
+      <div class="seg">
+        <button id="sDisc" class="on" onclick="setSort('disc')">Entdeckung</button>
+        <button id="sFame" onclick="setSort('fame')">Bekanntheit</button>
+      </div>
+    </div>
+  </div>
+  <div id="emptyMsg"></div>
+  <div class="grid" id="grid"></div>
+</main>
+
+<section class="disc-section" id="discSection" style="display:none">
+  <div class="wrap">
+    <div class="zh"><span>02</span><h2>Im Geiste verwandt</h2><span>— elastische Zone</span></div>
+    <div class="disc-grid" id="discGrid"></div>
+  </div>
+</section>
+
+<div class="wrap">
+  <footer>
+    <b style="color:var(--soft)">Fashion Discovery · Echter Seed.</b> Bekanntes sinkt. Unentdecktes steigt.<br>
+    Produktdaten via Shopify-Feed · Übersetzung via Claude API (Vercel)
+  </footer>
+</div>
+
+<script>
+// ── URL-Param
+const _qParam = new URLSearchParams(location.search).get('q');
+if (_qParam) document.getElementById('q').value = _qParam;
+
+// ── State
+let BRANDS = [];
+let SORT = 'disc';
+const filters = { sizes: new Set(), materials: new Set(), seasons: new Set(), priceBands: new Set(), gender: null };
+let hits = 0, rated = 0;
+
+// ── Discovery Score (Famousness Penalty)
+function score(b) {
+  const f = b.famousness || { searchVolume: 500, stockistReach: 200, followerCount: 100 };
+  return f.searchVolume * 1.0 + f.stockistReach * 0.4 + f.followerCount * 0.1 - (b.freshnessBonus || 0);
+}
+
+// ── Has Products?
+function hasProducts(b) { return b.products && b.products.length > 0; }
+
+// ── Tag matching (für Brands ohne Produktdaten)
+const LEX = {
+  type:{shirt:"hemd",hemd:"hemd",tshirt:"tee",tee:"tee","t-shirt":"tee",hoodie:"hoodie",sweat:"sweat",sweater:"strick",strick:"strick",knit:"strick",hose:"hose",pants:"hose",jeans:"denim",denim:"denim",jacke:"jacke",jacket:"jacke",mantel:"mantel"},
+  fit:{oversized:"oversized",oversize:"oversized",boxy:"boxy",baggy:"baggy",slim:"slim",straight:"straight",relaxed:"relaxed",regular:"regular",wide:"wide-leg","wide-leg":"wide-leg",cropped:"cropped",tailored:"tailored"},
+  vibe:{minimal:"minimal",workwear:"workwear",outdoor:"outdoor",archive:"archive",military:"military",vintage:"vintage",technical:"technical",basics:"elevated-basics",essentials:"elevated-basics",grunge:"grunge","90s":"90s","90er":"90s",streetwear:"streetwear"},
+  palette:{earthtone:"earthtones",earthtones:"earthtones",erdton:"earthtones",schwarz:"schwarz-mono",black:"schwarz-mono",washed:"washed",weiß:"clean-white",white:"clean-white",bold:"bold"},
+  material:{wolle:"wolle",wool:"wolle",technical:"technical",raw:"raw-denim","raw-denim":"raw-denim",heavyweight:"heavyweight-cotton",cotton:"heavyweight-cotton"},
+};
+
+function localTranslate(query) {
+  const out = { type:[], fit:[], vibe:[], palette:[], material:[], size:null, raw: query };
+  const q = " " + query.toLowerCase() + " ";
+  const sz = query.match(/\b(2[8-9]|3[0-8]|4[0-2])\b/);
+  if (sz) out.size = "numeric";
+  for (const cat in LEX) {
+    for (const word in LEX[cat]) {
+      if (q.includes(" " + word + " ") || q.includes(word)) {
+        const tag = LEX[cat][word];
+        if (!out[cat].includes(tag)) out[cat].push(tag);
+      }
+    }
+  }
+  return out;
+}
+
+async function translate(query) {
+  try {
+    const res = await fetch('https://fashion-discovery-eta.vercel.app/api/translate', {
+      method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({query}),
+    });
+    if (!res.ok) throw new Error();
+    const tags = await res.json();
+    tags.size = query.match(/\b(2[8-9]|3[0-8]|4[0-2])\b/) ? "numeric" : null;
+    tags.raw = query;
+    return tags;
+  } catch { return localTranslate(query); }
+}
+
+// ── Brand relevance check (tag-based, for brands without products)
+function brandMatches(b, t) {
+  const tags = b.styleTags || [];
+  const req = [...(t.type||[]), ...(t.fit||[]), ...(t.vibe||[]), ...(t.palette||[]), ...(t.material||[])];
+  if (!req.length) return { match: true, zone: 'hit', why: [] };
+  const hits = req.filter(r => tags.some(tag => tag.includes(r) || r.includes(tag)));
+  if (hits.length >= Math.min(2, req.length)) return { match: true, zone: 'hit', why: hits };
+  if (hits.length >= 1) return { match: true, zone: 'disc', why: hits };
+  return { match: false };
+}
+
+function parsePrice(minor) {
+  return typeof minor === 'number' ? minor / 100 : null;
+}
+const PRICE_BANDS = [
+  { id: 'b1', label: 'bis 50 €', min: 0, max: 50 },
+  { id: 'b2', label: '50–100 €', min: 50, max: 100 },
+  { id: 'b3', label: '100–150 €', min: 100, max: 150 },
+  { id: 'b4', label: 'ab 150 €', min: 150, max: Infinity },
+];
+
+// ── Product text match (genau: mind. 60% der Suchwörter müssen vorkommen)
+function productMatches(p, t) {
+  const raw = t.raw || '';
+  const hay = [p.title, p.description, ...(p.materials||[]), ...(p.seasons||[]), ...(p.fits||[])].join(' ').toLowerCase();
+  const words = raw.toLowerCase().split(/\s+/).filter(w => w.length > 2);
+  if (filters.sizes.size && !p.sizes?.some(s => filters.sizes.has(s.label) && s.available)) return false;
+  if (filters.materials.size && !p.materials?.some(m => filters.materials.has(m))) return false;
+  if (filters.seasons.size && !p.seasons?.some(s => filters.seasons.has(s))) return false;
+  if (filters.priceBands.size) {
+    const val = parsePrice(p.priceMinor);
+    const ok = val !== null && PRICE_BANDS.some(b => filters.priceBands.has(b.id) && val >= b.min && val < b.max);
+    if (!ok) return false;
+  }
+  if (!words.length) return true;
+  const matchCount = words.filter(w => hay.includes(w)).length;
+  return matchCount >= Math.ceil(words.length * 0.6);
+}
+
+// ── SVG placeholders
+const SVGS = [
+  `<svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M30 22 L20 30 L26 40 L30 36 V78 H70 V36 L74 40 L80 30 L70 22 L60 22 Q50 30 40 22 Z"/></svg>`,
+  `<svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M34 18 H66 L70 82 H56 L50 44 L44 82 H30 Z"/></svg>`,
+  `<svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M28 24 L18 32 L25 44 L30 40 V80 H70 V40 L75 44 L82 32 L72 24 M50 24 V80"/></svg>`,
+  `<svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M32 20 L18 30 L24 44 L32 40 V80 H68 V40 L76 44 L82 30 L68 20 Q50 32 32 20 Z"/></svg>`,
+];
+const svg = i => SVGS[i % SVGS.length];
+const seg = k => { let s=''; for(let i=1;i<=5;i++) s+=`<i class="${i<=k?'f':''}"></i>`; return s; };
+const KNOWN_LABEL = ["sehr unentdeckt","unentdeckt","im Aufstieg","bekannt","jeder kennt sie"];
+
+function famToKnown(b) {
+  const s = score(b);
+  if (s < 50) return 1;
+  if (s < 120) return 2;
+  if (s < 300) return 3;
+  if (s < 600) return 4;
+  return 5;
+}
+
+// ── Render hits (brand cards or product cards)
+function renderHits(items) {
+  const grid = document.getElementById('grid');
+  grid.innerHTML = '';
+  document.getElementById('resultCount').textContent = items.length ? `${items.length} Treffer` : '';
+  document.getElementById('emptyMsg').innerHTML = items.length ? '' :
+    `<div class="empty">Keine Treffer. Versuch: „oversized hoodie", „minimal earthtones", „workwear jacke".</div>`;
+
+  items.forEach((item, i) => {
+    const el = document.createElement('div');
+    el.className = 'card';
+    const k = famToKnown(item.brand);
+    const openUrl = item.productUrl || item.brand.shopDomain || '';
+    const openClick = openUrl ? `onclick="window.open('${openUrl}','_blank','noopener')" style="cursor:pointer"` : '';
+
+    if (item.type === 'product') {
+      const sizeRow = (item.sizes || []).map(s => {
+        const m = filters.sizes.has(s.label);
+        return `<span class="size${!s.available?' out':''}${m&&s.available?' match':''}">${s.label}</span>`;
+      }).join('');
+      const mat = (item.materials||[]).join(' · ');
+      const seasons = (item.seasons||[]).map(s=>({sommer:'Sommer',winter:'Winter',uebergang:'Übergang',ganzjaehrig:'Ganzjährig'}[s]||s)).join(' / ');
+      const price = item.priceMinor ? `€${(item.priceMinor/100).toFixed(2).replace('.',',')}` : '';
+
+      el.innerHTML = `
+        <div class="thumb" data-url="${item.brand.shopDomain}" ${openClick}>${svg(i)}<span class="thumb-tag">FIG.${String(i+1).padStart(2,'0')}</span><div class="thumb-open"><span>Produkt →</span></div></div>
+        <div class="card-top"><div><div class="brand-name" ${openClick}>${item.brand.name}</div><div class="prod-title">${item.title}</div></div><span class="tor">Echt ✓</span></div>
+        ${mat||seasons ? `<div class="prod-meta">${[mat,seasons].filter(Boolean).join(' — ')}</div>` : ''}
+        ${sizeRow ? `<div class="sizes">${sizeRow}</div>` : ''}
+        ${price ? `<div class="price">${price}</div>` : ''}
+        ${openUrl ? `<a class="to-product" href="${openUrl}" target="_blank" rel="noopener">Zum Produkt ↗</a>` : ''}
+        <div class="know">${seg(k)}<small>${KNOWN_LABEL[k-1]}</small></div>
+        <div class="fb"></div>`;
+    } else {
+      el.innerHTML = `
+        <div class="thumb" data-url="${item.brand.shopDomain}" ${openClick}>${svg(i)}<span class="thumb-tag">FIG.${String(i+1).padStart(2,'0')}</span><div class="thumb-open"><span>Shop →</span></div></div>
+        <div class="card-top"><div class="brand-name" ${openClick}>${item.brand.name}</div><span class="tor">Echt ✓</span></div>
+        <div class="brand-does">${item.why.length ? 'passt: ' + item.why.slice(0,4).join(' · ') : ''}</div>
+        <div class="know">${seg(k)}<small>${KNOWN_LABEL[k-1]}</small></div>
+        <div class="fb"></div>`;
+    }
+    grid.appendChild(el);
+    mountFb(el.querySelector('.fb'));
+  });
+
+  loadOgImages(grid);
+}
+
+// ── Render discovery zone
+function renderDisc(brands) {
+  const sec = document.getElementById('discSection');
+  const dg = document.getElementById('discGrid');
+  if (!brands.length) { sec.style.display = 'none'; return; }
+  sec.style.display = '';
+  dg.innerHTML = '';
+  brands.slice(0,4).forEach((b, i) => {
+    const el = document.createElement('div');
+    el.className = 'disc-card';
+    const openClick = b.shopDomain ? `onclick="window.open('${b.shopDomain}','_blank','noopener')"` : '';
+    el.innerHTML = `
+      <div class="disc-thumb" data-url="${b.shopDomain}" ${openClick}>${svg(i+2)}</div>
+      <div class="disc-name" ${openClick}>${b.name}</div>
+      <div class="disc-sub">verwandt</div>
+      ${b.watchlist ? '<span class="disc-wl">Watchlist · geparkt</span>' : ''}`;
+    dg.appendChild(el);
+  });
+  loadOgImages(dg);
+}
+
+// ── OG image loader
+async function loadOgImages(container) {
+  const items = container.querySelectorAll('[data-url]');
+  for (const item of items) {
+    const url = item.dataset.url;
+    if (!url) continue;
+    try {
+      const r = await fetch(`https://fashion-discovery-eta.vercel.app/api/ogimage?url=${encodeURIComponent(url)}`);
+      const { img } = await r.json();
+      if (!img) continue;
+      const el = document.createElement('img');
+      el.src = img;
+      el.alt = '';
+      el.onload = () => { el.classList.add('loaded'); item.classList.add('has-img'); };
+      item.appendChild(el);
+    } catch {}
+  }
+}
+
+// ── Gender chips (Einfachauswahl)
+const GENDER_LABEL = { herren: 'Herren', damen: 'Damen', unisex: 'Unisex' };
+function buildGenderChips(brands) {
+  const found = new Set();
+  brands.forEach(b => b.products.forEach(p => { if (p.gender) found.add(p.gender); }));
+  const el = document.getElementById('genderChips');
+  if (!found.size) { el.innerHTML = ''; return; }
+  el.innerHTML = '';
+  ['herren','damen','unisex'].filter(g => found.has(g)).forEach(g => {
+    const b = document.createElement('button');
+    b.className = 'gender-chip' + (filters.gender === g ? ' on' : '');
+    b.textContent = GENDER_LABEL[g];
+    b.onclick = () => {
+      filters.gender = filters.gender === g ? null : g;
+      buildGenderChips(brands);
+      run();
+    };
+    el.appendChild(b);
+  });
+}
+
+// ── Filter panel toggle
+function toggleFilters() {
+  const bar = document.getElementById('filterBar');
+  const open = bar.dataset.open !== 'true';
+  bar.dataset.open = open ? 'true' : 'false';
+  bar.style.display = open ? '' : 'none';
+  document.querySelector('#filtersToggle .chevron').style.transform = open ? '' : 'rotate(-90deg)';
+}
+function updateFilterCount() {
+  const n = filters.sizes.size + filters.materials.size + filters.seasons.size + filters.priceBands.size + (filters.gender ? 1 : 0);
+  const badge = document.getElementById('ftCount');
+  badge.textContent = n;
+  badge.style.display = n ? '' : 'none';
+}
+
+// ── Filter chips (only when products exist)
+const CORE_SIZE_ORDER = ["XXS","XS","S","M","L","XL","XXL","3XL"];
+function buildFilterChips(brands) {
+  const hasProds = brands.some(hasProducts);
+  document.getElementById('filtersToggle').style.display = hasProds ? '' : 'none';
+  document.getElementById('filterBar').style.display = hasProds && document.getElementById('filterBar').dataset.open === 'true' ? '' : 'none';
+  if (!hasProds) return;
+
+  const allLabels = new Set(brands.flatMap(b => b.products.flatMap(p => (p.sizes||[]).map(s=>s.label))));
+  const allSizes = CORE_SIZE_ORDER.filter(sz => allLabels.has(sz));
+  const allMats = [...new Set(brands.flatMap(b => b.products.flatMap(p => p.materials||[])))].sort();
+  const allSeasons = ['sommer','uebergang','winter','ganzjaehrig'].filter(s => brands.some(b => b.products.some(p => (p.seasons||[]).includes(s))));
+  const SL = {sommer:'Sommer',winter:'Winter',uebergang:'Übergang',ganzjaehrig:'Ganzjährig'};
+  const activePriceBands = PRICE_BANDS.filter(band => brands.some(b => b.products.some(p => {
+    const val = parsePrice(p.priceMinor);
+    return val !== null && val >= band.min && val < band.max;
+  })));
+
+  function chips(containerId, values, set, label) {
+    const el = document.getElementById(containerId);
+    el.innerHTML = '';
+    values.forEach(v => {
+      const b = document.createElement('button');
+      b.className = 'fchip' + (set.has(v) ? ' on' : '');
+      b.textContent = label ? label(v) : v;
+      b.onclick = () => { set.has(v) ? set.delete(v) : set.add(v); b.classList.toggle('on'); updateFilterCount(); run(); };
+      el.appendChild(b);
+    });
+  }
+  chips('sizeChips', allSizes, filters.sizes);
+  chips('priceChips', activePriceBands.map(b=>b.id), filters.priceBands, id => PRICE_BANDS.find(b=>b.id===id).label);
+  chips('matChips', allMats, filters.materials);
+  chips('seasonChips', allSeasons, filters.seasons, v => SL[v]||v);
+  updateFilterCount();
+}
+
+function clearFilters() {
+  filters.sizes.clear(); filters.materials.clear(); filters.seasons.clear(); filters.priceBands.clear(); filters.gender = null;
+  document.querySelectorAll('.fchip').forEach(c => c.classList.remove('on'));
+  document.querySelectorAll('.gender-chip').forEach(c => c.classList.remove('on'));
+  updateFilterCount();
+  run();
+}
+
+// ── Main run
+let currentTags = null;
+async function run() {
+  if (!BRANDS.length) return;
+  const query = document.getElementById('q').value.trim();
+  document.getElementById('goBtn').disabled = true;
+  document.getElementById('chipBar').innerHTML = '<span class="tag loading">Übersetze …</span>';
+
+  const t = query ? await translate(query) : { type:[], fit:[], vibe:[], palette:[], material:[], size:null, raw:'' };
+  currentTags = t;
+  document.getElementById('goBtn').disabled = false;
+
+  // Render chip bar
+  const allTags = [...(t.type||[]),...(t.fit||[]),...(t.vibe||[]),...(t.palette||[]),...(t.material||[])];
+  document.getElementById('chipBar').innerHTML = allTags.length
+    ? '<span class="chip-label">Erkannt →</span>' + allTags.map(x=>`<span class="tag">${x}</span>`).join('')
+    : '<span class="chip-label">Alle Marken</span>';
+
+  const hitItems = [], discBrands = [];
+
+  BRANDS.forEach(b => {
+    if (hasProducts(b)) {
+      let prods = b.products;
+      if (filters.gender) prods = prods.filter(p => !p.gender || p.gender === filters.gender || p.gender === 'unisex');
+      const matchingProds = prods.filter(p => productMatches(p, t));
+      if (matchingProds.length) {
+        // Nur das relevanteste Produkt pro Marke anzeigen
+        const qwords = (t.raw||'').toLowerCase().split(/\s+/).filter(w=>w.length>2);
+        const best = matchingProds.slice().sort((pa,pb) => {
+          const sc = x => qwords.filter(w=>[x.title,x.description,...(x.fits||[])].join(' ').toLowerCase().includes(w)).length;
+          return sc(pb)-sc(pa);
+        })[0];
+        hitItems.push({ type: 'product', brand: b, ...best });
+      } else {
+        const br = brandMatches(b, t);
+        if (br.zone === 'disc') discBrands.push(b);
+      }
+    } else {
+      const br = brandMatches(b, t);
+      if (br.zone === 'hit') hitItems.push({ type: 'brand', brand: b, why: br.why });
+      else if (br.zone === 'disc') discBrands.push(b);
+    }
+  });
+
+  // Sort
+  hitItems.sort((a,b) => SORT === 'disc' ? score(a.brand) - score(b.brand) : score(b.brand) - score(a.brand));
+  discBrands.sort((a,b) => score(a) - score(b));
+
+  renderHits(hitItems);
+  renderDisc(discBrands);
+  buildFilterChips(BRANDS);
+  buildGenderChips(BRANDS);
+}
+
+// ── Feedback
+function mountFb(el) {
+  el.innerHTML = `<div class="fb-ask">Kennst du die Marke?</div><div class="fb-btns"><button data-v="no">Nein</button><button data-v="yes">Ja</button></div>`;
+  el.querySelectorAll('button').forEach(b => b.onclick = () => { el.dataset.knew = b.dataset.v; askFit(el); });
+}
+function askFit(el) {
+  el.innerHTML = `<div class="fb-ask">Passt sie zur Suche?</div><div class="fb-btns"><button data-v="up">👍 Passt</button><button data-v="down">👎 Daneben</button></div>`;
+  el.querySelectorAll('button').forEach(b => b.onclick = () => { el.dataset.fit = b.dataset.v; verdict(el); });
+}
+function verdict(el) {
+  const kn = el.dataset.knew, ft = el.dataset.fit; let tx, c = '';
+  if (kn==='no' && ft==='up')  { tx='🎯 Volltreffer'; c='hit'; hits++; }
+  else if (kn==='no')            tx='Neu, aber daneben';
+  else if (ft==='up')            tx='Korrekt, aber bekannt';
+  else                           tx='Daneben';
+  rated++;
+  el.innerHTML = `<div class="verdict ${c}"><span class="dot"></span>${tx}</div>`;
+  document.getElementById('nordsternHead').innerHTML =
+    `Nordstern: <b>${rated ? Math.round(hits/rated*100)+'%' : '—'}</b> · neu + passt`;
+}
+
+function setSort(s) {
+  SORT = s;
+  document.getElementById('sDisc').classList.toggle('on', s==='disc');
+  document.getElementById('sFame').classList.toggle('on', s==='fame');
+  run();
+}
+
+// ── Init
+fetch('brands.json')
+  .then(r => { if (!r.ok) throw new Error(); return r.json(); })
+  .then(data => {
+    BRANDS = data;
+    run();
+  })
+  .catch(() => {
+    document.getElementById('grid').innerHTML = '<div class="empty">Daten konnten nicht geladen werden.</div>';
+  });
+</script>
+</body>
+</html>
