@@ -19,22 +19,26 @@
 
   .wrap{max-width:1240px;margin:0 auto;padding:0 40px;width:100%}
 
-  /* ── Header ── */
   header{border-bottom:1px solid var(--ink);padding:18px 0}
   .htop{display:flex;justify-content:space-between;align-items:center}
   .kicker{font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:var(--faint);font-weight:600}
-  .nav{font-family:"Space Mono",monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--soft)}
+  .nav{font-family:"Space Mono",monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--soft);display:flex;align-items:center;gap:16px}
+  .acct-link{color:var(--soft);text-decoration:none;display:flex;align-items:center;gap:5px}
+  .acct-link:hover{color:var(--ink)}
+  .acct-link svg{width:13px;height:13px}
 
-  /* ── Hero ── */
-  .hero{flex:1;display:flex;flex-direction:column;justify-content:center;padding:80px 0 60px}
+  .hero{flex:1;display:flex;flex-direction:column;justify-content:center;padding:80px 0 60px;
+    animation:fadeUp .55s cubic-bezier(.22,.68,0,1.2) both}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+
   .eyebrow{font-family:"Space Mono",monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--faint);margin-bottom:28px}
   .headline{font-size:clamp(42px,7vw,96px);font-weight:300;letter-spacing:-.04em;line-height:1;margin-bottom:32px;max-width:14ch}
   .headline em{font-style:normal;font-weight:700}
   .sub{font-size:15px;color:var(--soft);font-weight:500;max-width:52ch;line-height:1.65;margin-bottom:56px}
   .sub b{color:var(--ink);font-weight:600}
 
-  /* ── Suchfeld ── */
-  .sform{display:flex;gap:0;border:1px solid var(--ink);max-width:620px}
+  .sform{display:flex;gap:0;border:1px solid var(--ink);max-width:620px;transition:box-shadow .2s}
+  .sform:focus-within{box-shadow:0 0 0 3px var(--ink)}
   .sform input{flex:1;min-width:0;border:none;background:transparent;color:var(--ink);font-family:"Hanken Grotesk",sans-serif;
     font-size:18px;font-weight:400;padding:16px 20px;letter-spacing:-.01em}
   .sform input:focus{outline:none}
@@ -44,22 +48,21 @@
     padding:16px 24px;cursor:pointer;white-space:nowrap;transition:.14s}
   .sform button:hover{background:#2a2920}
 
-  /* ── Beispiele ── */
   .examples{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:20px}
   .ex-label{font-family:"Space Mono",monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);margin-right:4px}
   .ex{font-family:"Space Mono",monospace;font-size:10px;letter-spacing:.03em;border:1px solid var(--line);
     color:var(--soft);padding:5px 12px;border-radius:30px;cursor:pointer;background:transparent;transition:.12s}
   .ex:hover{border-color:var(--ink);color:var(--ink)}
 
-  /* ── Manifesto ── */
   .manifesto{border-top:1px solid var(--line);padding:40px 0 56px;display:grid;grid-template-columns:repeat(3,1fr);gap:40px}
   .mblock .ml{font-family:"Space Mono",monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);margin-bottom:10px}
   .mblock p{font-size:13px;color:var(--soft);line-height:1.7;font-weight:500}
   .mblock p b{color:var(--ink);font-weight:600}
 
-  /* ── Footer ── */
   footer{border-top:1px solid var(--line);padding:20px 0}
-  .foot{display:flex;justify-content:space-between;align-items:center;font-family:"Space Mono",monospace;font-size:9px;color:var(--faint);letter-spacing:.06em}
+  .foot{display:flex;justify-content:space-between;align-items:center;font-family:"Space Mono",monospace;font-size:9px;color:var(--faint);letter-spacing:.06em;flex-wrap:wrap;gap:8px}
+  .foot a{color:var(--faint);text-decoration:underline;margin-left:14px}
+  .foot a:hover{color:var(--ink)}
 
   @media(max-width:720px){
     .wrap{padding:0 24px}
@@ -79,7 +82,10 @@
   <div class="wrap">
     <div class="htop">
       <div class="kicker">Fashion Discovery</div>
-      <div class="nav">61 Marken · Echter Seed</div>
+      <div class="nav">
+        <span id="brandCount">61 Marken · Echter Seed</span>
+        <a class="acct-link" href="account.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 4-6 8-6s8 2 8 6"/></svg>Konto</a>
+      </div>
     </div>
   </div>
 </header>
@@ -100,12 +106,12 @@
 
     <div class="examples">
       <span class="ex-label">z.B. →</span>
-      <button class="ex" onclick="setQ('oversized hoodie')">oversized hoodie</button>
-      <button class="ex" onclick="setQ('workwear jacke earthtones')">workwear jacke earthtones</button>
-      <button class="ex" onclick="setQ('minimal tee schwarz')">minimal tee schwarz</button>
-      <button class="ex" onclick="setQ('baggy 90s streetwear')">baggy 90s streetwear</button>
-      <button class="ex" onclick="setQ('archive strick wolle')">archive strick wolle</button>
-      <button class="ex" onclick="setQ('raw denim slim')">raw denim slim</button>
+      <button class="ex" onclick="go2('oversized hoodie')">oversized hoodie</button>
+      <button class="ex" onclick="go2('workwear jacke earthtones')">workwear jacke earthtones</button>
+      <button class="ex" onclick="go2('minimal tee schwarz')">minimal tee schwarz</button>
+      <button class="ex" onclick="go2('baggy 90s streetwear')">baggy 90s streetwear</button>
+      <button class="ex" onclick="go2('archive strick wolle')">archive strick wolle</button>
+      <button class="ex" onclick="go2('raw denim slim')">raw denim slim</button>
     </div>
   </section>
 
@@ -130,6 +136,7 @@
     <div class="foot">
       <span>Fashion Discovery · Echter Seed</span>
       <span>Bekanntes sinkt. Unentdecktes steigt.</span>
+      <span><a href="impressum.html">Impressum</a><a href="datenschutz.html">Datenschutz</a></span>
     </div>
   </div>
 </footer>
@@ -140,10 +147,34 @@ function go(e) {
   const q = document.getElementById('q').value.trim();
   if (q) location.href = 'app.html?q=' + encodeURIComponent(q);
 }
-function setQ(v) {
-  document.getElementById('q').value = v;
-  document.getElementById('q').focus();
+function go2(v) {
+  location.href = 'app.html?q=' + encodeURIComponent(v);
 }
+
+// Placeholder rotiert wenn Feld nicht fokussiert
+const hints = [
+  'oversized hoodie earthtones …',
+  'workwear jacke washed …',
+  'minimal tee schwarz …',
+  'baggy 90s streetwear …',
+  'archive strick wolle …',
+  'raw denim slim …',
+];
+let hi = 0;
+const inp = document.getElementById('q');
+setInterval(() => {
+  if (document.activeElement === inp) return;
+  hi = (hi + 1) % hints.length;
+  inp.placeholder = hints[hi];
+}, 3000);
+
+// Marken-Count aus brands.json
+fetch('brands.json')
+  .then(r => r.json())
+  .then(d => {
+    document.getElementById('brandCount').textContent = d.length + ' Marken · Echter Seed';
+  })
+  .catch(() => {});
 </script>
 </body>
 </html>
